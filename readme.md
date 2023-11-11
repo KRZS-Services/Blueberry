@@ -4,3 +4,4 @@ Welcome to Blueberry - make everything a game!
 - Initial release
 ## Version 1.1
 - Removed debug functions
+- Animated XP gain
