@@ -41,7 +41,6 @@ document.querySelector(".taskcancel").onclick = function () {
 }
 function addXp(amount) {
     CurrentXp = CurrentXp + new Number(amount);
-    alert(CurrentXp);
     XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
     if (XpToNextLevel <= 0) {
         CurrentLevel = CurrentLevel + 1;
@@ -51,7 +50,5 @@ function addXp(amount) {
         var audio = new Audio('/assets/sounds/levelup.ogg');
         audio.play();
     }
-    alert(XpToNextLevel);
-    alert(CurrentXp);
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
 }
