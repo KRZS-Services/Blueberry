@@ -5,3 +5,6 @@ Welcome to Blueberry - make everything a game!
 ## Version 1.1
 - Removed debug functions
 - Animated XP gain
+## Version 1.2
+- Added confetti upon level up
+- Added device memory

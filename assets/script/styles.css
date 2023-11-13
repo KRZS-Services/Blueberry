@@ -186,4 +186,16 @@ h6 {font-size: 10px}
 .taskcreate:active, .taskcancel:active {
     transform: scale(0.95);
 }
-xpvalue {display:none}
+.cleardata {
+    color: white;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 15px;
+    margin: 0;
+    cursor: pointer;
+}
+.cleardata:hover {
+    text-decoration: underline;
+}
+xpvalue,randnum{display:none}
