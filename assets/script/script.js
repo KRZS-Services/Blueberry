@@ -20,7 +20,9 @@ if (localStorage.getItem("tasks") == null) {
 }
 function btnClick() {
     Parenttarget = event.target.parentElement.parentElement;
-    var audio = new Audio('/assets/sounds/complete.ogg');
+    var audio = document.querySelector("audio");
+    audio.src = "/assets/sounds/complete.ogg";
+    audio.currentTime = 0;
     audio.play();
     addXp(Parenttarget.firstChild.nextSibling.innerHTML);
     Parenttarget.style.opacity = "0%";
@@ -104,7 +106,9 @@ function addXp(amount) {
         CurrentXp = Math.abs(XpToNextLevel);
         XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
         document.querySelector(".xplevel").textContent = CurrentLevel;
-        var audio = new Audio('/assets/sounds/levelup.ogg');
+        var audio = document.querySelector("audio");
+        audio.src = "/assets/sounds/levelup.ogg";
+        audio.currentTime = 0;
         audio.play();
         document.querySelector(".confetti").style.display = "block";
         setTimeout(function () {document.querySelector(".confetti").style.display = "none"},2000);
