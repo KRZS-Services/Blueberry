@@ -9,7 +9,7 @@ Welcome to Blueberry - make everything a game!
 - Added confetti upon level up
 - Added device memory
 - Added audio playback on devices that don't support the Web Audio API
-## Version 2.0
+## Version 2.0 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/fc9e54a6cd0bc59476c8f0a6efb94a44c555d23a)
 - Added rewards
 - Added button menu
 - Moved the clear data button to the button menu
