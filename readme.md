@@ -23,7 +23,7 @@ Welcome to Blueberry - make everything a game!
 - Fixed a bug that would stop task containers from being removed
 - Fixed levelup message and task messages not playing
 - Fixed a bug that didn't allow the enabaling of task messages to be saved
-## Version 2.2
+## Version 2.2 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/19db45396b9bf1263f1026325a82e2b3ded1351b)
 - Fixed a bug that would delete and corrupt the task list when a task is edited
 - Fixed another bug where buttons could be clicked more than once, leading in their functions being repeated
 - Fixed a bug that displayed the task name input text being removed when the task creation form fades out
