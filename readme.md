@@ -16,7 +16,7 @@ Welcome to Blueberry - make everything a game!
 - Changed the width of buttons on the task creation screen
 - Fixed a bug where buttons could be clicked more than once, leading in their functions being repeated
 - Fixed a bug that displayed the "Please fill out this field" message for a short time when the Cancel button is clicked and there is no text input
-## Version 2.1
+## Version 2.1 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/9fc3776be4e23ecff32e4a41501610d5853124df)
 - Tasks are now editable
 - Added priority markers
 - Added console debug feature `showDebugOption(num)`
