@@ -19,23 +19,28 @@ if (localStorage.getItem("tasks") == null) {
     Values = JSON.parse(localStorage.getItem("tasks")).values;
     Numbers = JSON.parse(localStorage.getItem("tasks")).numbers;
 }
+function removeItem(item) {
+    setTimeout(function () {item.remove();},1500);
+}
 function btnClick() {
     event.target.disabled = true;
     Parenttarget = event.target.parentElement.parentElement;
-    var audio = document.querySelector("audio");
-    audio.src = "/assets/sounds/complete.ogg";
-    audio.currentTime = 0;
-    audio.play();
-    addXp(Parenttarget.firstChild.nextSibling.innerHTML);
-    Parenttarget.style.opacity = "0%";
-    setTimeout(function () {
-        Parenttarget.remove();
-    },1500);
-    activateRewardTwo(event.target.parentElement.textContent);
-    var indexnum = Numbers.indexOf(Parenttarget.firstChild.nextSibling.nextSibling.innerHTML);
+    addXp(event.target.parentElement.parentElement.firstChild.nextSibling.innerHTML);
+    event.target.parentElement.parentElement.style.opacity = "0%";
+    removeItem(event.target.parentElement.parentElement);
+    var indexnum = Numbers.indexOf(event.target.parentElement.parentElement.firstChild.nextSibling.nextSibling.innerHTML);
     Numbers.splice(indexnum, 1);
     Names.splice(indexnum, 1);
     Values.splice(indexnum, 1);
+    localStorage.setItem("tasks", JSON.stringify({
+        "names": Names,
+        "values": Values,
+        "numbers": Numbers
+    }));
+}
+function updateName(text, index) {
+    Names.splice(index, index, text);
+    Names.splice(index+1, index+1);
     localStorage.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
@@ -49,13 +54,25 @@ for (let index = 0; index < Names.length; index++) {
     var checkbox = document.createElement("button");
     checkbox.classList.add("checkbox");
     checkbox.onclick = function () { btnClick() };
-    var ptext = document.createTextNode(" " + Names[index]);
+    var ptext = document.createElement("span");
+    ptext.contentEditable = true;
+    ptext.textContent = Names[index];
+    if (Values[index] == "75") {
+        ptext.classList.add("normalpriority");
+    } else if (Values[index] == "100") {
+        ptext.classList.add("highpriority");
+    } else if (Values[index] == "50") {
+        ptext.classList.add("lowpriority");
+    } else {
+        ptext.classList.add("debugpriority");
+    }
     pelem.appendChild(checkbox);
     pelem.appendChild(ptext);
     var xpvalue = document.createElement("xpvalue");
     xpvalue.innerHTML = Values[index];
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Numbers[index];
+    ptext.oninput = function(){updateName(ptext.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent))};
     taskelem.appendChild(pelem);
     taskelem.appendChild(xpvalue);
     taskelem.appendChild(randnum);
@@ -70,13 +87,26 @@ document.getElementById("newtaskform").onsubmit = function () {
     var checkbox = document.createElement("button");
     checkbox.classList.add("checkbox");
     checkbox.onclick = function () { btnClick() };
-    var ptext = document.createTextNode(" " + document.querySelector(".taskname").value);
+    var ptext = document.createElement("span");
+    ptext.contentEditable = true;
+    ptext.textContent = document.querySelector(".taskname").value;
+    if (document.querySelector(".taskpriority").value == "75") {
+        ptext.classList.add("normalpriority");
+    } else if (document.querySelector(".taskpriority").value == "100") {
+        ptext.classList.add("highpriority");
+    } else if (document.querySelector(".taskpriority").value == "50") {
+        ptext.classList.add("lowpriority");
+    } else {
+        ptext.classList.add("debugpriority");
+    }
     pelem.appendChild(checkbox);
     pelem.appendChild(ptext);
     var xpvalue = document.createElement("xpvalue");
     xpvalue.innerHTML = document.querySelector(".taskpriority").value;
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Math.random()*10;
+    Nindex = Numbers.length;
+    ptext.oninput = function(){updateName(ptext.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent))};
     taskelem.appendChild(pelem);
     taskelem.appendChild(xpvalue);
     taskelem.appendChild(randnum);
@@ -113,13 +143,11 @@ function addXp(amount) {
         CurrentXp = Math.abs(XpToNextLevel);
         XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
         document.querySelector(".xplevel").textContent = CurrentLevel;
-        var audio = document.querySelector("audio");
-        audio.src = "/assets/sounds/levelup.ogg";
-        audio.currentTime = 0;
-        audio.play();
         document.querySelector(".confetti").style.display = "block";
         setTimeout(function () {document.querySelector(".confetti").style.display = "none"},2000);
-        activateRewardTwo(CurrentLevel)
+        activateRewardOne(CurrentLevel);
+    } else {
+        activateRewardTwo(event.target.parentElement.textContent);
     }
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
     checkRewards();
@@ -171,7 +199,7 @@ if (JSON.parse(localStorage.getItem("rewards")).reward1 == undefined) {
         reward1: "Congrats, you leveled up!",
         reward1enabled: false,
         reward2: undefined,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled
+        reward2enabled: undefined
     }));
 } else {
     LevelupCongratulator = JSON.parse(localStorage.getItem("rewards")).reward1;
@@ -194,6 +222,11 @@ function activateRewardOne(levelnum) {
         var msg = new SpeechSynthesisUtterance();
         msg.text = LevelupCongratulator.replace(/%s/gi, levelnum);
         window.speechSynthesis.speak(msg);
+    } else {
+        var audio = document.querySelector("audio");
+        audio.src = "/assets/sounds/levelup.ogg";
+        audio.currentTime = 0;
+        audio.play();
     }
 }
 document.querySelector("#reward1").onchange = function () {
@@ -213,7 +246,7 @@ if (JSON.parse(localStorage.getItem("rewards")).reward2 == undefined) {
         reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
         reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
         reward2: TaskCongratulator,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled
+        reward2enabled: false
     }));
 } else {
     TaskCongratulator = JSON.parse(localStorage.getItem("rewards")).reward2;
@@ -226,7 +259,7 @@ function changeRewardTwo() {
             reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
             reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
             reward2: TaskCongratulator,
-            reward2enabled: false
+            reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled
         }));
         document.querySelector("#rewards2message").textContent = TaskCongratulator;
     }
@@ -236,6 +269,11 @@ function activateRewardTwo(levelnum) {
         var msg = new SpeechSynthesisUtterance();
         msg.text = TaskCongratulator.replace(/%t/gi, levelnum);
         window.speechSynthesis.speak(msg);
+    } else {
+        var audio = document.querySelector("audio");
+        audio.src = "/assets/sounds/complete.ogg";
+        audio.currentTime = 0;
+        audio.play();
     }
 }
 document.querySelector("#reward2").onchange = function () {
@@ -248,3 +286,11 @@ document.querySelector("#reward2").onchange = function () {
 }
 document.querySelector("#rewards2message").textContent = TaskCongratulator;
 document.querySelector("#reward2").checked = JSON.parse(localStorage.getItem("rewards")).reward2enabled;
+// Debug
+function showDebugOption(num) {
+    var option = document.createElement("option");
+    option.value = num;
+    option.textContent = `Debug (${num})`;
+    document.querySelector("#taskpriority").appendChild(option);
+    return "Successfully added a debug option.";
+}
