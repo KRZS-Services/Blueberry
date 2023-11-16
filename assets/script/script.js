@@ -39,8 +39,8 @@ function btnClick() {
     }));
 }
 function updateName(text, index) {
-    Names.splice(index, index, text);
-    Names.splice(index+1, index+1);
+    console.log(new Number(index));
+    console.log(Names.splice(new Number(index), 1, text));
     localStorage.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
@@ -72,7 +72,7 @@ for (let index = 0; index < Names.length; index++) {
     xpvalue.innerHTML = Values[index];
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Numbers[index];
-    ptext.oninput = function(){updateName(ptext.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent))};
+    ptext.oninput = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
     taskelem.appendChild(pelem);
     taskelem.appendChild(xpvalue);
     taskelem.appendChild(randnum);
@@ -106,7 +106,7 @@ document.getElementById("newtaskform").onsubmit = function () {
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Math.random()*10;
     Nindex = Numbers.length;
-    ptext.oninput = function(){updateName(ptext.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent))};
+    ptext.oninput = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
     taskelem.appendChild(pelem);
     taskelem.appendChild(xpvalue);
     taskelem.appendChild(randnum);
@@ -115,13 +115,17 @@ document.getElementById("newtaskform").onsubmit = function () {
     Values.push(document.querySelector(".taskpriority").value);
     Numbers.push(randnum.innerHTML);
     document.querySelector(".taskmodal").style.opacity = "0%";
-    document.querySelector(".taskname").value = "";
     localStorage.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers
     }));
-    setTimeout(function () {document.querySelector(".taskmodal").style.display = "none";document.querySelector(".taskcreate").disabled = false;}, 1000);
+    setTimeout(function () {
+        document.querySelector(".taskmodal").style.display = "none";
+        document.querySelector(".taskcreate").disabled = false;
+        document.querySelector(".taskname").value = "";
+        document.querySelector(".taskpriority").value = "75";
+    }, 1000);
 }
 document.querySelector(".addnewtask").onclick = function () {
     document.querySelector(".taskmodal").style.display = "block";
@@ -129,11 +133,14 @@ document.querySelector(".addnewtask").onclick = function () {
 }
 document.querySelector(".taskcancel").onclick = function () {
     event.preventDefault();
-    EvTarget = event.target;
-    EvTarget.disabled = true;
+    document.querySelector(".taskcancel").disabled = true;
     document.querySelector(".taskmodal").style.opacity = "0%";
-    document.querySelector(".taskname").value = "";
-    setTimeout(function () {document.querySelector(".taskmodal").style.display = "none";EvTarget.disabled = false;}, 1000);
+    setTimeout(function () {
+        document.querySelector(".taskmodal").style.display = "none";
+        document.querySelector(".taskcancel").disabled = false;
+        document.querySelector(".taskname").value = "";
+        document.querySelector(".taskpriority").value = "75";
+    }, 1000);
 }
 function addXp(amount) {
     CurrentXp = CurrentXp + new Number(amount);
