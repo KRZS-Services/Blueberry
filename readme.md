@@ -28,3 +28,7 @@ Welcome to Blueberry - make everything a game!
 - Fixed another bug where buttons could be clicked more than once, leading in their functions being repeated
 - Fixed a bug that displayed the task name input text being removed when the task creation form fades out
 - Fixed a bug that wouldn't default the task value after the task creation form fades out
+## Version 2.3
+- Added custom theme
+- Made the website more suitable for devices with smaller screens
+- Other small changes

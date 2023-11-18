@@ -55,6 +55,21 @@
                 <br><br>
                 <span class="rewardstext"><b>Currently set to:</b> <span class="rewardstext" id="rewards2message">Congrats, you completed a task!</span> <a onclick="changeRewardTwo()"><b>Change</b></a></span>
             </div>
+            <br>
+            <!--Reward 3-->
+            <span class="rewardstext"><b>Custom Colors</b> - <i class="italicreward">Unlocked at level 5</i></span>
+            <div class="rewardbox" id="rewardsbox3">
+                <span class="rewardstext"><i>Custom theme colors!</i></span>
+                <br><br>
+                <span class="rewardstext"><label for="reward3-1">Background Color:</label></span>
+                <input type="color" value="#0c1327" id="reward3-1" class="rewardcolor" oninput="changeRewardThree(1, event.target.value)" />
+                <span class="rewardstext"><label for="reward3-2">Task Color:</label></span>
+                <input type="color" value="#c8ff00" id="reward3-2" class="rewardcolor" oninput="changeRewardThree(2, event.target.value)" />
+                <span class="rewardstext"><label for="reward3-2">Task Text:</label></span>
+                <input type="color" value="#000000" id="reward3-3" class="rewardcolor" oninput="changeRewardThree(3, event.target.value)" />
+                <span class="rewardstext"><label for="reward3-4">Header:</label></span>
+                <input type="color" value="#ffffff" id="reward3-4" class="rewardcolor" oninput="changeRewardThree(4, event.target.value)" />
+            </div>
         </div>
         <div class="taskmodal">
             <form id="newtaskform">

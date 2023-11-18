@@ -8,7 +8,7 @@ if (localStorage.getItem("level") == null) {
     Arrayrepeat = new Number(localStorage.getItem("arrayrep"));
     document.querySelector(".xplevel").textContent = CurrentLevel;
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
-}
+};
 checkRewards();
 if (localStorage.getItem("tasks") == null) {
     Names = [];
@@ -18,10 +18,10 @@ if (localStorage.getItem("tasks") == null) {
     Names = JSON.parse(localStorage.getItem("tasks")).names;
     Values = JSON.parse(localStorage.getItem("tasks")).values;
     Numbers = JSON.parse(localStorage.getItem("tasks")).numbers;
-}
+};
 function removeItem(item) {
     setTimeout(function () {item.remove();},1500);
-}
+};
 function btnClick() {
     event.target.disabled = true;
     Parenttarget = event.target.parentElement.parentElement;
@@ -37,16 +37,15 @@ function btnClick() {
         "values": Values,
         "numbers": Numbers
     }));
-}
+};
 function updateName(text, index) {
-    console.log(new Number(index));
-    console.log(Names.splice(new Number(index), 1, text));
+    Names.splice(new Number(index), 1, text);
     localStorage.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers
     }));
-}
+};
 for (let index = 0; index < Names.length; index++) {
     var taskelem = document.createElement("div");
     taskelem.classList.add("task");
@@ -65,7 +64,7 @@ for (let index = 0; index < Names.length; index++) {
         ptext.classList.add("lowpriority");
     } else {
         ptext.classList.add("debugpriority");
-    }
+    };
     pelem.appendChild(checkbox);
     pelem.appendChild(ptext);
     var xpvalue = document.createElement("xpvalue");
@@ -126,11 +125,11 @@ document.getElementById("newtaskform").onsubmit = function () {
         document.querySelector(".taskname").value = "";
         document.querySelector(".taskpriority").value = "75";
     }, 1000);
-}
+};
 document.querySelector(".addnewtask").onclick = function () {
     document.querySelector(".taskmodal").style.display = "block";
-    setTimeout(function () {document.querySelector(".taskmodal").style.opacity = "100%";})
-}
+    setTimeout(function () {document.querySelector(".taskmodal").style.opacity = "100%";});
+};
 document.querySelector(".taskcancel").onclick = function () {
     event.preventDefault();
     document.querySelector(".taskcancel").disabled = true;
@@ -141,7 +140,7 @@ document.querySelector(".taskcancel").onclick = function () {
         document.querySelector(".taskname").value = "";
         document.querySelector(".taskpriority").value = "75";
     }, 1000);
-}
+};
 function addXp(amount) {
     CurrentXp = CurrentXp + new Number(amount);
     XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
@@ -162,55 +161,71 @@ function addXp(amount) {
     localStorage.setItem("xp", CurrentXp);
 }
 function dataClear() {
-    if(confirm("You are about to clear all the website data.\n\nThis includes XP, levels, and tasks. Are you sure you want to do this?")) {
+    if (confirm("You are about to clear all the website data.\n\nThis includes XP, levels, and tasks. Are you sure you want to do this?")) {
         localStorage.clear();
         alert("All cleared!");
         location.reload();
-
-    } else {
-        alert("Alright then, we won't.");
-    }
-}
+    };
+};
+function modifyClassRule(selector, rule, value) {
+    const stylesheets = document.styleSheets;
+    const stylesheetIndex = 3;
+    if (stylesheets.length > stylesheetIndex) {
+        const stylesheet = stylesheets[stylesheetIndex];
+        const cssRules = stylesheet.cssRules || stylesheet.rules;
+        for (let i = 0; i < cssRules.length; i++) {
+            const cssRule = cssRules[i];
+            if (cssRule.selectorText === selector) {
+                cssRule.style[rule] = value;
+                break;
+            };
+        };
+    };
+};
 // Rewards
 if (JSON.parse(localStorage.getItem("rewards")) == undefined) {
     localStorage.setItem("rewards", JSON.stringify({}));
-}
+};
 function checkRewards() {
     if (CurrentLevel >= 2) {
         document.querySelector("#rewardsbox1").style.display = "block";
-    }
+    };
     if (CurrentLevel >= 4) {
         document.querySelector("#rewardsbox2").style.display = "block";
-    }
-}
+    };
+    if (CurrentLevel >= 5) {
+        document.querySelector("#rewardsbox3").style.display = "block";
+    };
+};
 function rewardsTab() {
     EvTarget = event.target
     EvTarget.disabled = true;
     document.querySelector(".rewards").style.position = "fixed";
-    document.querySelector(".rewards").style.right = "-40%";
+    if(document.documentElement.scrollWidth > 950){document.querySelector(".rewards").style.right = "-50%";}else{document.querySelector(".rewards").style.right = "-100%";};
     document.querySelector(".rewards").style.display = "block";
     setTimeout(function(){document.querySelector(".rewards").style.right = "0"});
     setTimeout(function(){document.querySelector(".rewards").style.position = "absolute";EvTarget.disabled = false;},1000);
-}
+};
 function closeRewardsTab() {
-    EvTarget = event.target
+    EvTarget = event.target;
     EvTarget.disabled = true;
     document.querySelector(".rewards").style.position = "fixed";
-    setTimeout(function(){document.querySelector(".rewards").style.right = "-40%"});
+    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".rewards").style.right = "-50%"}else{document.querySelector(".rewards").style.right = "-100%"}});
     setTimeout(function(){document.querySelector(".rewards").style.position = "absolute";document.querySelector(".rewards").style.display = "none";EvTarget.disabled = false;},1000);
-}
+};
 // Reward 1
 if (JSON.parse(localStorage.getItem("rewards")).reward1 == undefined) {
     LevelupCongratulator = "Congrats, you leveled up!";
     localStorage.setItem("rewards", JSON.stringify({
         reward1: "Congrats, you leveled up!",
         reward1enabled: false,
-        reward2: undefined,
-        reward2enabled: undefined
+        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
+        reward3: JSON.parse(localStorage.getItem("rewards")).reward3
     }));
 } else {
     LevelupCongratulator = JSON.parse(localStorage.getItem("rewards")).reward1;
-}
+};
 function changeRewardOne() {
     var prompttext = prompt('What would you like your levelup message to be? If you want to be fancy, it will replace "%s" with the acquired level.', LevelupCongratulator);
     if (prompttext != null) {
@@ -219,11 +234,12 @@ function changeRewardOne() {
             reward1: LevelupCongratulator,
             reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
             reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-            reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled
+            reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
+            reward3: JSON.parse(localStorage.getItem("rewards")).reward3
         }));
         document.querySelector("#rewards1message").textContent = LevelupCongratulator;
-    }
-}
+    };
+};
 function activateRewardOne(levelnum) {
     if (document.querySelector("#reward1").checked == true) {
         var msg = new SpeechSynthesisUtterance();
@@ -234,16 +250,17 @@ function activateRewardOne(levelnum) {
         audio.src = "/assets/sounds/levelup.ogg";
         audio.currentTime = 0;
         audio.play();
-    }
-}
+    };
+};
 document.querySelector("#reward1").onchange = function () {
     localStorage.setItem("rewards", JSON.stringify({
         reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
         reward1enabled: event.target.checked,
         reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled
+        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
+        reward3: JSON.parse(localStorage.getItem("rewards")).reward3
     }));
-}
+};
 document.querySelector("#rewards1message").textContent = LevelupCongratulator;
 document.querySelector("#reward1").checked = JSON.parse(localStorage.getItem("rewards")).reward1enabled;
 // Reward 2
@@ -253,11 +270,12 @@ if (JSON.parse(localStorage.getItem("rewards")).reward2 == undefined) {
         reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
         reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
         reward2: TaskCongratulator,
-        reward2enabled: false
+        reward2enabled: false,
+        reward3: JSON.parse(localStorage.getItem("rewards")).reward3
     }));
 } else {
     TaskCongratulator = JSON.parse(localStorage.getItem("rewards")).reward2;
-}
+};
 function changeRewardTwo() {
     var prompttext = prompt('What would you like your task completion message to be? If you want to be fancy, it will replace "%t" with the acquired level.', TaskCongratulator);
     if (prompttext != null) {
@@ -266,11 +284,12 @@ function changeRewardTwo() {
             reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
             reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
             reward2: TaskCongratulator,
-            reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled
+            reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
+            reward3: JSON.parse(localStorage.getItem("rewards")).reward3
         }));
         document.querySelector("#rewards2message").textContent = TaskCongratulator;
-    }
-}
+    };
+};
 function activateRewardTwo(levelnum) {
     if (document.querySelector("#reward2").checked == true) {
         var msg = new SpeechSynthesisUtterance();
@@ -288,11 +307,60 @@ document.querySelector("#reward2").onchange = function () {
         reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
         reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
         reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-        reward2enabled: event.target.checked
+        reward2enabled: event.target.checked,
+        reward3: JSON.parse(localStorage.getItem("rewards")).reward3
     }));
-}
+};
 document.querySelector("#rewards2message").textContent = TaskCongratulator;
 document.querySelector("#reward2").checked = JSON.parse(localStorage.getItem("rewards")).reward2enabled;
+// Reward 3
+if (JSON.parse(localStorage.getItem("rewards")).reward3 == undefined) {
+    ThemeColors = ["#0c1327", "#c8ff00", "#000000", "#ffffff"];
+    localStorage.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
+        reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
+        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
+        reward3: ThemeColors
+    }));
+} else {
+    ThemeColors = JSON.parse(localStorage.getItem("rewards")).reward3;
+    modifyClassRule('body, html', 'background', ThemeColors[0]);
+    modifyClassRule('.tasks', 'background', ThemeColors[1]);
+    modifyClassRule('span', 'color', ThemeColors[2]);
+    modifyClassRule('.checkbox', 'border', "2px solid" + ThemeColors[2]);
+    modifyClassRule('.main', 'color', ThemeColors[3]);
+    modifyClassRule('.buttonmenu', 'color', ThemeColors[3]);
+    document.querySelector("#reward3-1").value = ThemeColors[0];
+    document.querySelector("#reward3-2").value = ThemeColors[1];
+    document.querySelector("#reward3-3").value = ThemeColors[2];
+    document.querySelector("#reward3-4").value = ThemeColors[3];
+};
+function changeRewardThree(colorrule, rulecolor) {
+    switch (colorrule) {
+        case 1:
+            modifyClassRule('body, html', 'background', rulecolor);
+            break;
+        case 2:
+            modifyClassRule('.tasks', 'background', rulecolor);
+            break;
+        case 3:
+            modifyClassRule('span', 'color', rulecolor);
+            modifyClassRule('.checkbox', 'border', "2px solid" + rulecolor);
+            break;
+        case 4:
+            modifyClassRule('.main', 'color', rulecolor);
+            modifyClassRule('.buttonmenu', 'color', rulecolor);
+    }
+    ThemeColors.splice(colorrule-1, 1, rulecolor);
+    localStorage.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
+        reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
+        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
+        reward3: ThemeColors
+    }));
+};
 // Debug
 function showDebugOption(num) {
     var option = document.createElement("option");
@@ -300,4 +368,4 @@ function showDebugOption(num) {
     option.textContent = `Debug (${num})`;
     document.querySelector("#taskpriority").appendChild(option);
     return "Successfully added a debug option.";
-}
+};
