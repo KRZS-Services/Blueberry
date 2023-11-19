@@ -167,21 +167,6 @@ function dataClear() {
         location.reload();
     };
 };
-function modifyClassRule(selector, rule, value) {
-    const stylesheets = document.styleSheets;
-    const stylesheetIndex = 4;
-    if (stylesheets.length > stylesheetIndex) {
-        const stylesheet = stylesheets[stylesheetIndex];
-        const cssRules = stylesheet.cssRules || stylesheet.rules;
-        for (let i = 0; i < cssRules.length; i++) {
-            const cssRule = cssRules[i];
-            if (cssRule.selectorText === selector) {
-                cssRule.style[rule] = value;
-                break;
-            };
-        };
-    };
-};
 // Rewards
 if (JSON.parse(localStorage.getItem("rewards")) == undefined) {
     localStorage.setItem("rewards", JSON.stringify({}));
@@ -325,34 +310,37 @@ if (JSON.parse(localStorage.getItem("rewards")).reward3 == undefined) {
     }));
 } else {
     ThemeColors = JSON.parse(localStorage.getItem("rewards")).reward3;
-    modifyClassRule('body, html', 'background', ThemeColors[0]);
-    modifyClassRule('.tasks', 'background', ThemeColors[1]);
-    modifyClassRule('span', 'color', ThemeColors[2]);
-    modifyClassRule('.checkbox', 'border', "2px solid" + ThemeColors[2]);
-    modifyClassRule('.main', 'color', ThemeColors[3]);
-    modifyClassRule('.buttonmenu', 'color', ThemeColors[3]);
+    rewardThreeStyleTag();
     document.querySelector("#reward3-1").value = ThemeColors[0];
     document.querySelector("#reward3-2").value = ThemeColors[1];
     document.querySelector("#reward3-3").value = ThemeColors[2];
     document.querySelector("#reward3-4").value = ThemeColors[3];
 };
-function changeRewardThree(colorrule, rulecolor) {
-    switch (colorrule) {
-        case 1:
-            modifyClassRule('body, html', 'background', rulecolor);
-            break;
-        case 2:
-            modifyClassRule('.tasks', 'background', rulecolor);
-            break;
-        case 3:
-            modifyClassRule('span', 'color', rulecolor);
-            modifyClassRule('.checkbox', 'border', "2px solid" + rulecolor);
-            break;
-        case 4:
-            modifyClassRule('.main', 'color', rulecolor);
-            modifyClassRule('.buttonmenu', 'color', rulecolor);
+function rewardThreeStyleTag() {
+    document.getElementById("stylecolors").textContent = `
+    body, html {
+        background: ${ThemeColors[0]};
     }
+    .tasks {
+        background: ${ThemeColors[1]};
+    }
+    span {
+        color: ${ThemeColors[2]};
+    }
+    .checkbox {
+        border: 1px solid ${ThemeColors[2]};
+    }
+    .main {
+        color: ${ThemeColors[3]};
+    }
+    .buttonmenu {
+        color: ${ThemeColors[3]};
+    }
+    `
+}
+function changeRewardThree(colorrule, rulecolor) {
     ThemeColors.splice(colorrule-1, 1, rulecolor);
+    rewardThreeStyleTag();
     localStorage.setItem("rewards", JSON.stringify({
         reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
         reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,

@@ -44,3 +44,6 @@ ___
 #### *2.3.4 Small Fix*
 ___
 - It still didn't work, but we worked around the issue by adding the styles we need in the main `index.html` file.
+#### *2.3.5 Small Fix*
+___
+- It **STILL** didn't work, but we worked around the issue by modifying the style tag directly. This shouldn't effect the cache.
