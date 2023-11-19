@@ -35,3 +35,6 @@ Welcome to Blueberry - make everything a game!
 #### *2.3.1 Small Fix*
 ___
 - Javascript files will no longer be cached by the browser
+#### *2.3.2 Small Fix*
+___
+- Caching should no longer happen, and CSS files should be instantly modified. However, expect more fixes in the future
