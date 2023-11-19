@@ -169,7 +169,7 @@ function dataClear() {
 };
 function modifyClassRule(selector, rule, value) {
     const stylesheets = document.styleSheets;
-    const stylesheetIndex = 3;
+    const stylesheetIndex = 4;
     if (stylesheets.length > stylesheetIndex) {
         const stylesheet = stylesheets[stylesheetIndex];
         const cssRules = stylesheet.cssRules || stylesheet.rules;

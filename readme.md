@@ -41,3 +41,6 @@ ___
 #### *2.3.3 Small Fix*
 ___
 - Well, this is annoying. This time it really shouldn't happen.
+#### *2.3.4 Small Fix*
+___
+- It still didn't work, but we worked around the issue by adding the styles we need in the main `index.html` file.
