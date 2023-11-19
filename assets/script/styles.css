@@ -42,19 +42,17 @@ h6 {font-size: 10px}
     background: black;
     width: calc(100% - 60px);
     border-radius: 10px;
-    outline: 3px solid rgba(0,175,0);
     position: relative;
 }
 .xpwidth {
     width: 0%;
     height: 10px;
-    background: rgba(0,175,0);
     transition: width 0.75s;
+    border-radius: 10px;
 }
 .xplevel {
     position: absolute;
     font-family: 'Press Start 2p';
-    color: rgba(0,255,0);
     text-shadow: 2px 2px 3px black;
     width: 100%;
     font-size: 20px;
@@ -82,7 +80,6 @@ h6 {font-size: 10px}
 }
 .addnewtask {
     border: none;
-    border-bottom: 1px solid black;
     padding: 15px;
     font-family: 'IBM Plex Mono';
     color: rgba(100,100,100);
@@ -92,6 +89,9 @@ h6 {font-size: 10px}
     width: 100%;
     text-align: left;
     cursor: text;
+}
+.task:nth-child(2) {
+    border-top: 1px solid black !important;
 }
 .task:last-child {
     border-bottom: none !important;

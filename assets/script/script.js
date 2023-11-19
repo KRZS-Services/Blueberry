@@ -300,7 +300,7 @@ document.querySelector("#rewards2message").textContent = TaskCongratulator;
 document.querySelector("#reward2").checked = JSON.parse(localStorage.getItem("rewards")).reward2enabled;
 // Reward 3
 if (JSON.parse(localStorage.getItem("rewards")).reward3 == undefined) {
-    ThemeColors = ["#0c1327", "#c8ff00", "#000000", "#ffffff"];
+    ThemeColors = ["#0c1327", "#c8ff00", "#000000", "#ffffff", "#00af00", "#00ff00"];
     localStorage.setItem("rewards", JSON.stringify({
         reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
         reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
@@ -315,6 +315,8 @@ if (JSON.parse(localStorage.getItem("rewards")).reward3 == undefined) {
     document.querySelector("#reward3-2").value = ThemeColors[1];
     document.querySelector("#reward3-3").value = ThemeColors[2];
     document.querySelector("#reward3-4").value = ThemeColors[3];
+    document.querySelector("#reward3-5").value = ThemeColors[4];
+    document.querySelector("#reward3-6").value = ThemeColors[5];
 };
 function rewardThreeStyleTag() {
     document.getElementById("stylecolors").textContent = `
@@ -328,13 +330,22 @@ function rewardThreeStyleTag() {
         color: ${ThemeColors[2]};
     }
     .checkbox {
-        border: 1px solid ${ThemeColors[2]};
+        border: 2px solid ${ThemeColors[2]};
     }
     .main {
         color: ${ThemeColors[3]};
     }
     .buttonmenu {
         color: ${ThemeColors[3]};
+    }
+    .xpbar {
+        outline: 3px solid ${ThemeColors[4]};
+    }
+    .xpwidth {
+        background: ${ThemeColors[4]};
+    }
+    .xplevel {
+        color: ${ThemeColors[5]};
     }
     `
 }

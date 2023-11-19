@@ -47,3 +47,6 @@ ___
 #### *2.3.5 Small Fix*
 ___
 - It **STILL** didn't work, but we worked around the issue by modifying the style tag directly. This shouldn't effect the cache.
+## Version 2.4
+- XP width now has a border radius
+- Added theme styling for the XP bar

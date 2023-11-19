@@ -16,7 +16,7 @@
         <link rel="icon" type="image/x-icon" href="Favicon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/assets/script/styles.css?2.3.5">
+        <link rel="stylesheet" href="/assets/script/styles.css?2.4">
         <style id="stylecolors">
             body, html {
                 background: #0c1327;
@@ -28,13 +28,22 @@
                 color: #000000;
             }
             .checkbox {
-                border: 1px solid #000000;
+                border: 2px solid #000000;
             }
             .main {
                 color: #ffffff;
             }
             .buttonmenu {
                 color: #ffffff;
+            }
+            .xpbar {
+                outline: 3px solid #00af00;
+            }
+            .xpwidth {
+                background: #00af00;
+            }
+            .xplevel {
+                color: #00ff00;
             }
         </style>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -92,6 +101,10 @@
                 <input type="color" value="#000000" id="reward3-3" class="rewardcolor" oninput="changeRewardThree(3, event.target.value)" />
                 <span class="rewardstext"><label for="reward3-4">Header:</label></span>
                 <input type="color" value="#ffffff" id="reward3-4" class="rewardcolor" oninput="changeRewardThree(4, event.target.value)" />
+                <span class="rewardstext"><label for="reward3-5">XP Bar:</label></span>
+                <input type="color" value="#00af00" id="reward3-5" class="rewardcolor" oninput="changeRewardThree(5, event.target.value)" />
+                <span class="rewardstext"><label for="reward3-6">XP Bar Text:</label></span>
+                <input type="color" value="#00ff00" id="reward3-6" class="rewardcolor" oninput="changeRewardThree(6, event.target.value)" />
             </div>
         </div>
         <div class="taskmodal">
@@ -107,6 +120,6 @@
             </form>
         </div>
     </body>
-    <script src="/assets/script/script.js?2.3.5"></script>
+    <script src="/assets/script/script.js?2.4"></script>
     <audio></audio>
 </html>
