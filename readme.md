@@ -32,3 +32,6 @@ Welcome to Blueberry - make everything a game!
 - Added custom theme
 - Made the website more suitable for devices with smaller screens
 - Other small changes
+#### *2.3.1 Small Fix*
+___
+- Javascript files will no longer be cached by the browser
