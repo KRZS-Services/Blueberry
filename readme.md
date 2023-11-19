@@ -38,3 +38,6 @@ ___
 #### *2.3.2 Small Fix*
 ___
 - Caching should no longer happen, and CSS files should be instantly modified. However, expect more fixes in the future
+#### *2.3.3 Small Fix*
+___
+- Well, this is annoying. This time it really shouldn't happen.
