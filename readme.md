@@ -1,6 +1,6 @@
 # Blueberry Changelog
 Welcome to Blueberry - make everything a game! 
-# Version 1.0 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/59d3ec504a5322ac5382874b4065e3a9aa0b44a4)
+## Version 1.0 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/59d3ec504a5322ac5382874b4065e3a9aa0b44a4)
 - Initial release
 ## Version 1.1 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/6f6c9735b61637aefb19ad6fe3042a1b4241f7fb)
 - Removed debug functions
