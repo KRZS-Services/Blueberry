@@ -368,3 +368,15 @@ function showDebugOption(num) {
     document.querySelector("#taskpriority").appendChild(option);
     return "Successfully added a debug option.";
 };
+DevMode = false;
+function developerMode() {
+    if (DevMode == false) {
+        DevMode = true;
+        document.getElementById("devmode").textContent = `xpvalue,randnum{display:block}`
+        return "Developer mode enabled.";
+    } else {
+        DevMode = false;
+        document.getElementById("devmode").textContent = `xpvalue,randnum{display:none}`
+        return "Developer mode disabled.";
+    }
+}

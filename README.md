@@ -50,3 +50,5 @@ ___
 ## Version 2.4 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/ffb8d6a4a42996e680c582800ded9e96ddca54f8)
 - XP width now has a border radius
 - Added theme styling for the XP bar
+## Version 2.5
+- Added console debug feature `developerMode()`
