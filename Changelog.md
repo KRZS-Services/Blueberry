@@ -61,3 +61,7 @@ ___
 - Changed the header name to "Blueberry"
 - Added icons by the side menu titles
 - Added the statistics tab
+#### *3.0a.1 Small Fix*
+___
+- The statistics menu displays properly on smaller devices
+- The "Time Online" statistic has been fixed
