@@ -16,7 +16,7 @@
         <link rel="icon" type="image/x-icon" href="Favicon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/assets/script/styles.css?2.5">
+        <link rel="stylesheet" href="/assets/script/styles.css?3.0a">
         <style id="stylecolors">
             body, html {
                 background: #0c1327;
@@ -53,74 +53,92 @@
     </head>
     <body>
         <div class="buttonmenu">
-            <button class="menubutton" onclick="rewardsTab()">star</button>
+            <button class="menubutton" onclick="rewardsTab()">format_paint</button>
+            <button class="menubutton" onclick="statisticsTab()">bar_chart</button>
             <button class="menubutton" onclick="dataClear()">delete</button>
         </div>
-        <h1 class="main">Blueberry Task Manager</h1>
-        <div class="xpbar">
-            <div class="xplevel">0</div>
-            <div class="xpwidth"></div>
+        <div class="content">
+            <h2 class="main">Blueberry</h2>
+            <div class="xpbar">
+                <div class="xplevel">0</div>
+                <div class="xpwidth"></div>
+            </div>
+            <div class="tasks">
+                <button class="addnewtask">Add new task...</button>
+            </div>
+            <img class="confetti" src="/assets/images/completion.gif" />
         </div>
-        <div class="tasks">
-            <button class="addnewtask">Add new task...</button>
-        </div>
-        <img class="confetti" src="/assets/images/completion.gif" />
-        <div class="rewards">
-            <h1 class="rewardsmain">Rewards<span class="rewardstext"></span></h1>
+        <div class="rewards menu">
+            <h1 class="menumain"><div class="menumainicon">format_paint</div>Customization</h1>
             <button class="menubutton closebutton" onclick="closeRewardsTab()">clear</button>
-            <hr class="rewarddivider">
+            <hr class="menudivider">
             <!--Reward 1-->
-            <span class="rewardstext"><b>Levelup Congratulator</b> - <i class="italicreward">Unlocked at level 2</i></span>
+            <span class="menutext"><b>Levelup Congratulator</b>
             <div class="rewardbox" id="rewardsbox1">
-                <span class="rewardstext"><i>Custom TTS message for yourself upon leveling up!</i></span>
+                <span class="menutext"><i>Custom TTS message for yourself upon leveling up!</i></span>
                 <br>
-                <span class="rewardstext"><input type="checkbox" id="reward1" class="rewardcheck" /><label for="reward1">Enable</label></span>
+                <span class="menutext"><input type="checkbox" id="reward1" class="rewardcheck" /><label for="reward1">Enable</label></span>
                 <br><br>
-                <span class="rewardstext"><b>Currently set to:</b> <span class="rewardstext" id="rewards1message">Congrats, you leveled up!</span> <a onclick="changeRewardOne()"><b>Change</b></a></span>
+                <span class="menutext"><b>Currently set to:</b> <span class="menutext" id="rewards1message">Congrats, you leveled up!</span> <a onclick="changeRewardOne()"><b>Change</b></a></span>
             </div>
             <br>
             <!--Reward 2-->
-            <span class="rewardstext"><b>Task Congratulator</b> - <i class="italicreward">Unlocked at level 4</i></span>
+            <span class="menutext"><b>Task Congratulator</b>
             <div class="rewardbox" id="rewardsbox2">
-                <span class="rewardstext"><i>Custom TTS message for yourself upon task completion!</i></span>
+                <span class="menutext"><i>Custom TTS message for yourself upon task completion!</i></span>
                 <br>
-                <span class="rewardstext"><input type="checkbox" id="reward2" class="rewardcheck" /><label for="reward2">Enable</label></span>
+                <span class="menutext"><input type="checkbox" id="reward2" class="rewardcheck" /><label for="reward2">Enable</label></span>
                 <br><br>
-                <span class="rewardstext"><b>Currently set to:</b> <span class="rewardstext" id="rewards2message">Congrats, you completed a task!</span> <a onclick="changeRewardTwo()"><b>Change</b></a></span>
+                <span class="menutext"><b>Currently set to:</b> <span class="menutext" id="rewards2message">Congrats, you completed a task!</span> <a onclick="changeRewardTwo()"><b>Change</b></a></span>
             </div>
             <br>
             <!--Reward 3-->
-            <span class="rewardstext"><b>Custom Colors</b> - <i class="italicreward">Unlocked at level 5</i></span>
+            <span class="menutext"><b>Custom Colors</b>
             <div class="rewardbox" id="rewardsbox3">
-                <span class="rewardstext"><i>Custom theme colors!</i></span>
+                <span class="menutext"><i>Custom theme colors!</i></span>
                 <br><br>
-                <span class="rewardstext"><label for="reward3-1">Background Color:</label></span>
+                <span class="menutext"><label for="reward3-1">Background Color:</label></span>
                 <input type="color" value="#0c1327" id="reward3-1" class="rewardcolor" oninput="changeRewardThree(1, event.target.value)" />
-                <span class="rewardstext"><label for="reward3-2">Task Color:</label></span>
+                <span class="menutext"><label for="reward3-2">Task Color:</label></span>
                 <input type="color" value="#c8ff00" id="reward3-2" class="rewardcolor" oninput="changeRewardThree(2, event.target.value)" />
-                <span class="rewardstext"><label for="reward3-2">Task Text:</label></span>
+                <span class="menutext"><label for="reward3-2">Task Text:</label></span>
                 <input type="color" value="#000000" id="reward3-3" class="rewardcolor" oninput="changeRewardThree(3, event.target.value)" />
-                <span class="rewardstext"><label for="reward3-4">Header:</label></span>
+                <span class="menutext"><label for="reward3-4">Header:</label></span>
                 <input type="color" value="#ffffff" id="reward3-4" class="rewardcolor" oninput="changeRewardThree(4, event.target.value)" />
-                <span class="rewardstext"><label for="reward3-5">XP Bar:</label></span>
+                <span class="menutext"><label for="reward3-5">XP Bar:</label></span>
                 <input type="color" value="#00af00" id="reward3-5" class="rewardcolor" oninput="changeRewardThree(5, event.target.value)" />
-                <span class="rewardstext"><label for="reward3-6">XP Bar Text:</label></span>
+                <span class="menutext"><label for="reward3-6">XP Bar Text:</label></span>
                 <input type="color" value="#00ff00" id="reward3-6" class="rewardcolor" oninput="changeRewardThree(6, event.target.value)" />
             </div>
         </div>
-        <div class="taskmodal">
-            <form id="newtaskform">
-                <input class="taskname" id="taskname" placeholder="Task Name" type="text" required />
-                <select class="taskpriority" id="taskpriority">
-                    <option value="50">Unimportant (50 xp)</option>
-                    <option value="75" selected>Normal (75 xp)</option>
-                    <option value="100">Important (100 xp)</option>
-                </select>
-                <button class="taskcancel" id="taskcancel">Cancel</button>
-                <button type="submit" class="taskcreate" id="taskcreate">Create</button>
-            </form>
+        <div class="statistics menu">
+            <h1 class="menumain"><div class="menumainicon">bar_chart</div>Statistics</h1>
+            <button class="menubutton closebutton" onclick="closeStatisticsTab()">clear</button>
+            <hr class="menudivider">
+            <span class="menutext"><b>Tasks completed:</b> <span id="stats1" class="menutext"></span></span>
+            <br>
+            <span class="menutext"><b>XP gained:</b> <span id="stats2" class="menutext"></span></span>
+            <br>
+            <span class="menutext"><b>Levels gained:</b> <span id="stats3" class="menutext"></span></span>
+            <br>
+            <span class="menutext"><b>Time online:</b> <span id="stats4" class="menutext"></span> hours</span>
         </div>
+        <div class="modaloverlay">
+            <div class="taskmodal modal">
+                <form id="newtaskform">
+                    <h2>Task Creation</h2>
+                    <input class="taskname" id="taskname" placeholder="Task Name" type="text" required />
+                    <select class="taskpriority" id="taskpriority">
+                        <option value="50">Unimportant (50 xp)</option>
+                        <option value="75" selected>Normal (75 xp)</option>
+                        <option value="100">Important (100 xp)</option>
+                    </select>
+                    <button class="taskcancel" id="taskcancel">Cancel</button>
+                    <button type="submit" class="taskcreate" id="taskcreate">Create</button>
+                </form>
+            </div>
+    </div>
     </body>
-    <script src="/assets/script/script.js?2.5"></script>
+    <script src="/assets/script/script.js?3.0a"></script>
     <audio></audio>
 </html>

@@ -9,7 +9,16 @@ if (localStorage.getItem("level") == null) {
     document.querySelector(".xplevel").textContent = CurrentLevel;
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
 };
-checkRewards();
+if (localStorage.getItem("taskscompleted") == null) {
+    TasksCompleted = 0;
+} else {
+    TasksCompleted = new Number(localStorage.getItem("taskscompleted"));
+};
+if (localStorage.getItem("timeonline") == null) {
+    TimeOnline = 0;
+} else {
+    TimeOnline = new Number(localStorage.getItem("timeonline"));
+};
 if (localStorage.getItem("tasks") == null) {
     Names = [];
     Values = [];
@@ -37,6 +46,8 @@ function btnClick() {
         "values": Values,
         "numbers": Numbers
     }));
+    TasksCompleted = TasksCompleted+1;
+    localStorage.setItem("taskscompleted", TasksCompleted)
 };
 function updateName(text, index) {
     Names.splice(new Number(index), 1, text);
@@ -80,6 +91,8 @@ for (let index = 0; index < Names.length; index++) {
 document.getElementById("newtaskform").onsubmit = function () {
     event.preventDefault();
     document.querySelector(".taskcreate").disabled = true;
+    document.querySelector(".taskcancel").disabled = true;
+    document.querySelector(".taskpriority").disabled = true;
     var taskelem = document.createElement("div");
     taskelem.classList.add("task");
     var pelem = document.createElement("p");
@@ -113,33 +126,39 @@ document.getElementById("newtaskform").onsubmit = function () {
     Names.push(document.querySelector(".taskname").value);
     Values.push(document.querySelector(".taskpriority").value);
     Numbers.push(randnum.innerHTML);
-    document.querySelector(".taskmodal").style.opacity = "0%";
+    document.querySelector(".modaloverlay").style.opacity = "0%";
     localStorage.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers
     }));
     setTimeout(function () {
-        document.querySelector(".taskmodal").style.display = "none";
+        document.querySelector(".modaloverlay").style.display = "none";
         document.querySelector(".taskcreate").disabled = false;
+        document.querySelector(".taskcancel").disabled = false;
+        document.querySelector(".taskpriority").disabled = false;
         document.querySelector(".taskname").value = "";
         document.querySelector(".taskpriority").value = "75";
-    }, 1000);
+    }, 1100);
 };
 document.querySelector(".addnewtask").onclick = function () {
-    document.querySelector(".taskmodal").style.display = "block";
-    setTimeout(function () {document.querySelector(".taskmodal").style.opacity = "100%";});
+    document.querySelector(".modaloverlay").style.display = "flex";
+    setTimeout(function () {document.querySelector(".modaloverlay").style.opacity = "100%";},100);
 };
 document.querySelector(".taskcancel").onclick = function () {
     event.preventDefault();
+    document.querySelector(".taskcreate").disabled = true;
     document.querySelector(".taskcancel").disabled = true;
-    document.querySelector(".taskmodal").style.opacity = "0%";
+    document.querySelector(".taskpriority").disabled = true;
+    document.querySelector(".modaloverlay").style.opacity = "0%";
     setTimeout(function () {
-        document.querySelector(".taskmodal").style.display = "none";
+        document.querySelector(".modaloverlay").style.display = "none";
+        document.querySelector(".taskcreate").disabled = false;
         document.querySelector(".taskcancel").disabled = false;
+        document.querySelector(".taskpriority").disabled = false;
         document.querySelector(".taskname").value = "";
         document.querySelector(".taskpriority").value = "75";
-    }, 1000);
+    }, 1100);
 };
 function addXp(amount) {
     CurrentXp = CurrentXp + new Number(amount);
@@ -156,31 +175,48 @@ function addXp(amount) {
         activateRewardTwo(event.target.parentElement.textContent);
     }
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
-    checkRewards();
     localStorage.setItem("level", CurrentLevel);
     localStorage.setItem("xp", CurrentXp);
 }
 function dataClear() {
-    if (confirm("You are about to clear all the website data.\n\nThis includes XP, levels, and tasks. Are you sure you want to do this?")) {
+    if (confirm("You are about to clear all the website data.\n\nThis includes XP, levels, tasks, customization settings, and statistics. Are you sure you want to do this?")) {
         localStorage.clear();
         alert("All cleared!");
         location.reload();
     };
 };
+setInterval(function () {
+    TimeOnline = TimeOnline+0.1;
+    localStorage.setItem("timeonline", TimeOnline)
+},100);
+function statisticsTab() {
+    allxp = 0;
+    for (let i = 0; i < CurrentLevel-1; i++) {
+        var allxp = allxp + (5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90);
+    }
+    allxp = allxp + CurrentXp + 100;
+    document.querySelector("#stats1").textContent = TasksCompleted;
+    document.querySelector("#stats2").textContent = allxp;
+    document.querySelector("#stats3").textContent = CurrentLevel;
+    document.querySelector("#stats4").textContent = Math.ceil((TimeOnline/60/60) * 100) / 100;
+    EvTarget = event.target
+    EvTarget.disabled = true;
+    document.querySelector(".statistics").style.position = "fixed";
+    if(document.documentElement.scrollWidth > 950){document.querySelector(".statistics").style.right = "-50%";}else{document.querySelector(".statistics").style.right = "-100%";};
+    document.querySelector(".statistics").style.display = "block";
+    setTimeout(function(){document.querySelector(".statistics").style.right = "0"},100);
+    setTimeout(function(){document.querySelector(".statistics").style.position = "absolute";EvTarget.disabled = false;},1100);
+};
+function closeStatisticsTab() {
+    EvTarget = event.target;
+    EvTarget.disabled = true;
+    document.querySelector(".statistics").style.position = "fixed";
+    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".statistics").style.right = "-50%"}else{document.querySelector(".statistics").style.right = "-100%"}},100);
+    setTimeout(function(){document.querySelector(".statistics").style.position = "absolute";document.querySelector(".statistics").style.display = "none";EvTarget.disabled = false;},1100);
+};
 // Rewards
 if (JSON.parse(localStorage.getItem("rewards")) == undefined) {
     localStorage.setItem("rewards", JSON.stringify({}));
-};
-function checkRewards() {
-    if (CurrentLevel >= 2) {
-        document.querySelector("#rewardsbox1").style.display = "block";
-    };
-    if (CurrentLevel >= 4) {
-        document.querySelector("#rewardsbox2").style.display = "block";
-    };
-    if (CurrentLevel >= 5) {
-        document.querySelector("#rewardsbox3").style.display = "block";
-    };
 };
 function rewardsTab() {
     EvTarget = event.target
@@ -188,15 +224,15 @@ function rewardsTab() {
     document.querySelector(".rewards").style.position = "fixed";
     if(document.documentElement.scrollWidth > 950){document.querySelector(".rewards").style.right = "-50%";}else{document.querySelector(".rewards").style.right = "-100%";};
     document.querySelector(".rewards").style.display = "block";
-    setTimeout(function(){document.querySelector(".rewards").style.right = "0"});
-    setTimeout(function(){document.querySelector(".rewards").style.position = "absolute";EvTarget.disabled = false;},1000);
+    setTimeout(function(){document.querySelector(".rewards").style.right = "0"},100);
+    setTimeout(function(){document.querySelector(".rewards").style.position = "absolute";EvTarget.disabled = false;},1100);
 };
 function closeRewardsTab() {
     EvTarget = event.target;
     EvTarget.disabled = true;
     document.querySelector(".rewards").style.position = "fixed";
-    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".rewards").style.right = "-50%"}else{document.querySelector(".rewards").style.right = "-100%"}});
-    setTimeout(function(){document.querySelector(".rewards").style.position = "absolute";document.querySelector(".rewards").style.display = "none";EvTarget.disabled = false;},1000);
+    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".rewards").style.right = "-50%"}else{document.querySelector(".rewards").style.right = "-100%"}},100);
+    setTimeout(function(){document.querySelector(".rewards").style.position = "absolute";document.querySelector(".rewards").style.display = "none";EvTarget.disabled = false;},1100);
 };
 // Reward 1
 if (JSON.parse(localStorage.getItem("rewards")).reward1 == undefined) {
