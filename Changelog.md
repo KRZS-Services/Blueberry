@@ -52,7 +52,7 @@ ___
 - Added theme styling for the XP bar
 ## Version 2.5 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/a7dcf8a11e6c1a035246bb54694bee99f3a3d74b)
 - Added console debug feature `developerMode()`
-## Version 3.0a 
+## Version 3.0a [Link](https://gitlab.com/Zakemski/blueberry/-/tree/a0a220f63d2e17526a807e9f78463d050bf60f5e)
 - Moved the menu buttons to their own sidebar
 - On supported browsers, the side menus will blur the background
 - The new task button now has a dark overlay and uses the `pointer` cursor
