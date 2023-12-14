@@ -52,3 +52,12 @@ ___
 - Added theme styling for the XP bar
 ## Version 2.5 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/a7dcf8a11e6c1a035246bb54694bee99f3a3d74b)
 - Added console debug feature `developerMode()`
+## Version 3.0a 
+- Moved the menu buttons to their own sidebar
+- On supported browsers, the side menus will blur the background
+- The new task button now has a dark overlay and uses the `pointer` cursor
+- Fixed a bug where animations would not play on some browsers and computers
+- Fixed another bug that allowed clicking of components in the task creation modal while fading away
+- Changed the header name to "Blueberry"
+- Added icons by the side menu titles
+- Added the statistics tab
