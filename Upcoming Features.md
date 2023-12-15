@@ -12,4 +12,3 @@ ___
 - Custom fonts
 - Lists
 - Discord integration
-- Console logs
