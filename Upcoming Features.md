@@ -1,7 +1,7 @@
-# Blueberry Features - Version 3.0
+# Upcoming Features - Version 3.0
 Welcome to Blueberry - make everything a game!
 
-~~Strikethrough~~ = added in 3.0a
+~~Strikethrough~~ = added in 3.0a and 3.0b
 ___
 - ~~Custom rewards~~
 - ~~Deletion of tasks~~
