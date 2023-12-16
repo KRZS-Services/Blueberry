@@ -65,3 +65,9 @@ ___
 ___
 - The statistics menu displays properly on smaller devices
 - The "Time Online" statistic has been fixed
+## Version 3.0b
+- Name editing will now only happen `onkeyup` instead of `oninput`
+- Tasks can now be deleted without gaining xp
+- Added custom fonts
+- Added custom rewards
+- Added the `notify()` function
