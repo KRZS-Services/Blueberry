@@ -65,7 +65,7 @@ ___
 ___
 - The statistics menu displays properly on smaller devices
 - The "Time Online" statistic has been fixed
-## Version 3.0b
+## Version 3.0b [Link](https://gitlab.com/Zakemski/blueberry/-/tree/ba063d79b77f68c684f150f74bbde0dab5423218)
 - Name editing will now only happen `onkeyup` instead of `oninput`
 - Tasks can now be deleted without gaining xp
 - Added custom fonts
