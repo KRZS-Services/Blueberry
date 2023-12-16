@@ -3,12 +3,12 @@ Welcome to Blueberry - make everything a game!
 
 ~~Strikethrough~~ = added in 3.0a
 ___
-- Custom rewards
-- Deletion of tasks
+- ~~Custom rewards~~
+- ~~Deletion of tasks~~
 - ~~New UI~~
 - ~~Statistics menu~~
 - ~~Free rewards~~
 - Streaks
-- Custom fonts
+- ~~Custom fonts~~
 - Lists
 - Discord integration
