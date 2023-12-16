@@ -4,15 +4,17 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link href="" rel="stylesheet" id="font1">
+        <link href="" rel="stylesheet" id="font2">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
         <meta property="og:title" content="Blueberry" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="URL" />
+        <meta property="og:url" content="https://blueberry.krzs.xyz" />
         <meta property="og:description" content="Blueberry - make everything a game!" />
-        <meta name="theme-color" content="00ff00">
+        <meta name="theme-color" content="#00ff00">
         <meta charset="UTF-8">
         <meta name="description" content="Blueberry - make everything a game!">
-        <meta name="keywords" content="task, manager">
+        <meta name="keywords" content="task, manager, blueberry, task manager, krzs, blueberry task manager, organization">
         <link rel="icon" type="image/x-icon" href="Favicon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blueberry</title>
@@ -45,6 +47,29 @@
             .xplevel {
                 color: #00ff00;
             }
+            .minibutton {
+                color: #ffffff;
+            }
+        </style>
+        <style id="stylefonts">
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Press Start 2P';
+            }
+            p {
+                font-family: 'IBM Plex Mono';
+            }
+            span {
+                font-family: 'IBM Plex Mono';
+            }
+            .xplevel {
+                font-family: 'Press Start 2P';
+            }
+            .addnewtask {
+                font-family: 'IBM Plex Mono';
+            }
+            .minibutton {
+                font-family: 'IBM Plex Mono';
+            }
         </style>
         <style id="devmode">xpvalue,randnum{display:none}</style>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -55,6 +80,7 @@
         <div class="buttonmenu">
             <button class="menubutton" onclick="rewardsTab()">format_paint</button>
             <button class="menubutton" onclick="statisticsTab()">bar_chart</button>
+            <button class="menubutton" onclick="customRewardsTab()">star</button>
             <button class="menubutton" onclick="dataClear()">delete</button>
         </div>
         <div class="content">
@@ -110,6 +136,18 @@
                 <span class="menutext"><label for="reward3-6">XP Bar Text:</label></span>
                 <input type="color" value="#00ff00" id="reward3-6" class="rewardcolor" oninput="changeRewardThree(6, event.target.value)" />
             </div>
+            <br>
+            <!--Reward 4-->
+            <span class="menutext"><b>Custom Fonts</b>
+                <div class="rewardbox" id="rewardsbox4">
+                    <span class="menutext"><i>Choose any font on your computer or from <a href="https://fonts.google.com">Google Fonts</a>.</i></span>
+                    <br><br>
+                    <span class="menutext"><label for="reward4-1">Text:</label></span>
+                    <input type="text" value="IBM Plex Mono" id="reward4-1" class="menuinput" onkeyup="changeRewardFour(1, event.target.value)" />
+                    <br><br>
+                    <span class="menutext"><label for="reward4-1">Headers:</label></span>
+                    <input type="text" value="Press Start 2P" id="reward4-2" class="menuinput" onkeyup="changeRewardFour(2, event.target.value)" />
+                </div>
         </div>
         <div class="statistics menu">
             <h1 class="menumain"><div class="menumainicon">bar_chart</div>Statistics</h1>
@@ -123,9 +161,17 @@
             <br>
             <span class="menutext"><b>Time online:</b> <span id="stats4" class="menutext"></span> hours</span>
         </div>
+        <div class="customrewards menu">
+            <h1 class="menumain"><div class="menumainicon">star</div>Rewards</h1>
+            <button class="menubutton closebutton" onclick="closeCustomRewardsTab()">clear</button>
+            <hr class="menudivider">
+            <button class="minibutton" id="addreward">Add Reward</button>
+            <ul class="menuul">
+            </ul>
+        </div>
         <div class="modaloverlay">
             <div class="taskmodal modal">
-                <form id="newtaskform">
+                <form id="newtaskform" class="modalform">
                     <h2>Task Creation</h2>
                     <input class="taskname" id="taskname" placeholder="Task Name" type="text" required />
                     <select class="taskpriority" id="taskpriority">
@@ -137,8 +183,17 @@
                     <button type="submit" class="taskcreate" id="taskcreate">Create</button>
                 </form>
             </div>
-    </div>
+            <div class="rewardmodal modal">
+                <form id="newrewardform" class="modalform">
+                    <h2>Reward Creation</h2>
+                    <input class="taskname" id="rewardname" placeholder="Name" type="text" required />
+                    <input class="taskname" id="rewardlevel" placeholder="Level" type="number" required />
+                    <button class="taskcancel" id="rewardcancel">Cancel</button>
+                    <button type="submit" class="taskcreate" id="rewardcreate">Create</button>
+                </form>
+            </div>
+        </div>
     </body>
-    <script src="/assets/script/script.js?3.0a"></script>
+    <script src="/assets/script/script.js?3.0b"></script>
     <audio></audio>
 </html>
