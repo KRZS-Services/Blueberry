@@ -19,6 +19,14 @@ if (localStorage.getItem("timeonline") == null) {
 } else {
     TimeOnline = new Number(localStorage.getItem("timeonline"));
 };
+if (localStorage.getItem("blueberryname") == null) {
+    localStorage.setItem("blueberryname", "Blueberry");
+} else {
+    document.querySelector(".main").textContent = localStorage.getItem("blueberryname");
+};
+function changeBlName() {
+    localStorage.setItem("blueberryname", event.target.textContent);
+}
 if (localStorage.getItem("tasks") == null) {
     Names = [];
     Values = [];
@@ -160,6 +168,7 @@ document.getElementById("newtaskform").onsubmit = function () {
     }));
     setTimeout(function () {
         document.querySelector(".modaloverlay").style.display = "none";
+        document.querySelector(".taskmodal").style.display = "none";
         document.querySelector("#taskcreate").disabled = false;
         document.querySelector("#taskcancel").disabled = false;
         document.querySelector("#taskpriority").disabled = false;

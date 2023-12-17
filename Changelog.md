@@ -71,3 +71,6 @@ ___
 - Added custom fonts
 - Added custom rewards
 - Added the `notify()` function
+## Version 3.1b
+- Fixed a bug that would trigger both modals when the "Add Reward" button was clicked
+- Made the header title name editable
