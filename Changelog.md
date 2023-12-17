@@ -71,6 +71,6 @@ ___
 - Added custom fonts
 - Added custom rewards
 - Added the `notify()` function
-## Version 3.1b
+## Version 3.1b [Link](https://gitlab.com/Zakemski/blueberry/-/tree/d6c86bc5b7e87a3181f76d45e5b722e03b1d88c0)
 - Fixed a bug that would trigger both modals when the "Add Reward" button was clicked
 - Made the header title name editable
