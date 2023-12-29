@@ -56,11 +56,25 @@ for (let index = 0; index < JSON.parse(localStorage.getItem("customrewards")).na
     var randnum = document.createElement("randnum");
     randnum.innerHTML = RewardNumbers[index];
     newspan.classList.add("menutext");
-    newspan.textContent = RewardNames[index];
+    newspan.textContent = RewardNames[index] + " - Level " + RewardLevels[index];
     newelem.appendChild(newspan);
     document.querySelector(".menuul").appendChild(newelem);
     newelem.appendChild(randnum);
-}
+    newelem.onclick = function () {
+        if (document.querySelector("#deletereward").classList.contains("active")) {
+            RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+            RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+            RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+            localStorage.setItem("customrewards", JSON.stringify({
+                "names": RewardNames,
+                "levels": RewardLevels,
+                "numbers": RewardNumbers
+            }));
+            event.target.remove();
+            document.querySelector("#deletereward").classList.remove("active");
+        };
+    };
+};
 function removeItem(item) {
     setTimeout(function () {item.remove();},1500);
 };
@@ -106,6 +120,8 @@ for (let index = 0; index < Names.length; index++) {
         ptext.classList.add("highpriority");
     } else if (Values[index] == "50") {
         ptext.classList.add("lowpriority");
+    } else if (Values[index] == "0") {
+        ptext.classList.add("rewardpriority");
     } else {
         ptext.classList.add("debugpriority");
     };
@@ -142,9 +158,11 @@ document.getElementById("newtaskform").onsubmit = function () {
         ptext.classList.add("highpriority");
     } else if (document.querySelector(".taskpriority").value == "50") {
         ptext.classList.add("lowpriority");
+    } else if (document.querySelector(".taskpriority").value == "0") {
+        ptext.classList.add("rewardpriority");
     } else {
         ptext.classList.add("debugpriority");
-    }
+    };
     pelem.appendChild(checkbox);
     pelem.appendChild(ptext);
     var xpvalue = document.createElement("xpvalue");
@@ -275,6 +293,13 @@ document.querySelector("#addreward").onclick = function () {
     document.querySelector(".modaloverlay").style.display = "flex";
     setTimeout(function () {document.querySelector(".modaloverlay").style.opacity = "100%";},100);
 };
+document.querySelector("#deletereward").onclick = function () {
+    if (event.target.classList.contains("active")) {
+        event.target.classList.remove("active");
+    } else {
+        event.target.classList.add("active");
+    };
+};
 document.querySelector("#rewardcancel").onclick = function () {
     event.preventDefault();
     document.querySelector("#rewardcreate").disabled = true;
@@ -298,10 +323,24 @@ document.getElementById("newrewardform").onsubmit = function () {
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Math.random()*10;
     newspan.classList.add("menutext");
-    newspan.textContent = document.querySelector("#rewardname").value;
+    newspan.textContent = document.querySelector("#rewardname").value + " - Level " + document.querySelector("#rewardlevel").value;
     newelem.appendChild(newspan);
     document.querySelector(".menuul").appendChild(newelem);
     newelem.appendChild(randnum);
+    newelem.onclick = function () {
+        if (document.querySelector("#deletereward").classList.contains("active")) {
+            RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+            RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+            RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+            localStorage.setItem("customrewards", JSON.stringify({
+                "names": RewardNames,
+                "levels": RewardLevels,
+                "numbers": RewardNumbers
+            }));
+            event.target.remove();
+            document.querySelector("#deletereward").classList.remove("active");
+        };
+    };
     RewardNames.push(document.querySelector("#rewardname").value);
     RewardLevels.push(document.querySelector("#rewardlevel").value);
     RewardNumbers.push(randnum.innerHTML);
@@ -384,6 +423,37 @@ function changeRewardOne() {
 };
 function activateRewardOne(levelnum) {
     if (RewardLevels.indexOf(CurrentLevel.toString()) != -1) {
+        var taskelem = document.createElement("div");
+        taskelem.classList.add("task");
+        var pelem = document.createElement("p");
+        var checkbox = document.createElement("button");
+        checkbox.classList.add("checkbox");
+        checkbox.onclick = function () { btnClick() };
+        var ptext = document.createElement("span");
+        ptext.contentEditable = true;
+        ptext.textContent = document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent;
+        ptext.classList.add("rewardpriority");
+        pelem.appendChild(checkbox);
+        pelem.appendChild(ptext);
+        var xpvalue = document.createElement("xpvalue");
+        xpvalue.innerHTML = "0";
+        var randnum = document.createElement("randnum");
+        randnum.innerHTML = Math.random()*10;
+        Nindex = Numbers.length;
+        ptext.oninput = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+        taskelem.appendChild(pelem);
+        taskelem.appendChild(xpvalue);
+        taskelem.appendChild(randnum);
+        document.querySelector(".tasks").appendChild(taskelem);
+        Names.push(document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent);
+        Values.push("0");
+        Numbers.push(randnum.innerHTML);
+        document.querySelector(".modaloverlay").style.opacity = "0%";
+        localStorage.setItem("tasks", JSON.stringify({
+            "names": Names,
+            "values": Values,
+            "numbers": Numbers
+        }));
         notify("Congrats, you've unlocked the award " + document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent);
         document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].remove();
         RewardNames.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
@@ -450,7 +520,7 @@ if (JSON.parse(localStorage.getItem("rewards")).reward2 == undefined) {
     TaskCongratulator = JSON.parse(localStorage.getItem("rewards")).reward2;
 };
 function changeRewardTwo() {
-    var prompttext = prompt('What would you like your task completion message to be? If you want to be fancy, it will replace "%t" with the acquired level.', TaskCongratulator);
+    var prompttext = prompt('What would you like your task completion message to be? If you want to be fancy, it will replace "%t" with the completed task.', TaskCongratulator);
     if (prompttext != null) {
         TaskCongratulator = prompttext;
         localStorage.setItem("rewards", JSON.stringify({
@@ -628,3 +698,14 @@ function developerMode() {
         return "Developer mode disabled.";
     }
 }
+// Back to the main code!
+if (localStorage.getItem("modalversion") != "4.0") {
+    document.querySelector(".logoverlay").style.display = "flex";
+};
+document.querySelector(".logok").onclick = function () {
+    document.querySelector(".logoverlay").style.opacity = "0%";
+    setTimeout(function () {
+        document.querySelector(".logoverlay").style.display = "none";
+        localStorage.setItem("modalversion", "4.0");
+    },1000);
+};

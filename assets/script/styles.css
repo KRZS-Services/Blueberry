@@ -1,9 +1,30 @@
 body, html {
     margin: 0;
     padding: 0;
+    overflow: none;
 }
 * {
     appearance: none;
+}
+@keyframes scalein {
+    from {
+        opacity: 0%;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 100%;
+        transform: scale(1);
+    }
+}
+@keyframes contentin {
+    from {
+        opacity: 0%;
+        transform: scale(0.7);
+    }
+    to {
+        opacity: 100%;
+        transform: scale(1);
+    }
 }
 [contenteditable] {
     outline: 0px solid transparent;
@@ -42,6 +63,10 @@ a:hover {
     text-decoration: underline;
 }
 h1 {font-size: 35px}
+.fontheader {
+    font-family: 'Press Start 2P' !important;
+    margin: 0;
+}
 h2 {font-size: 30px}
 h3 {font-size: 25px}
 h4 {font-size: 20px}
@@ -53,6 +78,7 @@ h6 {font-size: 10px}
     width: calc(100% - 60px);
     border-radius: 10px;
     position: relative;
+    animation: scalein 1s;
 }
 .xpwidth {
     width: 0%;
@@ -70,6 +96,7 @@ h6 {font-size: 10px}
 }
 .main {
     text-align: center;
+    animation: scalein 1s;
 }
 @media only screen and (max-width: 700px) {
     .main {
@@ -81,8 +108,9 @@ h6 {font-size: 10px}
     margin: 30px;
     margin-bottom: 0;
     width: calc(100% - 60px);
-    height: calc(100vh - 160px);
+    height: calc(100vh - 142px);
     overflow: auto;
+    animation: scalein 1s;
 }
 .task {
     border-bottom: 1px solid black;
@@ -123,6 +151,11 @@ h6 {font-size: 10px}
 .debugpriority:before {
     color: green;
     content: " Debug ";
+    font-weight: bold;
+}
+.rewardpriority:before {
+    color: hotpink;
+    content: " Reward ";
     font-weight: bold;
 }
 .checkbox {
@@ -171,6 +204,77 @@ h6 {font-size: 10px}
     border-radius: 20px;
     animation: bounce 1s;
     display: none;
+}
+.logoverlay {
+    background: rgba(0,0,0,0.5);
+    opacity: 100%;
+    transition: opacity 1s;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.logmodal {
+    width: 50%;
+    background: black;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    animation: bounce 1s;
+    flex-direction: column;
+    padding: 40px;
+}
+.logok {
+    background: rgba(0,100,0);
+    color: white;
+    font-family: 'Press Start 2p';
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+    transition: transform 0.2s;
+}
+.logtext {
+    color: white;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-family: 'IBM Plex Mono';
+}
+.changelog {
+    background: rgba(30,30,30);
+    padding: 5px;
+    max-height: 150px;
+    overflow: auto;
+}
+.changelogtext {
+    margin: none;
+    color: white;
+    font-family: 'IBM Plex Mono';
+    font-size: 12px;
+}
+@media only screen and (max-width: 900px) {
+    .logmodal {
+        width: calc(100% - 80px);
+        height: calc(100% - 80px);
+        background: black;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0px;
+        animation: none;
+    }
+    .changelog {
+        max-height: 75%;
+    }
 }
 @keyframes bounce {
     0% {
@@ -266,10 +370,10 @@ h6 {font-size: 10px}
 .taskcreate, .taskcancel {
     transition: transform 0.2s;
 }
-.taskcreate:hover, .taskcancel:hover {
+.taskcreate:hover, .taskcancel:hover, .logok:hover {
     transform: scale(1.05);
 }
-.taskcreate:active, .taskcancel:active {
+.taskcreate:active, .taskcancel:active, .logok:active {
     transform: scale(0.95);
 }
 .menu {
@@ -327,7 +431,6 @@ h6 {font-size: 10px}
     border-radius: 2px;
 }
 .menuul {
-    margin: 10px;
     color: white;
     padding: 0;
     list-style-type: none;
@@ -404,18 +507,21 @@ h6 {font-size: 10px}
     position: absolute;
     top: 0;
     right: 0;
+    animation: contentin 1s;
 }
 .buttonmenu {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 10px;
     display: flex;
     gap: 10px;
-    height: calc(100% - 20px);
+    height: calc(100% - 40px);
     width: 50px;
     padding: 10px;
     flex-direction: column;
     background: black;
+    animation: scalein 1s;
+    border-radius: 10px;
 }
 .menubutton {
     width: 50px;
@@ -451,15 +557,28 @@ h6 {font-size: 10px}
     transition: all 0.2s;
     color: inherit;
     text-shadow: 0px 0 5px black;
-    margin: 10px;
 }
 .minibutton:hover {
     background: rgba(255,255,255,0.1);
+}
+#deletereward {
+    outline: none;
+    border: none;
 }
 .minibutton:active {
     background: transparent;
     border: 1px solid white;
     outline: 1px solid gray;
+}
+.minibutton.active {
+    background: red;
+    text-shadow: 0 0 0 black;
+    cursor: not-allowed;
+}
+.minibutton.active:active {
+    background: darkred;
+    text-shadow: 0 0 0 black;
+    cursor: not-allowed;
 }
 .closebutton {
     position: absolute;

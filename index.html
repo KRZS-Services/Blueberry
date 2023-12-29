@@ -18,7 +18,7 @@
         <link rel="icon" type="image/x-icon" href="Favicon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/assets/script/styles.css?3.1a">
+        <link rel="stylesheet" href="/assets/script/styles.css?3.2b">
         <style id="stylecolors">
             body, html {
                 background: #0c1327;
@@ -166,13 +166,14 @@
             <button class="menubutton closebutton" onclick="closeCustomRewardsTab()">clear</button>
             <hr class="menudivider">
             <button class="minibutton" id="addreward">Add Reward</button>
+            <button class="minibutton" id="deletereward">Delete Reward</button>
             <ul class="menuul">
             </ul>
         </div>
         <div class="modaloverlay">
             <div class="taskmodal modal">
                 <form id="newtaskform" class="modalform">
-                    <h2>Task Creation</h2>
+                    <h2 class="fontheader">Task Creation</h2>
                     <input class="taskname" id="taskname" placeholder="Task Name" type="text" required />
                     <select class="taskpriority" id="taskpriority">
                         <option value="50">Unimportant (50 xp)</option>
@@ -185,7 +186,7 @@
             </div>
             <div class="rewardmodal modal">
                 <form id="newrewardform" class="modalform">
-                    <h2>Reward Creation</h2>
+                    <h2 class="fontheader">Reward Creation</h2>
                     <input class="taskname" id="rewardname" placeholder="Name" type="text" required />
                     <input class="taskname" id="rewardlevel" placeholder="Level" type="number" required />
                     <button class="taskcancel" id="rewardcancel">Cancel</button>
@@ -193,7 +194,24 @@
                 </form>
             </div>
         </div>
+        <div class="logoverlay">
+            <div class="logmodal">
+                <h2 class="fontheader">Blueberry 4.0</h2>
+                <p class="logtext">Blueberry has updated to 4.0! Here's the <a href="https://gitlab.com/Zakemski/blueberry/-/blob/main/Changelog.md">changelog</a>:</p>
+                <div class="changelog">
+                    <p class="changelogtext">- Completing a reward now adds a cosmetic task</p>
+                    <p class="changelogtext">- Changed the margins on the reward menu</p>
+                    <p class="changelogtext">- Added an animation on load</p>
+                    <p class="changelogtext">- The side menu is now offset and has a border radius</p>
+                    <p class="changelogtext">- Headers in modals now display the native font</p>
+                    <p class="changelogtext">- The prompt for TTS on task completion now displays the correct text</p>
+                    <p class="changelogtext">- There is now a changelog modal on load</p>
+                    <p class="changelogtext">- Fixed the padding of the task list</p>
+                </div>
+                <button type="submit" class="logok" id="logok">OK</button>
+            </div>
+        </div>
     </body>
-    <script src="/assets/script/script.js?3.1b"></script>
+    <script src="/assets/script/script.js?4.0"></script>
     <audio></audio>
 </html>
