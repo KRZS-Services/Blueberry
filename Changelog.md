@@ -74,7 +74,7 @@ ___
 ## Version 3.1b [Link](https://gitlab.com/Zakemski/blueberry/-/tree/d6c86bc5b7e87a3181f76d45e5b722e03b1d88c0)
 - Fixed a bug that would trigger both modals when the "Add Reward" button was clicked
 - Made the header title name editable
-## Version 4.0
+## Version 4.0 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/5d51e02e5fa26f71c49ffd9664066c43217a95c4)
 - Completing a reward now adds a cosmetic task
 - Changed the margins on the reward menu
 - Added an animation on load
