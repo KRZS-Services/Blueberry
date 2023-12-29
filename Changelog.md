@@ -74,3 +74,12 @@ ___
 ## Version 3.1b [Link](https://gitlab.com/Zakemski/blueberry/-/tree/d6c86bc5b7e87a3181f76d45e5b722e03b1d88c0)
 - Fixed a bug that would trigger both modals when the "Add Reward" button was clicked
 - Made the header title name editable
+## Version 4.0
+- Completing a reward now adds a cosmetic task
+- Changed the margins on the reward menu
+- Added an animation on load
+- The side menu is now offset and has a border radius
+- Headers in modals now display the native font
+- The prompt for TTS on task completion now displays the correct text
+- Fixed the padding of the task list
+- There is now a changelog modal on load
