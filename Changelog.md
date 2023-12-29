@@ -83,3 +83,8 @@ ___
 - The prompt for TTS on task completion now displays the correct text
 - Fixed the padding of the task list
 - There is now a changelog modal on load
+#### *4.0.1 Small Fix*
+___
+- Fixed a caching issue
+- The buttons in the rewards menu display the correct font
+- The task list padding is fine how it is
