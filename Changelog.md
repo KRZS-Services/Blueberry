@@ -88,3 +88,15 @@ ___
 - Fixed a caching issue
 - The buttons in the rewards menu display the correct font
 - The task list padding is fine how it is
+## Version 4.1
+- Removed most top and bottom padding on tasks
+- Added webhook integration
+- Changed the default colors and font (only applies to new users)
+- Made the header text larger
+- Moved the XP level indicator up
+- Changed the formatting on menu icons
+- Changed the UI of menus
+- Added a tooltip for the button menu
+- Switched to Material Symbols Rounded
+- Changed the theme of the website in the metadata
+- Modified the scrollbar
