@@ -85,6 +85,9 @@ function btnClick() {
     event.target.parentElement.parentElement.style.opacity = "0%";
     removeItem(event.target.parentElement.parentElement);
     var indexnum = Numbers.indexOf(event.target.parentElement.parentElement.firstChild.nextSibling.nextSibling.innerHTML);
+    if (localStorage.getItem("webhook0") != null) {
+        sendWebhook(localStorage.getItem("webhook0"), 'Compeleted task "' + Names[indexnum] + '".');
+    }
     Numbers.splice(indexnum, 1);
     Names.splice(indexnum, 1);
     Values.splice(indexnum, 1);
@@ -226,6 +229,9 @@ function addXp(amount) {
         document.querySelector(".confetti").style.display = "block";
         setTimeout(function () {document.querySelector(".confetti").style.display = "none"},2000);
         activateRewardOne(CurrentLevel);
+        if (localStorage.getItem("webhook1") != null) {
+            sendWebhook(localStorage.getItem("webhook1"), "Advanced to level " + CurrentLevel + ".");
+        }
     } else {
         activateRewardTwo(event.target.parentElement.textContent);
     }
@@ -271,6 +277,22 @@ function closeStatisticsTab() {
     document.querySelector(".statistics").style.position = "fixed";
     setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".statistics").style.right = "-50%"}else{document.querySelector(".statistics").style.right = "-100%"}},100);
     setTimeout(function(){document.querySelector(".statistics").style.position = "absolute";document.querySelector(".statistics").style.display = "none";EvTarget.disabled = false;},1100);
+};
+function webhooksTab() {
+    EvTarget = event.target
+    EvTarget.disabled = true;
+    document.querySelector(".webhooks").style.position = "fixed";
+    if(document.documentElement.scrollWidth > 950){document.querySelector(".webhooks").style.right = "-50%";}else{document.querySelector(".webhooks").style.right = "-100%";};
+    document.querySelector(".webhooks").style.display = "block";
+    setTimeout(function(){document.querySelector(".webhooks").style.right = "0"},100);
+    setTimeout(function(){document.querySelector(".webhooks").style.position = "absolute";EvTarget.disabled = false;},1100);
+};
+function closeWebhookTab() {
+    EvTarget = event.target;
+    EvTarget.disabled = true;
+    document.querySelector(".webhooks").style.position = "fixed";
+    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".webhooks").style.right = "-50%"}else{document.querySelector(".webhooks").style.right = "-100%"}},100);
+    setTimeout(function(){document.querySelector(".webhooks").style.position = "absolute";document.querySelector(".webhooks").style.display = "none";EvTarget.disabled = false;},1100);
 };
 function closeCustomRewardsTab() {
     EvTarget = event.target;
@@ -454,7 +476,8 @@ function activateRewardOne(levelnum) {
             "values": Values,
             "numbers": Numbers
         }));
-        notify("Congrats, you've unlocked the award " + document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent);
+        notify("Congrats, you've unlocked the reward " + document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent);
+        sendWebhook(localStorage.getItem("webhook2"), "Unlocked reward '" + document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent + "'.");
         document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].remove();
         RewardNames.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
         RewardLevels.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
@@ -560,7 +583,7 @@ document.querySelector("#rewards2message").textContent = TaskCongratulator;
 document.querySelector("#reward2").checked = JSON.parse(localStorage.getItem("rewards")).reward2enabled;
 // Reward 3
 if (JSON.parse(localStorage.getItem("rewards")).reward3 == undefined) {
-    ThemeColors = ["#0c1327", "#c8ff00", "#000000", "#ffffff", "#00af00", "#00ff00"];
+    ThemeColors = ["#032d70", "#3760db", "#ffffff", "#ffffff", "#00af00", "#00ff00"];
     localStorage.setItem("rewards", JSON.stringify({
         reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
         reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
@@ -627,7 +650,7 @@ function changeRewardThree(colorrule, rulecolor) {
 };
 // Reward 4
 if (JSON.parse(localStorage.getItem("rewards")).reward4 === undefined) {
-    ThemeFonts = ["IBM Plex Mono", "Press Start 2P"];
+    ThemeFonts = ["Outfit", "Tektur"];
     localStorage.setItem("rewards", JSON.stringify({
         reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
         reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
@@ -699,13 +722,41 @@ function developerMode() {
     }
 }
 // Back to the main code!
-if (localStorage.getItem("modalversion") != "4.0") {
+if (localStorage.getItem("modalversion") != "4.1") {
     document.querySelector(".logoverlay").style.display = "flex";
 };
 document.querySelector(".logok").onclick = function () {
     document.querySelector(".logoverlay").style.opacity = "0%";
     setTimeout(function () {
         document.querySelector(".logoverlay").style.display = "none";
-        localStorage.setItem("modalversion", "4.0");
+        localStorage.setItem("modalversion", "4.1");
     },1000);
 };
+if (localStorage.getItem("webhook0") != null) {
+    document.getElementById("webhooklink0").value = localStorage.getItem("webhook0");
+}
+if (localStorage.getItem("webhook1") != null) {
+    document.getElementById("webhooklink1").value = localStorage.getItem("webhook1");
+}
+if (localStorage.getItem("webhook2") != null) {
+    document.getElementById("webhooklink2").value = localStorage.getItem("webhook2");
+}
+function sendWebhook(webURL, newcontent) {
+    if (webURL != "") {
+        fetch(webURL, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: newcontent,
+            })
+        ,});
+    }
+}
+function changeWebhookLink(num, content) {
+    localStorage.setItem("webhook" + num, content);
+}
+document.addEventListener('mousemove', function (e) {
+    document.getElementById("tooltip").style.top = e.clientY - 15 + "px";
+}, false);

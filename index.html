@@ -3,15 +3,15 @@
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,400;0,700;1,400;1,700&family=Tektur&display=swap" rel="stylesheet">
         <link href="" rel="stylesheet" id="font1">
         <link href="" rel="stylesheet" id="font2">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         <meta property="og:title" content="Blueberry" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blueberry.krzs.xyz" />
         <meta property="og:description" content="Blueberry - make everything a game!" />
-        <meta name="theme-color" content="#00ff00">
+        <meta name="theme-color" content="#032d70">
         <meta charset="UTF-8">
         <meta name="description" content="Blueberry - make everything a game!">
         <meta name="keywords" content="task, manager, blueberry, task manager, krzs, blueberry task manager, organization">
@@ -21,13 +21,13 @@
         <link rel="stylesheet" href="/assets/script/styles.css?4.0.1">
         <style id="stylecolors">
             body, html {
-                background: #0c1327;
+                background: #032d70;
             }
             .tasks {
-                background: #c8ff00;
+                background: #3760db;
             }
             span {
-                color: #000000;
+                color: #ffffff;
             }
             .checkbox {
                 border: 2px solid #000000;
@@ -53,22 +53,22 @@
         </style>
         <style id="stylefonts">
             h1, h2, h3, h4, h5, h6 {
-                font-family: 'Press Start 2P';
+                font-family: 'Tektur';
             }
             p {
-                font-family: 'IBM Plex Mono';
+                font-family: 'Outfit';
             }
             span {
-                font-family: 'IBM Plex Mono';
+                font-family: 'Outfit';
             }
             .xplevel {
-                font-family: 'Press Start 2P';
+                font-family: 'Tektur';
             }
             .addnewtask {
-                font-family: 'IBM Plex Mono';
+                font-family: 'Outfit';
             }
             .minibutton {
-                font-family: 'IBM Plex Mono';
+                font-family: 'Outfit';
             }
         </style>
         <style id="devmode">xpvalue,randnum{display:none}</style>
@@ -77,12 +77,14 @@
         <meta http-equiv="Expires" content="0" />
     </head>
     <body>
-        <div class="buttonmenu">
-            <button class="menubutton" onclick="rewardsTab()">format_paint</button>
-            <button class="menubutton" onclick="statisticsTab()">bar_chart</button>
-            <button class="menubutton" onclick="customRewardsTab()">star</button>
-            <button class="menubutton" onclick="dataClear()">delete</button>
+        <div class="buttonmenu" onmouseenter='document.getElementById("tooltip").style.display = "block"; document.getElementById("tooltip").textContent = "..."' onmouseleave='document.getElementById("tooltip").style.display = "none"'>
+            <button class="menubutton" onclick="rewardsTab()" onmouseenter='document.getElementById("tooltip").textContent = "Customization"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>format_paint</button>
+            <button class="menubutton" onclick="statisticsTab()" onmouseenter='document.getElementById("tooltip").textContent = "Statistics"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>bar_chart</button>
+            <button class="menubutton" onclick="customRewardsTab()" onmouseenter='document.getElementById("tooltip").textContent = "Rewards"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>star</button>
+            <button class="menubutton" onclick="webhooksTab()" onmouseenter='document.getElementById("tooltip").textContent = "Webhooks"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>webhook</button>
+            <button class="menubutton" onclick="dataClear()" onmouseenter='document.getElementById("tooltip").textContent = "Delete Data"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>delete</button>
         </div>
+        <div class="tooltip" id="tooltip"><span>...</span></div>
         <div class="content">
             <h2 class="main" onkeyup="changeBlName()" contenteditable>Blueberry</h2>
             <div class="xpbar">
@@ -124,11 +126,11 @@
                 <span class="menutext"><i>Custom theme colors!</i></span>
                 <br><br>
                 <span class="menutext"><label for="reward3-1">Background Color:</label></span>
-                <input type="color" value="#0c1327" id="reward3-1" class="rewardcolor" oninput="changeRewardThree(1, event.target.value)" />
+                <input type="color" value="#032d70" id="reward3-1" class="rewardcolor" oninput="changeRewardThree(1, event.target.value)" />
                 <span class="menutext"><label for="reward3-2">Task Color:</label></span>
-                <input type="color" value="#c8ff00" id="reward3-2" class="rewardcolor" oninput="changeRewardThree(2, event.target.value)" />
+                <input type="color" value="#3760db" id="reward3-2" class="rewardcolor" oninput="changeRewardThree(2, event.target.value)" />
                 <span class="menutext"><label for="reward3-2">Task Text:</label></span>
-                <input type="color" value="#000000" id="reward3-3" class="rewardcolor" oninput="changeRewardThree(3, event.target.value)" />
+                <input type="color" value="#ffffff" id="reward3-3" class="rewardcolor" oninput="changeRewardThree(3, event.target.value)" />
                 <span class="menutext"><label for="reward3-4">Header:</label></span>
                 <input type="color" value="#ffffff" id="reward3-4" class="rewardcolor" oninput="changeRewardThree(4, event.target.value)" />
                 <span class="menutext"><label for="reward3-5">XP Bar:</label></span>
@@ -143,10 +145,10 @@
                     <span class="menutext"><i>Choose any font on your computer or from <a href="https://fonts.google.com">Google Fonts</a>.</i></span>
                     <br><br>
                     <span class="menutext"><label for="reward4-1">Text:</label></span>
-                    <input type="text" value="IBM Plex Mono" id="reward4-1" class="menuinput" onkeyup="changeRewardFour(1, event.target.value)" />
+                    <input type="text" value="Outfit" id="reward4-1" class="menuinput" onkeyup="changeRewardFour(1, event.target.value)" />
                     <br><br>
                     <span class="menutext"><label for="reward4-1">Headers:</label></span>
-                    <input type="text" value="Press Start 2P" id="reward4-2" class="menuinput" onkeyup="changeRewardFour(2, event.target.value)" />
+                    <input type="text" value="Tektur" id="reward4-2" class="menuinput" onkeyup="changeRewardFour(2, event.target.value)" />
                 </div>
         </div>
         <div class="statistics menu">
@@ -169,6 +171,20 @@
             <button class="minibutton" id="deletereward">Delete Reward</button>
             <ul class="menuul">
             </ul>
+        </div>
+
+        <div class="webhooks menu">
+            <h1 class="menumain"><div class="menumainicon">webhook</div>Webhooks</h1>
+            <button class="menubutton closebutton" onclick="closeWebhookTab()">clear</button>
+            <hr class="menudivider">
+            <span class="menutext"><label for="webhooklink0">Task completion:</label></span>
+            <input type="text" value="" placeholder="Enter Webhook link..." id="webhooklink0" class="menuinput" onkeyup="changeWebhookLink(0, event.target.value)" />
+            <br><br>
+            <span class="menutext"><label for="webhooklink1">Levelup:</label></span>
+            <input type="text" value="" placeholder="Enter Webhook link..." id="webhooklink1" class="menuinput" onkeyup="changeWebhookLink(1, event.target.value)" />
+            <br><br>
+            <span class="menutext"><label for="webhooklink2">Reward completion:</label></span>
+            <input type="text" value="" placeholder="Enter Webhook link..." id="webhooklink2" class="menuinput" onkeyup="changeWebhookLink(2, event.target.value)" />
         </div>
         <div class="modaloverlay">
             <div class="taskmodal modal">
@@ -196,17 +212,20 @@
         </div>
         <div class="logoverlay">
             <div class="logmodal">
-                <h2 class="fontheader">Blueberry 4.0</h2>
-                <p class="logtext">Blueberry has updated to 4.0! Here's the <a href="https://gitlab.com/Zakemski/blueberry/-/blob/main/Changelog.md">changelog</a>:</p>
+                <h2 class="fontheader">Blueberry 4.1</h2>
+                <p class="logtext">Blueberry has updated to 4.1! Here's the <a href="https://gitlab.com/Zakemski/blueberry/-/blob/main/Changelog.md">changelog</a>:</p>
                 <div class="changelog">
-                    <p class="changelogtext">- Completing a reward now adds a cosmetic task</p>
-                    <p class="changelogtext">- Changed the margins on the reward menu</p>
-                    <p class="changelogtext">- Added an animation on load</p>
-                    <p class="changelogtext">- The side menu is now offset and has a border radius</p>
-                    <p class="changelogtext">- Headers in modals now display the native font</p>
-                    <p class="changelogtext">- The prompt for TTS on task completion now displays the correct text</p>
-                    <p class="changelogtext">- There is now a changelog modal on load</p>
-                    <p class="changelogtext">- Fixed the padding of the task list</p>
+                    <p class="changelogtext">- Removed most top and bottom padding on tasks</p>
+                    <p class="changelogtext">- Added webhook integration</p>
+                    <p class="changelogtext">- Changed the default colors and font (only applies to new users)</p>
+                    <p class="changelogtext">- Made the header text larger</p>
+                    <p class="changelogtext">- Moved the XP level indicator up</p>
+                    <p class="changelogtext">- Changed the formatting on menu icons</p>
+                    <p class="changelogtext">- Changed the UI of menus</p>
+                    <p class="changelogtext">- Added a tooltip for the button menu</p>
+                    <p class="changelogtext">- Switched to Material Symbols Rounded</p>
+                    <p class="changelogtext">- Changed the theme of the website in the metadata</p>
+                    <p class="changelogtext">- Modified the scrollbar</p>
                 </div>
                 <button type="submit" class="logok" id="logok">OK</button>
             </div>
