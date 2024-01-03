@@ -100,3 +100,6 @@ ___
 - Switched to Material Symbols Rounded
 - Changed the theme of the website in the metadata
 - Modified the scrollbar
+#### *4.1.1 Small Fix*
+___
+- Fixed a caching issue
