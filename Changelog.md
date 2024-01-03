@@ -88,7 +88,7 @@ ___
 - Fixed a caching issue
 - The buttons in the rewards menu display the correct font
 - The task list padding is fine how it is
-## Version 4.1
+## Version 4.1 [Link](https://gitlab.com/Zakemski/blueberry/-/tree/d2a285a6bada258d5750af9a1e0d85d756a0dd9c)
 - Removed most top and bottom padding on tasks
 - Added webhook integration
 - Changed the default colors and font (only applies to new users)
