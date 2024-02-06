@@ -114,6 +114,7 @@ for (let index = 0; index < Names.length; index++) {
     var taskelem = document.createElement("div");
     taskelem.classList.add("task");
     var pelem = document.createElement("p");
+    pelem.classList.add("pelem");
     var checkbox = document.createElement("button");
     checkbox.classList.add("checkbox");
     checkbox.onclick = function () { btnClick() };
@@ -164,6 +165,7 @@ document.getElementById("newtaskform").onsubmit = function () {
     var taskelem = document.createElement("div");
     taskelem.classList.add("task");
     var pelem = document.createElement("p");
+    pelem.classList.add("pelem");
     var checkbox = document.createElement("button");
     checkbox.classList.add("checkbox");
     checkbox.onclick = function () { btnClick() };

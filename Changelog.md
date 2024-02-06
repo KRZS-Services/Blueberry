@@ -113,5 +113,5 @@ ___
 #### *4.2.1 Small Fix*
 ___
 - Fixed a caching issue
-___
-Currently on 5-mobiletest
+# Version 5.0
+- Added the mobile version at /mobile, installable on iOS Safari
