@@ -5,6 +5,8 @@ body, html {
 }
 * {
     appearance: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 [contenteditable] {
     outline: 0px solid transparent;
