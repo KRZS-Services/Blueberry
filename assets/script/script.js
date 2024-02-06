@@ -758,14 +758,14 @@ function developerMode() {
     }
 }
 // Back to the main code!
-if (localStorage.getItem("modalversion") != "4.1") {
+if (localStorage.getItem("modalversion") != "5.0") {
     document.querySelector(".logoverlay").style.display = "flex";
 };
 document.querySelector(".logok").onclick = function () {
     document.querySelector(".logoverlay").style.opacity = "0%";
     setTimeout(function () {
         document.querySelector(".logoverlay").style.display = "none";
-        localStorage.setItem("modalversion", "4.1");
+        localStorage.setItem("modalversion", "5.0");
     },1000);
 };
 if (localStorage.getItem("webhook0") != null) {
