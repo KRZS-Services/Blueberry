@@ -18,7 +18,7 @@
         <link rel="icon" type="image/x-icon" href="Favicon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/assets/script/styles.css?4.1">
+        <link rel="stylesheet" href="/assets/script/styles.css?4.0.1">
         <style id="stylecolors">
             body, html {
                 background: #032d70;
@@ -30,7 +30,7 @@
                 color: #ffffff;
             }
             .checkbox {
-                border: 2px solid #000000;
+                border: 2px solid #ffffff;
             }
             .main {
                 color: #ffffff;
@@ -192,9 +192,11 @@
                     <h2 class="fontheader">Task Creation</h2>
                     <input class="taskname" id="taskname" placeholder="Task Name" type="text" required />
                     <select class="taskpriority" id="taskpriority">
-                        <option value="50">Unimportant (50 xp)</option>
-                        <option value="75" selected>Normal (75 xp)</option>
-                        <option value="100">Important (100 xp)</option>
+                        <optgroup label="Priority">
+                            <option value="50">Unimportant (50 xp)</option>
+                            <option value="75" selected>Normal (75 xp)</option>
+                            <option value="100">Important (100 xp)</option>
+                        </optgroup>
                     </select>
                     <button class="taskcancel" id="taskcancel">Cancel</button>
                     <button type="submit" class="taskcreate" id="taskcreate">Create</button>
@@ -231,6 +233,6 @@
             </div>
         </div>
     </body>
-    <script src="/assets/script/script.js?4.1"></script>
+    <script src="/assets/script/script.js?4.0.1"></script>
     <audio></audio>
 </html>

@@ -107,6 +107,17 @@ function updateName(text, index) {
         "numbers": Numbers
     }));
 };
+ShiftKeyDown = false;
+document.addEventListener("keydown", (event) => {
+    if (event.keyCode === 16) {
+        ShiftKeyDown = true;
+    }
+});
+document.addEventListener("keyup", (event) => {
+    if (event.keyCode === 16) {
+        ShiftKeyDown = false;
+    }
+});
 for (let index = 0; index < Names.length; index++) {
     var taskelem = document.createElement("div");
     taskelem.classList.add("task");
@@ -135,7 +146,19 @@ for (let index = 0; index < Names.length; index++) {
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Numbers[index];
     ptext.onkeyup = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
-    ptext.onclick = function(){if(event.shiftKey){event.target.parentElement.parentElement.remove()}};
+    ptext.onclick = function(){
+        if (ShiftKeyDown) {
+            event.target.parentElement.parentElement.remove();
+            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            localStorage.setItem("tasks", JSON.stringify({
+                "names": Names,
+                "values": Values,
+                "numbers": Numbers
+            }));
+        }
+    };
     taskelem.appendChild(pelem);
     taskelem.appendChild(xpvalue);
     taskelem.appendChild(randnum);
@@ -173,7 +196,20 @@ document.getElementById("newtaskform").onsubmit = function () {
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Math.random()*10;
     Nindex = Numbers.length;
-    ptext.oninput = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+    ptext.onkeyup = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+    ptext.onclick = function(){
+        if (ShiftKeyDown) {
+            event.target.parentElement.parentElement.remove();
+            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            localStorage.setItem("tasks", JSON.stringify({
+                "names": Names,
+                "values": Values,
+                "numbers": Numbers
+            }));
+        }
+    };
     taskelem.appendChild(pelem);
     taskelem.appendChild(xpvalue);
     taskelem.appendChild(randnum);

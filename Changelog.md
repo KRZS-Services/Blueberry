@@ -103,3 +103,10 @@ ___
 #### *4.1.1 Small Fix*
 ___
 - Fixed a caching issue
+#### Version 4.2
+- Fixed a bug that would make the checkbox color black upon creation on the first visit when the customization color theme settings weren't changed
+- Changed the `oninput` tag to a `onkeyup` tag for task editing
+- Fixed task deletion
+- Fixed `overflow`
+- Changed task list padding
+- Added an `active` selector to the checkboxes
