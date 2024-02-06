@@ -103,7 +103,7 @@ ___
 #### *4.1.1 Small Fix*
 ___
 - Fixed a caching issue
-#### Version 4.2
+#### Version 4.2 [Link](https://github.com/KRZS-Services/Blueberry/tree/faecb448ed23f43beff03494830ce02e620bbfbd)
 - Fixed a bug that would make the checkbox color black upon creation on the first visit when the customization color theme settings weren't changed
 - Changed the `oninput` tag to a `onkeyup` tag for task editing
 - Fixed task deletion
