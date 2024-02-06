@@ -113,5 +113,5 @@ ___
 #### *4.2.1 Small Fix*
 ___
 - Fixed a caching issue
-# Version 5.0
+# Version 5.0 [Link](https://github.com/KRZS-Services/Blueberry/tree/7e2228c92cf2f4009492f12800835c19d9ed7df9)
 - Added the mobile version at /mobile, installable on iOS Safari
