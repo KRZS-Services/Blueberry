@@ -1,56 +1,56 @@
-if (localStorage.getItem("level") == null) {
+if (KRZSStore.getItem("level") == null) {
     CurrentLevel = 0;
     CurrentXp = 0;
     XpToNextLevel = 100;
 } else {
-    CurrentLevel = new Number(localStorage.getItem("level"));
-    CurrentXp = new Number(localStorage.getItem("xp"));
-    Arrayrepeat = new Number(localStorage.getItem("arrayrep"));
+    CurrentLevel = new Number(KRZSStore.getItem("level"));
+    CurrentXp = new Number(KRZSStore.getItem("xp"));
+    Arrayrepeat = new Number(KRZSStore.getItem("arrayrep"));
     document.querySelector(".xplevel").textContent = CurrentLevel;
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
 };
-if (localStorage.getItem("taskscompleted") == null) {
+if (KRZSStore.getItem("taskscompleted") == null) {
     TasksCompleted = 0;
 } else {
-    TasksCompleted = new Number(localStorage.getItem("taskscompleted"));
+    TasksCompleted = new Number(KRZSStore.getItem("taskscompleted"));
 };
-if (localStorage.getItem("timeonline") == null) {
+if (KRZSStore.getItem("timeonline") == null) {
     TimeOnline = 0;
 } else {
-    TimeOnline = new Number(localStorage.getItem("timeonline"));
+    TimeOnline = new Number(KRZSStore.getItem("timeonline"));
 };
-if (localStorage.getItem("blueberryname") == null) {
-    localStorage.setItem("blueberryname", "Blueberry");
+if (KRZSStore.getItem("blueberryname") == null) {
+    KRZSStore.setItem("blueberryname", "Blueberry");
 } else {
-    document.querySelector(".main").textContent = localStorage.getItem("blueberryname");
+    document.querySelector(".main").textContent = KRZSStore.getItem("blueberryname");
 };
 function changeBlName() {
-    localStorage.setItem("blueberryname", event.target.textContent);
+    KRZSStore.setItem("blueberryname", event.target.textContent);
 }
-if (localStorage.getItem("tasks") == null) {
+if (KRZSStore.getItem("tasks") == null) {
     Names = [];
     Values = [];
     Numbers = [];
 } else {
-    Names = JSON.parse(localStorage.getItem("tasks")).names;
-    Values = JSON.parse(localStorage.getItem("tasks")).values;
-    Numbers = JSON.parse(localStorage.getItem("tasks")).numbers;
+    Names = JSON.parse(KRZSStore.getItem("tasks")).names;
+    Values = JSON.parse(KRZSStore.getItem("tasks")).values;
+    Numbers = JSON.parse(KRZSStore.getItem("tasks")).numbers;
 };
-if (localStorage.getItem("customrewards") == null) {
+if (KRZSStore.getItem("customrewards") == null) {
     RewardNames = [];
     RewardLevels = [];
     RewardNumbers = [];
-    localStorage.setItem("customrewards", JSON.stringify({
+    KRZSStore.setItem("customrewards", JSON.stringify({
         "names": [],
         "levels": [],
         "numbers": []
     }));
 } else {
-    RewardNames = JSON.parse(localStorage.getItem("customrewards")).names;
-    RewardLevels = JSON.parse(localStorage.getItem("customrewards")).levels;
-    RewardNumbers = JSON.parse(localStorage.getItem("customrewards")).numbers;
+    RewardNames = JSON.parse(KRZSStore.getItem("customrewards")).names;
+    RewardLevels = JSON.parse(KRZSStore.getItem("customrewards")).levels;
+    RewardNumbers = JSON.parse(KRZSStore.getItem("customrewards")).numbers;
 };
-for (let index = 0; index < JSON.parse(localStorage.getItem("customrewards")).names.length; index++) {
+for (let index = 0; index < JSON.parse(KRZSStore.getItem("customrewards")).names.length; index++) {
     var newelem = document.createElement("li");
     var newspan = document.createElement("span");
     var randnum = document.createElement("randnum");
@@ -65,7 +65,7 @@ for (let index = 0; index < JSON.parse(localStorage.getItem("customrewards")).na
             RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
             RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
             RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            localStorage.setItem("customrewards", JSON.stringify({
+            KRZSStore.setItem("customrewards", JSON.stringify({
                 "names": RewardNames,
                 "levels": RewardLevels,
                 "numbers": RewardNumbers
@@ -85,23 +85,23 @@ function btnClick() {
     event.target.parentElement.parentElement.style.opacity = "0%";
     removeItem(event.target.parentElement.parentElement);
     var indexnum = Numbers.indexOf(event.target.parentElement.parentElement.firstChild.nextSibling.nextSibling.innerHTML);
-    if (localStorage.getItem("webhook0") != null) {
-        sendWebhook(localStorage.getItem("webhook0"), 'Compeleted task "' + Names[indexnum] + '".');
+    if (KRZSStore.getItem("webhook0") != null) {
+        sendWebhook(KRZSStore.getItem("webhook0"), 'Compeleted task "' + Names[indexnum] + '".');
     }
     Numbers.splice(indexnum, 1);
     Names.splice(indexnum, 1);
     Values.splice(indexnum, 1);
-    localStorage.setItem("tasks", JSON.stringify({
+    KRZSStore.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers
     }));
     TasksCompleted = TasksCompleted+1;
-    localStorage.setItem("taskscompleted", TasksCompleted);
+    KRZSStore.setItem("taskscompleted", TasksCompleted);
 };
 function updateName(text, index) {
     Names.splice(new Number(index), 1, text);
-    localStorage.setItem("tasks", JSON.stringify({
+    KRZSStore.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers
@@ -152,7 +152,7 @@ for (let index = 0; index < Names.length; index++) {
             Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            localStorage.setItem("tasks", JSON.stringify({
+            KRZSStore.setItem("tasks", JSON.stringify({
                 "names": Names,
                 "values": Values,
                 "numbers": Numbers
@@ -203,7 +203,7 @@ document.getElementById("newtaskform").onsubmit = function () {
             Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            localStorage.setItem("tasks", JSON.stringify({
+            KRZSStore.setItem("tasks", JSON.stringify({
                 "names": Names,
                 "values": Values,
                 "numbers": Numbers
@@ -218,7 +218,7 @@ document.getElementById("newtaskform").onsubmit = function () {
     Values.push(document.querySelector("#taskpriority").value);
     Numbers.push(randnum.innerHTML);
     document.querySelector(".modaloverlay").style.opacity = "0%";
-    localStorage.setItem("tasks", JSON.stringify({
+    KRZSStore.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers
@@ -265,26 +265,26 @@ function addXp(amount) {
         document.querySelector(".confetti").style.display = "block";
         setTimeout(function () {document.querySelector(".confetti").style.display = "none"},2000);
         activateRewardOne(CurrentLevel);
-        if (localStorage.getItem("webhook1") != null) {
-            sendWebhook(localStorage.getItem("webhook1"), "Advanced to level " + CurrentLevel + ".");
+        if (KRZSStore.getItem("webhook1") != null) {
+            sendWebhook(KRZSStore.getItem("webhook1"), "Advanced to level " + CurrentLevel + ".");
         }
     } else {
         activateRewardTwo(event.target.parentElement.textContent);
     }
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
-    localStorage.setItem("level", CurrentLevel);
-    localStorage.setItem("xp", CurrentXp);
+    KRZSStore.setItem("level", CurrentLevel);
+    KRZSStore.setItem("xp", CurrentXp);
 }
 function dataClear() {
     if (confirm("You are about to clear all the website data.\n\nThis includes XP, levels, tasks, customization settings, and statistics. Are you sure you want to do this?")) {
-        localStorage.clear();
+        KRZSStore.clear();
         alert("All cleared!");
         location.reload();
     };
 };
 setInterval(function () {
     TimeOnline = TimeOnline+0.1;
-    localStorage.setItem("timeonline", TimeOnline)
+    KRZSStore.setItem("timeonline", TimeOnline)
 },100);
 function statisticsTab() {
     allxp = 0;
@@ -390,7 +390,7 @@ document.getElementById("newrewardform").onsubmit = function () {
             RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
             RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
             RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            localStorage.setItem("customrewards", JSON.stringify({
+            KRZSStore.setItem("customrewards", JSON.stringify({
                 "names": RewardNames,
                 "levels": RewardLevels,
                 "numbers": RewardNumbers
@@ -402,7 +402,7 @@ document.getElementById("newrewardform").onsubmit = function () {
     RewardNames.push(document.querySelector("#rewardname").value);
     RewardLevels.push(document.querySelector("#rewardlevel").value);
     RewardNumbers.push(randnum.innerHTML);
-    localStorage.setItem("customrewards", JSON.stringify({
+    KRZSStore.setItem("customrewards", JSON.stringify({
         "names": RewardNames,
         "levels": RewardLevels,
         "numbers": RewardNumbers
@@ -431,8 +431,8 @@ function notify(text) {
     },5000);
 };
 // Rewards
-if (JSON.parse(localStorage.getItem("rewards")) == undefined) {
-    localStorage.setItem("rewards", JSON.stringify({}));
+if (JSON.parse(KRZSStore.getItem("rewards")) == undefined) {
+    KRZSStore.setItem("rewards", JSON.stringify({}));
 };
 function rewardsTab() {
     EvTarget = event.target;
@@ -451,30 +451,30 @@ function closeRewardsTab() {
     setTimeout(function(){document.querySelector(".rewards").style.position = "absolute";document.querySelector(".rewards").style.display = "none";EvTarget.disabled = false;},1100);
 };
 // Reward 1
-if (JSON.parse(localStorage.getItem("rewards")).reward1 == undefined) {
+if (JSON.parse(KRZSStore.getItem("rewards")).reward1 == undefined) {
     LevelupCongratulator = "Congrats, you leveled up!";
-    localStorage.setItem("rewards", JSON.stringify({
+    KRZSStore.setItem("rewards", JSON.stringify({
         reward1: "Congrats, you leveled up!",
         reward1enabled: false,
-        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
-        reward3: JSON.parse(localStorage.getItem("rewards")).reward3,
-        reward4: JSON.parse(localStorage.getItem("rewards")).reward4
+        reward2: JSON.parse(KRZSStore.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(KRZSStore.getItem("rewards")).reward2enabled,
+        reward3: JSON.parse(KRZSStore.getItem("rewards")).reward3,
+        reward4: JSON.parse(KRZSStore.getItem("rewards")).reward4
     }));
 } else {
-    LevelupCongratulator = JSON.parse(localStorage.getItem("rewards")).reward1;
+    LevelupCongratulator = JSON.parse(KRZSStore.getItem("rewards")).reward1;
 };
 function changeRewardOne() {
     var prompttext = prompt('What would you like your levelup message to be? If you want to be fancy, it will replace "%s" with the acquired level.', LevelupCongratulator);
     if (prompttext != null) {
         LevelupCongratulator = prompttext;
-        localStorage.setItem("rewards", JSON.stringify({
+        KRZSStore.setItem("rewards", JSON.stringify({
             reward1: LevelupCongratulator,
-            reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
-            reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-            reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
-            reward3: JSON.parse(localStorage.getItem("rewards")).reward3,
-            reward4: JSON.parse(localStorage.getItem("rewards")).reward4
+            reward1enabled: JSON.parse(KRZSStore.getItem("rewards")).reward1enabled,
+            reward2: JSON.parse(KRZSStore.getItem("rewards")).reward2,
+            reward2enabled: JSON.parse(KRZSStore.getItem("rewards")).reward2enabled,
+            reward3: JSON.parse(KRZSStore.getItem("rewards")).reward3,
+            reward4: JSON.parse(KRZSStore.getItem("rewards")).reward4
         }));
         document.querySelector("#rewards1message").textContent = LevelupCongratulator;
     };
@@ -507,18 +507,18 @@ function activateRewardOne(levelnum) {
         Values.push("0");
         Numbers.push(randnum.innerHTML);
         document.querySelector(".modaloverlay").style.opacity = "0%";
-        localStorage.setItem("tasks", JSON.stringify({
+        KRZSStore.setItem("tasks", JSON.stringify({
             "names": Names,
             "values": Values,
             "numbers": Numbers
         }));
         notify("Congrats, you've unlocked the reward " + document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent);
-        sendWebhook(localStorage.getItem("webhook2"), "Unlocked reward '" + document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent + "'.");
+        sendWebhook(KRZSStore.getItem("webhook2"), "Unlocked reward '" + document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].firstChild.textContent + "'.");
         document.querySelector(".menuul").children[RewardLevels.indexOf(CurrentLevel.toString())].remove();
         RewardNames.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
         RewardLevels.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
         RewardNumbers.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
-        localStorage.setItem("customrewards", JSON.stringify({
+        KRZSStore.setItem("customrewards", JSON.stringify({
             "names": RewardNames,
             "levels": RewardLevels,
             "numbers": RewardNumbers
@@ -530,7 +530,7 @@ function activateRewardOne(levelnum) {
                 RewardNames.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
                 RewardLevels.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
                 RewardNumbers.splice(RewardLevels.indexOf(CurrentLevel.toString()), 1);
-                localStorage.setItem("customrewards", JSON.stringify({
+                KRZSStore.setItem("customrewards", JSON.stringify({
                     "names": RewardNames,
                     "levels": RewardLevels,
                     "numbers": RewardNumbers
@@ -553,42 +553,42 @@ function activateRewardOne(levelnum) {
     }
 };
 document.querySelector("#reward1").onchange = function () {
-    localStorage.setItem("rewards", JSON.stringify({
-        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
+    KRZSStore.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(KRZSStore.getItem("rewards")).reward1,
         reward1enabled: event.target.checked,
-        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
-        reward3: JSON.parse(localStorage.getItem("rewards")).reward3,
-        reward4: JSON.parse(localStorage.getItem("rewards")).reward4
+        reward2: JSON.parse(KRZSStore.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(KRZSStore.getItem("rewards")).reward2enabled,
+        reward3: JSON.parse(KRZSStore.getItem("rewards")).reward3,
+        reward4: JSON.parse(KRZSStore.getItem("rewards")).reward4
     }));
 };
 document.querySelector("#rewards1message").textContent = LevelupCongratulator;
-document.querySelector("#reward1").checked = JSON.parse(localStorage.getItem("rewards")).reward1enabled;
+document.querySelector("#reward1").checked = JSON.parse(KRZSStore.getItem("rewards")).reward1enabled;
 // Reward 2
-if (JSON.parse(localStorage.getItem("rewards")).reward2 == undefined) {
+if (JSON.parse(KRZSStore.getItem("rewards")).reward2 == undefined) {
     TaskCongratulator = "Congrats, you completed a task!";
-    localStorage.setItem("rewards", JSON.stringify({
-        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
-        reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
+    KRZSStore.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(KRZSStore.getItem("rewards")).reward1,
+        reward1enabled: JSON.parse(KRZSStore.getItem("rewards")).reward1enabled,
         reward2: TaskCongratulator,
         reward2enabled: false,
-        reward3: JSON.parse(localStorage.getItem("rewards")).reward3,
-        reward4: JSON.parse(localStorage.getItem("rewards")).reward4
+        reward3: JSON.parse(KRZSStore.getItem("rewards")).reward3,
+        reward4: JSON.parse(KRZSStore.getItem("rewards")).reward4
     }));
 } else {
-    TaskCongratulator = JSON.parse(localStorage.getItem("rewards")).reward2;
+    TaskCongratulator = JSON.parse(KRZSStore.getItem("rewards")).reward2;
 };
 function changeRewardTwo() {
     var prompttext = prompt('What would you like your task completion message to be? If you want to be fancy, it will replace "%t" with the completed task.', TaskCongratulator);
     if (prompttext != null) {
         TaskCongratulator = prompttext;
-        localStorage.setItem("rewards", JSON.stringify({
-            reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
-            reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
+        KRZSStore.setItem("rewards", JSON.stringify({
+            reward1: JSON.parse(KRZSStore.getItem("rewards")).reward1,
+            reward1enabled: JSON.parse(KRZSStore.getItem("rewards")).reward1enabled,
             reward2: TaskCongratulator,
-            reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
-            reward3: JSON.parse(localStorage.getItem("rewards")).reward3,
-            reward4: JSON.parse(localStorage.getItem("rewards")).reward4
+            reward2enabled: JSON.parse(KRZSStore.getItem("rewards")).reward2enabled,
+            reward3: JSON.parse(KRZSStore.getItem("rewards")).reward3,
+            reward4: JSON.parse(KRZSStore.getItem("rewards")).reward4
         }));
         document.querySelector("#rewards2message").textContent = TaskCongratulator;
     };
@@ -606,30 +606,30 @@ function activateRewardTwo(levelnum) {
     }
 }
 document.querySelector("#reward2").onchange = function () {
-    localStorage.setItem("rewards", JSON.stringify({
-        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
-        reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
-        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
+    KRZSStore.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(KRZSStore.getItem("rewards")).reward1,
+        reward1enabled: JSON.parse(KRZSStore.getItem("rewards")).reward1enabled,
+        reward2: JSON.parse(KRZSStore.getItem("rewards")).reward2,
         reward2enabled: event.target.checked,
-        reward3: JSON.parse(localStorage.getItem("rewards")).reward3,
-        reward4: JSON.parse(localStorage.getItem("rewards")).reward4
+        reward3: JSON.parse(KRZSStore.getItem("rewards")).reward3,
+        reward4: JSON.parse(KRZSStore.getItem("rewards")).reward4
     }));
 };
 document.querySelector("#rewards2message").textContent = TaskCongratulator;
-document.querySelector("#reward2").checked = JSON.parse(localStorage.getItem("rewards")).reward2enabled;
+document.querySelector("#reward2").checked = JSON.parse(KRZSStore.getItem("rewards")).reward2enabled;
 // Reward 3
-if (JSON.parse(localStorage.getItem("rewards")).reward3 == undefined) {
+if (JSON.parse(KRZSStore.getItem("rewards")).reward3 == undefined) {
     ThemeColors = ["#032d70", "#3760db", "#ffffff", "#ffffff", "#00af00", "#00ff00"];
-    localStorage.setItem("rewards", JSON.stringify({
-        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
-        reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
-        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
+    KRZSStore.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(KRZSStore.getItem("rewards")).reward1,
+        reward1enabled: JSON.parse(KRZSStore.getItem("rewards")).reward1enabled,
+        reward2: JSON.parse(KRZSStore.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(KRZSStore.getItem("rewards")).reward2enabled,
         reward3: ThemeColors,
-        reward4: JSON.parse(localStorage.getItem("rewards")).reward4
+        reward4: JSON.parse(KRZSStore.getItem("rewards")).reward4
     }));
 } else {
-    ThemeColors = JSON.parse(localStorage.getItem("rewards")).reward3;
+    ThemeColors = JSON.parse(KRZSStore.getItem("rewards")).reward3;
     rewardThreeStyleTag();
     document.querySelector("#reward3-1").value = ThemeColors[0];
     document.querySelector("#reward3-2").value = ThemeColors[1];
@@ -675,28 +675,28 @@ function rewardThreeStyleTag() {
 function changeRewardThree(colorrule, rulecolor) {
     ThemeColors.splice(colorrule-1, 1, rulecolor);
     rewardThreeStyleTag();
-    localStorage.setItem("rewards", JSON.stringify({
-        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
-        reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
-        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
+    KRZSStore.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(KRZSStore.getItem("rewards")).reward1,
+        reward1enabled: JSON.parse(KRZSStore.getItem("rewards")).reward1enabled,
+        reward2: JSON.parse(KRZSStore.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(KRZSStore.getItem("rewards")).reward2enabled,
         reward3: ThemeColors,
-        reward4: JSON.parse(localStorage.getItem("rewards")).reward4
+        reward4: JSON.parse(KRZSStore.getItem("rewards")).reward4
     }));
 };
 // Reward 4
-if (JSON.parse(localStorage.getItem("rewards")).reward4 === undefined) {
+if (JSON.parse(KRZSStore.getItem("rewards")).reward4 === undefined) {
     ThemeFonts = ["Outfit", "Tektur"];
-    localStorage.setItem("rewards", JSON.stringify({
-        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
-        reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
-        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
-        reward3: JSON.parse(localStorage.getItem("rewards")).reward3,
+    KRZSStore.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(KRZSStore.getItem("rewards")).reward1,
+        reward1enabled: JSON.parse(KRZSStore.getItem("rewards")).reward1enabled,
+        reward2: JSON.parse(KRZSStore.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(KRZSStore.getItem("rewards")).reward2enabled,
+        reward3: JSON.parse(KRZSStore.getItem("rewards")).reward3,
         reward4: ThemeFonts
     }));
 } else {
-    ThemeFonts = JSON.parse(localStorage.getItem("rewards")).reward4;
+    ThemeFonts = JSON.parse(KRZSStore.getItem("rewards")).reward4;
     rewardFourStyleTag();
     document.querySelector("#reward4-1").value = ThemeFonts[0];
     document.querySelector("#reward4-2").value = ThemeFonts[1];
@@ -728,12 +728,12 @@ function rewardFourStyleTag() {
 function changeRewardFour(fontrule, rulefont) {
     ThemeFonts.splice(fontrule-1, 1, rulefont);
     rewardFourStyleTag();
-    localStorage.setItem("rewards", JSON.stringify({
-        reward1: JSON.parse(localStorage.getItem("rewards")).reward1,
-        reward1enabled: JSON.parse(localStorage.getItem("rewards")).reward1enabled,
-        reward2: JSON.parse(localStorage.getItem("rewards")).reward2,
-        reward2enabled: JSON.parse(localStorage.getItem("rewards")).reward2enabled,
-        reward3: JSON.parse(localStorage.getItem("rewards")).reward3,
+    KRZSStore.setItem("rewards", JSON.stringify({
+        reward1: JSON.parse(KRZSStore.getItem("rewards")).reward1,
+        reward1enabled: JSON.parse(KRZSStore.getItem("rewards")).reward1enabled,
+        reward2: JSON.parse(KRZSStore.getItem("rewards")).reward2,
+        reward2enabled: JSON.parse(KRZSStore.getItem("rewards")).reward2enabled,
+        reward3: JSON.parse(KRZSStore.getItem("rewards")).reward3,
         reward4: ThemeFonts
     }));
 };
@@ -758,24 +758,24 @@ function developerMode() {
     }
 }
 // Back to the main code!
-if (localStorage.getItem("modalversion") != "5.0") {
+if (KRZSStore.getItem("modalversion") != "krzs1") {
     document.querySelector(".logoverlay").style.display = "flex";
 };
 document.querySelector(".logok").onclick = function () {
     document.querySelector(".logoverlay").style.opacity = "0%";
     setTimeout(function () {
         document.querySelector(".logoverlay").style.display = "none";
-        localStorage.setItem("modalversion", "5.0");
+        KRZSStore.setItem("modalversion", "krzs1");
     },1000);
 };
-if (localStorage.getItem("webhook0") != null) {
-    document.getElementById("webhooklink0").value = localStorage.getItem("webhook0");
+if (KRZSStore.getItem("webhook0") != null) {
+    document.getElementById("webhooklink0").value = KRZSStore.getItem("webhook0");
 }
-if (localStorage.getItem("webhook1") != null) {
-    document.getElementById("webhooklink1").value = localStorage.getItem("webhook1");
+if (KRZSStore.getItem("webhook1") != null) {
+    document.getElementById("webhooklink1").value = KRZSStore.getItem("webhook1");
 }
-if (localStorage.getItem("webhook2") != null) {
-    document.getElementById("webhooklink2").value = localStorage.getItem("webhook2");
+if (KRZSStore.getItem("webhook2") != null) {
+    document.getElementById("webhooklink2").value = KRZSStore.getItem("webhook2");
 }
 function sendWebhook(webURL, newcontent) {
     if (webURL != "") {
@@ -791,7 +791,7 @@ function sendWebhook(webURL, newcontent) {
     }
 }
 function changeWebhookLink(num, content) {
-    localStorage.setItem("webhook" + num, content);
+    KRZSStore.setItem("webhook" + num, content);
 }
 document.addEventListener('mousemove', function (e) {
     document.getElementById("tooltip").style.top = e.clientY - 15 + "px";
