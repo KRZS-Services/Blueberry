@@ -125,5 +125,9 @@ ___
 - Added Home tab
 - KRZS Support
 #### *5.2.1 Small Fix*
+___
 - Made changelogs consistent
 - Fixed caching problems
+#### *5.2.2 Small Fix*
+___
+- Fixed issues related to KRZS accounts

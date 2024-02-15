@@ -39,28 +39,30 @@ if (KRZSStore.getItem("customrewards") == null) {
     RewardLevels = JSON.parse(KRZSStore.getItem("customrewards")).levels;
     RewardNumbers = JSON.parse(KRZSStore.getItem("customrewards")).numbers;
 };
-for (let index = 0; index < JSON.parse(KRZSStore.getItem("customrewards")).names.length; index++) {
-    var newelem = document.createElement("li");
-    var newspan = document.createElement("span");
-    var randnum = document.createElement("randnum");
-    randnum.innerHTML = RewardNumbers[index];
-    newspan.classList.add("menutext");
-    newspan.textContent = RewardNames[index] + " - Level " + RewardLevels[index];
-    newelem.appendChild(newspan);
-    document.querySelector(".menuul").appendChild(newelem);
-    newelem.appendChild(randnum);
-    newelem.onclick = function () {
-        if (document.querySelector("#deletereward").classList.contains("active")) {
-            RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            KRZSStore.setItem("customrewards", JSON.stringify({
-                "names": RewardNames,
-                "levels": RewardLevels,
-                "numbers": RewardNumbers
-            }));
-            event.target.remove();
-            document.querySelector("#deletereward").classList.remove("active");
+if (KRZSStore.getItem("customrewards") != null) {
+    for (let index = 0; index < JSON.parse(KRZSStore.getItem("customrewards")).names.length; index++) {
+        var newelem = document.createElement("li");
+        var newspan = document.createElement("span");
+        var randnum = document.createElement("randnum");
+        randnum.innerHTML = RewardNumbers[index];
+        newspan.classList.add("menutext");
+        newspan.textContent = RewardNames[index] + " - Level " + RewardLevels[index];
+        newelem.appendChild(newspan);
+        document.querySelector(".menuul").appendChild(newelem);
+        newelem.appendChild(randnum);
+        newelem.onclick = function () {
+            if (document.querySelector("#deletereward").classList.contains("active")) {
+                RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+                RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+                RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
+                KRZSStore.setItem("customrewards", JSON.stringify({
+                    "names": RewardNames,
+                    "levels": RewardLevels,
+                    "numbers": RewardNumbers
+                }));
+                event.target.remove();
+                document.querySelector("#deletereward").classList.remove("active");
+            };
         };
     };
 };
