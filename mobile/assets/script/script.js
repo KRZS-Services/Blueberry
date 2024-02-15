@@ -256,8 +256,6 @@ function addXp(amount) {
         CurrentXp = Math.abs(XpToNextLevel);
         XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
         document.querySelector(".xplevel").textContent = CurrentLevel;
-        document.querySelector(".confetti").style.display = "block";
-        setTimeout(function () {document.querySelector(".confetti").style.display = "none"},2000);
         activateRewardOne(CurrentLevel);
     } else {
         activateRewardTwo(event.target.parentElement.textContent);

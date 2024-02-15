@@ -14,11 +14,6 @@ if (KRZSStore.getItem("taskscompleted") == null) {
 } else {
     TasksCompleted = new Number(KRZSStore.getItem("taskscompleted"));
 };
-if (KRZSStore.getItem("timeonline") == null) {
-    TimeOnline = 0;
-} else {
-    TimeOnline = new Number(KRZSStore.getItem("timeonline"));
-};
 if (KRZSStore.getItem("blueberryname") == null) {
     KRZSStore.setItem("blueberryname", "Blueberry");
 } else {
@@ -262,8 +257,6 @@ function addXp(amount) {
         CurrentXp = Math.abs(XpToNextLevel);
         XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
         document.querySelector(".xplevel").textContent = CurrentLevel;
-        document.querySelector(".confetti").style.display = "block";
-        setTimeout(function () {document.querySelector(".confetti").style.display = "none"},2000);
         activateRewardOne(CurrentLevel);
         if (KRZSStore.getItem("webhook1") != null) {
             sendWebhook(KRZSStore.getItem("webhook1"), "Advanced to level " + CurrentLevel + ".");
@@ -282,10 +275,6 @@ function dataClear() {
         location.reload();
     };
 };
-setInterval(function () {
-    TimeOnline = TimeOnline+0.1;
-    KRZSStore.setItem("timeonline", TimeOnline)
-},100);
 function statisticsTab() {
     allxp = 0;
     for (let i = 0; i < CurrentLevel-1; i++) {
@@ -298,7 +287,6 @@ function statisticsTab() {
     document.querySelector("#stats1").textContent = TasksCompleted;
     document.querySelector("#stats2").textContent = allxp;
     document.querySelector("#stats3").textContent = CurrentLevel;
-    document.querySelector("#stats4").textContent = Math.ceil((TimeOnline/60/60) * 100) / 100;
     EvTarget = event.target
     EvTarget.disabled = true;
     document.querySelector(".statistics").style.position = "fixed";

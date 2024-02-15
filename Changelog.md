@@ -117,3 +117,6 @@ ___
 - Added the mobile version at /mobile, installable on iOS Safari
 # Version 5.1 [Link](https://github.com/KRZS-Services/Blueberry/tree/518c8abbde9e22a48cafa4652776299ae9d424b5)
 - Removed the ability to select text and pinch zoom
+#### *5.2 Small Fix*
+___
+- Removed the TimeOnline statistic
