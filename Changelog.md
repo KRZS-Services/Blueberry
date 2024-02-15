@@ -120,7 +120,7 @@ ___
 #### *5.2 Small Fix*
 ___
 - Removed the TimeOnline statistic
-# Mobile Update 5,1
+# Mobile Update 5,1 [Link](https://github.com/KRZS-Services/Blueberry/tree/3f860bf598ccfc85bea993eed1cbf3c85d0f73a8)
 - Moved the taskbar up a small amount
 - Added Home tab
 - KRZS Support
