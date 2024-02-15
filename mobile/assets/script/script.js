@@ -16,11 +16,6 @@ if (localStorage.getItem("taskscompleted") == null) {
 } else {
     TasksCompleted = new Number(localStorage.getItem("taskscompleted"));
 };
-if (localStorage.getItem("timeonline") == null) {
-    TimeOnline = 0;
-} else {
-    TimeOnline = new Number(localStorage.getItem("timeonline"));
-};
 if (localStorage.getItem("tasks") == null) {
     Names = [];
     Values = [];
@@ -271,10 +266,6 @@ function dataClear() {
         location.reload();
     };
 };
-setInterval(function () {
-    TimeOnline = TimeOnline+0.1;
-    localStorage.setItem("timeonline", TimeOnline)
-},100);
 function statisticsTab() {
     allxp = 0;
     for (let i = 0; i < CurrentLevel-1; i++) {
@@ -287,24 +278,27 @@ function statisticsTab() {
     document.querySelector("#stats1").textContent = TasksCompleted;
     document.querySelector("#stats2").textContent = allxp;
     document.querySelector("#stats3").textContent = CurrentLevel;
-    document.querySelector("#stats4").textContent = Math.ceil((TimeOnline/60/60) * 100) / 100;
     document.querySelector(".content").style.display = "none";
     document.querySelector(".rewards").style.display = "none";
     document.querySelector(".customrewards").style.display = "none";
+    document.querySelector(".home").style.display = "none";
     document.querySelector(".statistics").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#customrewardsbutton").classList.remove("tabbedin");
     document.querySelector("#rewardsbutton").classList.remove("tabbedin");
+    document.querySelector("#homebutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.add("tabbedin");
 };
 function customRewardsTab() {
     document.querySelector(".content").style.display = "none";
     document.querySelector(".rewards").style.display = "none";
     document.querySelector(".statistics").style.display = "none";
+    document.querySelector(".home").style.display = "none";
     document.querySelector(".customrewards").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#rewardsbutton").classList.remove("tabbedin");
+    document.querySelector("#homebutton").classList.remove("tabbedin");
     document.querySelector("#customrewardsbutton").classList.add("tabbedin");
 };
 document.querySelector("#addreward").onclick = function () {
@@ -395,10 +389,12 @@ function tasksTab() {
     document.querySelector(".rewards").style.display = "none";
     document.querySelector(".statistics").style.display = "none";
     document.querySelector(".customrewards").style.display = "none";
+    document.querySelector(".home").style.display = "none";
     document.querySelector(".content").style.display = "block";
     document.querySelector("#rewardsbutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#customrewardsbutton").classList.remove("tabbedin");
+    document.querySelector("#homebutton").classList.remove("tabbedin");
     document.querySelector("#tasksbutton").classList.add("tabbedin");
 };
 // Rewards
@@ -408,19 +404,14 @@ if (JSON.parse(localStorage.getItem("rewards")) == undefined) {
 function rewardsTab() {
     document.querySelector(".content").style.display = "none";
     document.querySelector(".statistics").style.display = "none";
+    document.querySelector(".home").style.display = "none";
     document.querySelector(".customrewards").style.display = "none";
     document.querySelector(".rewards").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#customrewardsbutton").classList.remove("tabbedin");
+    document.querySelector("#homebutton").classList.remove("tabbedin");
     document.querySelector("#rewardsbutton").classList.add("tabbedin");
-};
-function closeRewardsTab() {
-    EvTarget = event.target;
-    EvTarget.disabled = true;
-    document.querySelector(".rewards").style.position = "fixed";
-    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".rewards").style.right = "-50%"}else{document.querySelector(".rewards").style.right = "-100%"}},100);
-    setTimeout(function(){document.querySelector(".rewards").style.position = "absolute";document.querySelector(".rewards").style.display = "none";EvTarget.disabled = false;},1100);
 };
 // Reward 1
 if (JSON.parse(localStorage.getItem("rewards")).reward1 == undefined) {
@@ -727,4 +718,16 @@ function developerMode() {
         document.getElementById("devmode").textContent = `xpvalue,randnum{display:none}`
         return "Developer mode disabled.";
     }
+};
+function homeTab() {
+    document.querySelector(".content").style.display = "none";
+    document.querySelector(".rewards").style.display = "none";
+    document.querySelector(".statistics").style.display = "none";
+    document.querySelector(".customrewards").style.display = "none";
+    document.querySelector(".home").style.display = "block";
+    document.querySelector("#tasksbutton").classList.remove("tabbedin");
+    document.querySelector("#statsbutton").classList.remove("tabbedin");
+    document.querySelector("#rewardsbutton").classList.remove("tabbedin");
+    document.querySelector("#customrewardsbutton").classList.remove("tabbedin");
+    document.querySelector("#homebutton").classList.add("tabbedin");
 };

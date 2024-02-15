@@ -120,3 +120,7 @@ ___
 #### *5.2 Small Fix*
 ___
 - Removed the TimeOnline statistic
+# Mobile Update 5,1
+- Moved the taskbar up a small amount
+- Added Home tab
+- KRZS Support

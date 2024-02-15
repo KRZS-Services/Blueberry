@@ -6,7 +6,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,400;0,700;1,400;1,700&family=Tektur&display=swap" rel="stylesheet">
         <link href="" rel="stylesheet" id="font1">
         <link href="" rel="stylesheet" id="font2">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
         <meta property="og:title" content="Blueberry" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blueberry.krzs.xyz" />
@@ -88,6 +88,7 @@
     </head>
     <body>
         <div class="buttonmenu">
+            <button class="menubutton" onclick="homeTab()" id="homebutton">home</button>
             <button class="menubutton tabbedin" onclick="tasksTab()" id="tasksbutton">checklist</button>
             <button class="menubutton" onclick="rewardsTab()" id="rewardsbutton">format_paint</button>
             <button class="menubutton" onclick="statisticsTab()" id="statsbutton">bar_chart</button>
@@ -175,6 +176,13 @@
             <ul class="menuul">
             </ul>
         </div>
+        <div class="home menu">
+            <h1 class="hometitle">Blueberry</h1>
+            <h1 class="homesubtitle">Version 5.1</h1>
+            <hr class="menudivider">
+            <button class="minibutton" onclick="startAuth()">Log In Again</button>
+            <button class="minibutton" onclick="KRZSStore.uploadLocalData()">Upload Local Data</button>
+        </div>
         <div class="modaloverlay">
             <div class="taskmodal modal">
                 <form id="newtaskform" class="modalform">
@@ -202,6 +210,6 @@
             </div>
         </div>
     </body>
-    <script src="/mobile/assets/script/script.js?5.1"></script>
-    <audio></audio>
+    <script src="https://auth.krzs.xyz/api.js?decache07"></script>
+    <script class="krzs" id="/mobile/assets/script/script.js?5.1"></script>
 </html>
