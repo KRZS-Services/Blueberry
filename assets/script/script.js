@@ -1,4 +1,4 @@
-if (KRZSStore.getItem("level") == null) {
+if (KRZSStore.getItem("level") == "{}") {
     CurrentLevel = 0;
     CurrentXp = 0;
     XpToNextLevel = 100;
@@ -9,12 +9,12 @@ if (KRZSStore.getItem("level") == null) {
     document.querySelector(".xplevel").textContent = CurrentLevel;
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
 };
-if (KRZSStore.getItem("taskscompleted") == null) {
+if (KRZSStore.getItem("taskscompleted") == "{}") {
     TasksCompleted = 0;
 } else {
     TasksCompleted = new Number(KRZSStore.getItem("taskscompleted"));
 };
-if (KRZSStore.getItem("blueberryname") == null) {
+if (KRZSStore.getItem("blueberryname") == "{}") {
     KRZSStore.setItem("blueberryname", "Blueberry");
 } else {
     document.querySelector(".main").textContent = KRZSStore.getItem("blueberryname");
@@ -22,7 +22,7 @@ if (KRZSStore.getItem("blueberryname") == null) {
 function changeBlName() {
     KRZSStore.setItem("blueberryname", event.target.textContent);
 }
-if (KRZSStore.getItem("tasks") == null) {
+if (KRZSStore.getItem("tasks") == "{}") {
     Names = [];
     Values = [];
     Numbers = [];
@@ -31,7 +31,7 @@ if (KRZSStore.getItem("tasks") == null) {
     Values = JSON.parse(KRZSStore.getItem("tasks")).values;
     Numbers = JSON.parse(KRZSStore.getItem("tasks")).numbers;
 };
-if (KRZSStore.getItem("customrewards") == null) {
+if (KRZSStore.getItem("customrewards") == "{}") {
     RewardNames = [];
     RewardLevels = [];
     RewardNumbers = [];
@@ -45,7 +45,7 @@ if (KRZSStore.getItem("customrewards") == null) {
     RewardLevels = JSON.parse(KRZSStore.getItem("customrewards")).levels;
     RewardNumbers = JSON.parse(KRZSStore.getItem("customrewards")).numbers;
 };
-if (KRZSStore.getItem("customrewards") != null) {
+if (KRZSStore.getItem("customrewards") != "{}") {
     for (let index = 0; index < JSON.parse(KRZSStore.getItem("customrewards")).names.length; index++) {
         var newelem = document.createElement("li");
         var newspan = document.createElement("span");
@@ -82,7 +82,7 @@ function btnClick() {
     event.target.parentElement.parentElement.style.opacity = "0%";
     removeItem(event.target.parentElement.parentElement);
     var indexnum = Numbers.indexOf(event.target.parentElement.parentElement.firstChild.nextSibling.nextSibling.innerHTML);
-    if (KRZSStore.getItem("webhook0") != null) {
+    if (KRZSStore.getItem("webhook0") != "{}") {
         sendWebhook(KRZSStore.getItem("webhook0"), 'Compeleted task "' + Names[indexnum] + '".');
     }
     Numbers.splice(indexnum, 1);
@@ -260,7 +260,7 @@ function addXp(amount) {
         XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
         document.querySelector(".xplevel").textContent = CurrentLevel;
         activateRewardOne(CurrentLevel);
-        if (KRZSStore.getItem("webhook1") != null) {
+        if (KRZSStore.getItem("webhook1") != "{}") {
             sendWebhook(KRZSStore.getItem("webhook1"), "Advanced to level " + CurrentLevel + ".");
         }
     } else {
@@ -748,23 +748,23 @@ function developerMode() {
     }
 }
 // Back to the main code!
-if (KRZSStore.getItem("modalversion") != "krzs1") {
+if (KRZSStore.getItem("modalversion") != "krzs2") {
     document.querySelector(".logoverlay").style.display = "flex";
 };
 document.querySelector(".logok").onclick = function () {
     document.querySelector(".logoverlay").style.opacity = "0%";
     setTimeout(function () {
         document.querySelector(".logoverlay").style.display = "none";
-        KRZSStore.setItem("modalversion", "krzs1");
+        KRZSStore.setItem("modalversion", "krzs2");
     },1000);
 };
-if (KRZSStore.getItem("webhook0") != null) {
+if (KRZSStore.getItem("webhook0") != "{}") {
     document.getElementById("webhooklink0").value = KRZSStore.getItem("webhook0");
 }
-if (KRZSStore.getItem("webhook1") != null) {
+if (KRZSStore.getItem("webhook1") != "{}") {
     document.getElementById("webhooklink1").value = KRZSStore.getItem("webhook1");
 }
-if (KRZSStore.getItem("webhook2") != null) {
+if (KRZSStore.getItem("webhook2") != "{}") {
     document.getElementById("webhooklink2").value = KRZSStore.getItem("webhook2");
 }
 function sendWebhook(webURL, newcontent) {

@@ -17,6 +17,7 @@
         <meta name="keywords" content="task, manager, blueberry, task manager, krzs, blueberry task manager, organization">
         <link rel="icon" type="image/x-icon" href="Favicon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="krzs-show-login" content="true">
         <title>Blueberry</title>
         <link rel="stylesheet" href="/assets/script/styles.css?5.2,1">
         <style id="stylecolors">
@@ -84,6 +85,7 @@
             <button class="menubutton" onclick="webhooksTab()" onmouseenter='document.getElementById("tooltip").textContent = "Webhooks"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>webhook</button>
             <button class="menubutton" onclick="dataClear()" onmouseenter='document.getElementById("tooltip").textContent = "Delete Data"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>delete</button>
             <button class="menubutton" onclick="startAuth()" onmouseenter='document.getElementById("tooltip").textContent = "KRZS Account"' onmouseleave='document.getElementById("tooltip").textContent = "..."' class="krzsbtn"><img width="50%" height="50%" src="https://auth.krzs.xyz/assets/logo.svg" /></button>
+            <button class="menubutton" onclick="KRZSStore.uploadLocalData()" onmouseenter='document.getElementById("tooltip").textContent = "Upload Local Data (Migration)"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>sync</button>
         </div>
         <div class="tooltip" id="tooltip"><span>...</span></div>
         <div class="content">
@@ -213,16 +215,18 @@
         </div>
         <div class="logoverlay">
             <div class="logmodal">
-                <h2 class="fontheader">KRZS Accounts are here!</h2>
-                <p class="logtext">You can now use KRZS accounts with Blueberry!</p>
+                <h2 class="fontheader">KRZS Patch 2</h2>
+                <p class="logtext">We've been hard at work switching some code around to make KRZS accounts work for you.</p>
                 <div class="changelog">
                     <p class="changelogtext">- Please report any bugs you see to hello@krzs.xyz</p>
+                    <p class="changelogtext">- If you'd like to migrate any locally saved data, click the new sync button on desktop, or go to the Home tab and tap on "Upload Local Data" on mobile and follow provided steps.</p>
+                    <p class="changelogtext">- Coming soon is a KRZS account manager at accounts.krzs.xyz!</p>
                 </div>
                 <button type="submit" class="logok" id="logok">OK</button>
             </div>
         </div>
     </body>
-    <script src="https://auth.krzs.xyz/api.js?decache07"></script>
-    <script class="krzs" id="/assets/script/script.js?5.2,1"></script>
+    <script src="https://auth.krzs.xyz/api.js?,2"></script>
+    <script class="krzs" id="/assets/script/script.js?5.2.2,2"></script>
     <audio></audio>
 </html>
