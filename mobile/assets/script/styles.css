@@ -304,12 +304,6 @@ h6 {font-size: 5px}
     font-family: 'Outfit';
     line-height: 30px;
 }
-.rewardbox {
-    border: 2px solid white;
-    padding: 10px;
-    margin-top: 10px;
-    display: block;
-}
 .italicmenu {
     color: gray;
 }
@@ -344,52 +338,6 @@ h6 {font-size: 5px}
 }
 .menuul li span:focus {
     cursor: text;
-}
-.rewardcheck {
-    appearance: checkbox !important;
-    width: 13px;
-    height: 13px;
-    margin: 0;
-    margin-right: 5px;
-}
-.rewardcolor {
-    width: 100%;
-    height: 40px;
-    margin-top: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    padding: 0;
-    outline: 0;
-}
-.menuinput {
-    background: white;
-    border: 2px solid gray;
-    padding: 5px;
-    font-size: 13px;
-    font-family: 'Outfit';
-    margin-top: 10px;
-    width: calc(100% - 15px);
-    border-radius: 5px;
-    transition: 1s border;
-    cursor: pointer;
-}
-.menuinput:focus {
-    outline: none;
-    border: 2px solid #3760db;
-    cursor: text;
-}
-.menuinput::placeholder {
-    color: rgba(100,100,100);
-    opacity: 1;
-}
-.rewardcolor::-webkit-color-swatch {
-    border: 1px solid white;
-    border-radius: 10px;
-}
-.rewardcolor::-webkit-color-swatch-wrapper {
-    padding: 0;
 }
 .buttonmenu {
     position: fixed;

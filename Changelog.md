@@ -131,3 +131,13 @@ ___
 #### *5.2.2 Small Fix*
 ___
 - Fixed issues related to KRZS accounts
+## Version 5.3
+- Fixed a mobile bug that would prevent tasks from finishing
+- Removed the customization menu
+- Removed the popup changelog
+- Fixed a bug that affected the statistics tab
+- Removed Webhooks
+- Removed data deletion
+- Modified menu blur
+
+*Changelogs will be moved soon!*

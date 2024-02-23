@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="krzs-show-login" content="true">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/mobile/assets/script/styles.css?5.2,1">
+        <link rel="stylesheet" href="/mobile/assets/script/styles.css?5.3">
         <meta name="apple-mobile-web-app-title" content="Blueberry">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -91,7 +91,6 @@
         <div class="buttonmenu">
             <button class="menubutton" onclick="homeTab()" id="homebutton">home</button>
             <button class="menubutton tabbedin" onclick="tasksTab()" id="tasksbutton">checklist</button>
-            <button class="menubutton" onclick="rewardsTab()" id="rewardsbutton">format_paint</button>
             <button class="menubutton" onclick="statisticsTab()" id="statsbutton">bar_chart</button>
             <button class="menubutton" onclick="customRewardsTab()" id="customrewardsbutton">star</button>
         </div>
@@ -104,60 +103,6 @@
                 <button class="addnewtask">Add new task...</button>
             </div>
         </div>
-        <div class="rewards menu">
-            <h1 class="menumain"><div class="menumainicon">format_paint</div>Customization</h1>
-            <hr class="menudivider">
-            <!--Reward 1-->
-            <span class="menutext"><b>Levelup Congratulator</b>
-            <div class="rewardbox" id="rewardsbox1">
-                <span class="menutext"><i>Custom TTS message for yourself upon leveling up!</i></span>
-                <br>
-                <span class="menutext"><input type="checkbox" id="reward1" class="rewardcheck" /><label for="reward1">Enable</label></span>
-                <br><br>
-                <span class="menutext"><b>Currently set to:</b> <span class="menutext" id="rewards1message">Congrats, you leveled up!</span> <a onclick="changeRewardOne()"><b>Change</b></a></span>
-            </div>
-            <br>
-            <!--Reward 2-->
-            <span class="menutext"><b>Task Congratulator</b>
-            <div class="rewardbox" id="rewardsbox2">
-                <span class="menutext"><i>Custom TTS message for yourself upon task completion!</i></span>
-                <br>
-                <span class="menutext"><input type="checkbox" id="reward2" class="rewardcheck" /><label for="reward2">Enable</label></span>
-                <br><br>
-                <span class="menutext"><b>Currently set to:</b> <span class="menutext" id="rewards2message">Congrats, you completed a task!</span> <a onclick="changeRewardTwo()"><b>Change</b></a></span>
-            </div>
-            <br>
-            <!--Reward 3-->
-            <span class="menutext"><b>Custom Colors</b>
-            <div class="rewardbox" id="rewardsbox3">
-                <span class="menutext"><i>Custom theme colors!</i></span>
-                <br><br>
-                <span class="menutext"><label for="reward3-1">Background Color:</label></span>
-                <input type="color" value="#032d70" id="reward3-1" class="rewardcolor" oninput="changeRewardThree(1, event.target.value)" />
-                <span class="menutext"><label for="reward3-2">Task Color:</label></span>
-                <input type="color" value="#3760db" id="reward3-2" class="rewardcolor" oninput="changeRewardThree(2, event.target.value)" />
-                <span class="menutext"><label for="reward3-2">Task Text:</label></span>
-                <input type="color" value="#ffffff" id="reward3-3" class="rewardcolor" oninput="changeRewardThree(3, event.target.value)" />
-                <span class="menutext"><label for="reward3-4">Header:</label></span>
-                <input type="color" value="#ffffff" id="reward3-4" class="rewardcolor" oninput="changeRewardThree(4, event.target.value)" />
-                <span class="menutext"><label for="reward3-5">XP Bar:</label></span>
-                <input type="color" value="#00af00" id="reward3-5" class="rewardcolor" oninput="changeRewardThree(5, event.target.value)" />
-                <span class="menutext"><label for="reward3-6">XP Bar Text:</label></span>
-                <input type="color" value="#00ff00" id="reward3-6" class="rewardcolor" oninput="changeRewardThree(6, event.target.value)" />
-            </div>
-            <br>
-            <!--Reward 4-->
-            <span class="menutext"><b>Custom Fonts</b>
-                <div class="rewardbox" id="rewardsbox4">
-                    <span class="menutext"><i>Choose any font on your computer or from <a href="https://fonts.google.com">Google Fonts</a>.</i></span>
-                    <br><br>
-                    <span class="menutext"><label for="reward4-1">Text:</label></span>
-                    <input type="text" value="Outfit" id="reward4-1" class="menuinput" onkeyup="changeRewardFour(1, event.target.value)" />
-                    <br><br>
-                    <span class="menutext"><label for="reward4-1">Headers:</label></span>
-                    <input type="text" value="Tektur" id="reward4-2" class="menuinput" onkeyup="changeRewardFour(2, event.target.value)" />
-                </div>
-        </div>
         <div class="statistics menu">
             <h1 class="menumain"><div class="menumainicon">bar_chart</div>Statistics</h1>
             <hr class="menudivider">
@@ -166,8 +111,6 @@
             <span class="menutext"><b>XP gained:</b> <span id="stats2" class="menutext"></span></span>
             <br>
             <span class="menutext"><b>Levels gained:</b> <span id="stats3" class="menutext"></span></span>
-            <br>
-            <span class="menutext"><b>Time online:</b> <span id="stats4" class="menutext"></span> hours</span>
         </div>
         <div class="customrewards menu">
             <h1 class="menumain"><div class="menumainicon">star</div>Rewards</h1>
@@ -179,7 +122,6 @@
         </div>
         <div class="home menu">
             <h1 class="hometitle">Blueberry</h1>
-            <h1 class="homesubtitle">Version 5.2 (Mobile Update 1)</h1>
             <hr class="menudivider">
             <button class="minibutton" onclick="startAuth()">Log In Again</button>
             <button class="minibutton" onclick="KRZSStore.uploadLocalData()">Upload Local Data (Migration)</button>
@@ -212,5 +154,5 @@
         </div>
     </body>
     <script src="https://auth.krzs.xyz/api.js?,2"></script>
-    <script class="krzs" id="/mobile/assets/script/script.js?5.2.2,2"></script>
+    <script class="krzs" id="/mobile/assets/script/script.js?5.3"></script>
 </html>
