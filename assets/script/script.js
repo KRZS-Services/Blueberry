@@ -131,7 +131,7 @@ for (let index = 0; index < Names.length; index++) {
     xpvalue.innerHTML = Values[index];
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Numbers[index];
-    ptext.onfocusout = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+    ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
     ptext.onclick = function(){
         if (ShiftKeyDown) {
             event.target.parentElement.parentElement.remove();
@@ -182,7 +182,7 @@ document.getElementById("newtaskform").onsubmit = function () {
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Math.random()*10;
     Nindex = Numbers.length;
-    ptext.onfocusout = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+    ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
     ptext.onclick = function(){
         if (ShiftKeyDown) {
             event.target.parentElement.parentElement.remove();
