@@ -14,14 +14,6 @@ if (KRZSStore.getItem("taskscompleted") == "{}") {
 } else {
     TasksCompleted = new Number(KRZSStore.getItem("taskscompleted"));
 };
-if (KRZSStore.getItem("blueberryname") == "{}") {
-    KRZSStore.setItem("blueberryname", "Blueberry");
-} else {
-    document.querySelector(".main").textContent = KRZSStore.getItem("blueberryname");
-};
-function changeBlName() {
-    KRZSStore.setItem("blueberryname", event.target.textContent);
-}
 if (KRZSStore.getItem("tasks") == "{}") {
     Names = [];
     Values = [];
@@ -139,7 +131,7 @@ for (let index = 0; index < Names.length; index++) {
     xpvalue.innerHTML = Values[index];
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Numbers[index];
-    ptext.onkeyup = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+    ptext.onfocusout = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
     ptext.onclick = function(){
         if (ShiftKeyDown) {
             event.target.parentElement.parentElement.remove();
@@ -190,7 +182,7 @@ document.getElementById("newtaskform").onsubmit = function () {
     var randnum = document.createElement("randnum");
     randnum.innerHTML = Math.random()*10;
     Nindex = Numbers.length;
-    ptext.onkeyup = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+    ptext.onfocusout = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
     ptext.onclick = function(){
         if (ShiftKeyDown) {
             event.target.parentElement.parentElement.remove();
