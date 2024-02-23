@@ -139,5 +139,8 @@ ___
 - Removed Webhooks
 - Removed data deletion
 - Modified menu blur
+#### *5.3.1 Small Fix*
+___
+- Fixed a mobile bug that would prevent tasks from finishing
 
 *Changelogs will be moved soon!*

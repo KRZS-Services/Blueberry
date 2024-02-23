@@ -253,9 +253,6 @@ function addXp(amount) {
         CurrentXp = Math.abs(XpToNextLevel);
         XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
         document.querySelector(".xplevel").textContent = CurrentLevel;
-        activateRewardOne(CurrentLevel);
-    } else {
-        activateRewardTwo(event.target.parentElement.textContent);
     }
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
     KRZSStore.setItem("level", CurrentLevel);
@@ -345,7 +342,6 @@ function notify(text) {
     notification.textContent = text;
     document.body.insertBefore(notification, document.body.firstChild);
     var audio = document.querySelector("audio");
-    audio.src = "/assets/sounds/notification.ogg";
     audio.currentTime = 0;
     audio.play();
     setTimeout(function () {
