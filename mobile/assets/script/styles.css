@@ -142,11 +142,6 @@ h6 {font-size: 5px}
     content: " Debug ";
     font-weight: bold;
 }
-.rewardpriority:before {
-    color: hotpink;
-    content: " Reward ";
-    font-weight: bold;
-}
 .checkbox {
     aspect-ratio: 1 / 1;
     background: transparent;

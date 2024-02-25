@@ -23,47 +23,6 @@ if (KRZSStore.getItem("tasks") == "{}") {
     Values = JSON.parse(KRZSStore.getItem("tasks")).values;
     Numbers = JSON.parse(KRZSStore.getItem("tasks")).numbers;
 };
-if (KRZSStore.getItem("customrewards") == "{}") {
-    RewardNames = [];
-    RewardLevels = [];
-    RewardNumbers = [];
-    KRZSStore.setItem("customrewards", JSON.stringify({
-        "names": [],
-        "levels": [],
-        "numbers": []
-    }));
-} else {
-    RewardNames = JSON.parse(KRZSStore.getItem("customrewards")).names;
-    RewardLevels = JSON.parse(KRZSStore.getItem("customrewards")).levels;
-    RewardNumbers = JSON.parse(KRZSStore.getItem("customrewards")).numbers;
-};
-if (KRZSStore.getItem("customrewards") != "{}") {
-    for (let index = 0; index < JSON.parse(KRZSStore.getItem("customrewards")).names.length; index++) {
-        var newelem = document.createElement("li");
-        var newspan = document.createElement("span");
-        var randnum = document.createElement("randnum");
-        randnum.innerHTML = RewardNumbers[index];
-        newspan.classList.add("menutext");
-        newspan.textContent = RewardNames[index] + " - Level " + RewardLevels[index];
-        newelem.appendChild(newspan);
-        document.querySelector(".menuul").appendChild(newelem);
-        newelem.appendChild(randnum);
-        newelem.onclick = function () {
-            if (document.querySelector("#deletereward").classList.contains("active")) {
-                RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-                RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-                RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-                KRZSStore.setItem("customrewards", JSON.stringify({
-                    "names": RewardNames,
-                    "levels": RewardLevels,
-                    "numbers": RewardNumbers
-                }));
-                event.target.remove();
-                document.querySelector("#deletereward").classList.remove("active");
-            };
-        };
-    };
-};
 function removeItem(item) {
     setTimeout(function () {item.remove();},1500);
 };
@@ -105,110 +64,15 @@ document.addEventListener("keyup", (event) => {
     }
 });
 for (let index = 0; index < Names.length; index++) {
-    var taskelem = document.createElement("div");
-    taskelem.classList.add("task");
-    var pelem = document.createElement("p");
-    var checkbox = document.createElement("button");
-    checkbox.classList.add("checkbox");
-    checkbox.onclick = function () { btnClick() };
-    var ptext = document.createElement("span");
-    ptext.contentEditable = true;
-    ptext.textContent = Names[index];
-    if (Values[index] == "75") {
-        ptext.classList.add("normalpriority");
-    } else if (Values[index] == "100") {
-        ptext.classList.add("highpriority");
-    } else if (Values[index] == "50") {
-        ptext.classList.add("lowpriority");
-    } else if (Values[index] == "0") {
-        ptext.classList.add("rewardpriority");
-    } else {
-        ptext.classList.add("debugpriority");
-    };
-    pelem.appendChild(checkbox);
-    pelem.appendChild(ptext);
-    var xpvalue = document.createElement("xpvalue");
-    xpvalue.innerHTML = Values[index];
-    var randnum = document.createElement("randnum");
-    randnum.innerHTML = Numbers[index];
-    ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
-    ptext.onclick = function(){
-        if (ShiftKeyDown) {
-            event.target.parentElement.parentElement.remove();
-            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            KRZSStore.setItem("tasks", JSON.stringify({
-                "names": Names,
-                "values": Values,
-                "numbers": Numbers
-            }));
-        }
-    };
-    taskelem.appendChild(pelem);
-    taskelem.appendChild(xpvalue);
-    taskelem.appendChild(randnum);
-    document.querySelector(".tasks").appendChild(taskelem);
+    createTask(Names[index], Values[index], false, Numbers[index])
 }
 document.getElementById("newtaskform").onsubmit = function () {
     event.preventDefault();
     document.querySelector("#taskcreate").disabled = true;
     document.querySelector("#taskcancel").disabled = true;
     document.querySelector("#taskpriority").disabled = true;
-    var taskelem = document.createElement("div");
-    taskelem.classList.add("task");
-    var pelem = document.createElement("p");
-    var checkbox = document.createElement("button");
-    checkbox.classList.add("checkbox");
-    checkbox.onclick = function () { btnClick() };
-    var ptext = document.createElement("span");
-    ptext.contentEditable = true;
-    ptext.textContent = document.querySelector(".taskname").value;
-    if (document.querySelector(".taskpriority").value == "75") {
-        ptext.classList.add("normalpriority");
-    } else if (document.querySelector(".taskpriority").value == "100") {
-        ptext.classList.add("highpriority");
-    } else if (document.querySelector(".taskpriority").value == "50") {
-        ptext.classList.add("lowpriority");
-    } else if (document.querySelector(".taskpriority").value == "0") {
-        ptext.classList.add("rewardpriority");
-    } else {
-        ptext.classList.add("debugpriority");
-    };
-    pelem.appendChild(checkbox);
-    pelem.appendChild(ptext);
-    var xpvalue = document.createElement("xpvalue");
-    xpvalue.innerHTML = document.querySelector(".taskpriority").value;
-    var randnum = document.createElement("randnum");
-    randnum.innerHTML = Math.random()*10;
-    Nindex = Numbers.length;
-    ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
-    ptext.onclick = function(){
-        if (ShiftKeyDown) {
-            event.target.parentElement.parentElement.remove();
-            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            KRZSStore.setItem("tasks", JSON.stringify({
-                "names": Names,
-                "values": Values,
-                "numbers": Numbers
-            }));
-        }
-    };
-    taskelem.appendChild(pelem);
-    taskelem.appendChild(xpvalue);
-    taskelem.appendChild(randnum);
-    document.querySelector(".tasks").appendChild(taskelem);
-    Names.push(document.querySelector("#taskname").value);
-    Values.push(document.querySelector("#taskpriority").value);
-    Numbers.push(randnum.innerHTML);
     document.querySelector(".modaloverlay").style.opacity = "0%";
-    KRZSStore.setItem("tasks", JSON.stringify({
-        "names": Names,
-        "values": Values,
-        "numbers": Numbers
-    }));
+    createTask(document.querySelector(".taskname").value, document.querySelector(".taskpriority").value, true)
     setTimeout(function () {
         document.querySelector(".modaloverlay").style.display = "none";
         document.querySelector(".taskmodal").style.display = "none";
@@ -240,6 +104,67 @@ document.querySelector("#taskcancel").onclick = function () {
         document.querySelector("#taskpriority").value = "75";
     }, 1100);
 };
+function createTask(txt, priority, storetask, id) {
+    var taskelem = document.createElement("div");
+    taskelem.classList.add("task");
+    var pelem = document.createElement("p");
+    var checkbox = document.createElement("button");
+    checkbox.classList.add("checkbox");
+    checkbox.onclick = function () { btnClick() };
+    var ptext = document.createElement("span");
+    ptext.contentEditable = true;
+    ptext.textContent = txt;
+    if (priority == "75") {
+        ptext.classList.add("normalpriority");
+    } else if (priority.value == "100") {
+        ptext.classList.add("highpriority");
+    } else if (priority == "50") {
+        ptext.classList.add("lowpriority");
+    } else if (priority == "25") {
+        ptext.classList.add("aipriority");
+    } else {
+        ptext.classList.add("debugpriority");
+    };
+    pelem.appendChild(checkbox);
+    pelem.appendChild(ptext);
+    var xpvalue = document.createElement("xpvalue");
+    xpvalue.innerHTML = priority;
+    var randnum = document.createElement("randnum");
+    if (id != "") {
+        randnum.innerHTML = id;
+    } else {
+        randnum.innerHTML = Math.random()*10;
+    }
+    Nindex = Numbers.length;
+    ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+    ptext.onclick = function(){
+        if (ShiftKeyDown) {
+            event.target.parentElement.parentElement.remove();
+            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            KRZSStore.setItem("tasks", JSON.stringify({
+                "names": Names,
+                "values": Values,
+                "numbers": Numbers
+            }));
+        }
+    };
+    taskelem.appendChild(pelem);
+    taskelem.appendChild(xpvalue);
+    taskelem.appendChild(randnum);
+    document.querySelector(".tasks").appendChild(taskelem);
+    if (storetask) {
+        Names.push(txt);
+        Values.push(priority);
+        Numbers.push(randnum.innerHTML);
+        KRZSStore.setItem("tasks", JSON.stringify({
+            "names": Names,
+            "values": Values,
+            "numbers": Numbers
+        }));
+    }
+}
 function addXp(amount) {
     CurrentXp = CurrentXp + new Number(amount);
     XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
@@ -287,100 +212,12 @@ function closeStatisticsTab() {
     setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".statistics").style.right = "-50%"}else{document.querySelector(".statistics").style.right = "-100%"}},100);
     setTimeout(function(){document.querySelector(".statistics").style.position = "absolute";document.querySelector(".statistics").style.display = "none";EvTarget.disabled = false;},1100);
 };
-function closeCustomRewardsTab() {
-    EvTarget = event.target;
-    EvTarget.disabled = true;
-    document.querySelector(".customrewards").style.position = "fixed";
-    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".customrewards").style.right = "-50%"}else{document.querySelector(".customrewards").style.right = "-100%"}},100);
-    setTimeout(function(){document.querySelector(".customrewards").style.position = "absolute";document.querySelector(".customrewards").style.display = "none";EvTarget.disabled = false;},1100);
-};
-function customRewardsTab() {
-    EvTarget = event.target
-    EvTarget.disabled = true;
-    document.querySelector(".customrewards").style.position = "fixed";
-    if(document.documentElement.scrollWidth > 950){document.querySelector(".customrewards").style.right = "-50%";}else{document.querySelector(".customrewards").style.right = "-100%";};
-    document.querySelector(".customrewards").style.display = "block";
-    setTimeout(function(){document.querySelector(".customrewards").style.right = "0"},100);
-    setTimeout(function(){document.querySelector(".customrewards").style.position = "absolute";EvTarget.disabled = false;},1100);
-};
-document.querySelector("#addreward").onclick = function () {
-    document.querySelector(".rewardmodal").style.display = "block";
-    document.querySelector(".modaloverlay").style.display = "flex";
-    setTimeout(function () {document.querySelector(".modaloverlay").style.opacity = "100%";},100);
-};
-document.querySelector("#deletereward").onclick = function () {
-    if (event.target.classList.contains("active")) {
-        event.target.classList.remove("active");
-    } else {
-        event.target.classList.add("active");
-    };
-};
-document.querySelector("#rewardcancel").onclick = function () {
-    event.preventDefault();
-    document.querySelector("#rewardcreate").disabled = true;
-    document.querySelector("#rewardcancel").disabled = true;
-    document.querySelector(".modaloverlay").style.opacity = "0%";
-    setTimeout(function () {
-        document.querySelector(".modaloverlay").style.display = "none";
-        document.querySelector(".rewardmodal").style.display = "none";
-        document.querySelector("#rewardcreate").disabled = false;
-        document.querySelector("#rewardcancel").disabled = false;
-        document.querySelector("#rewardname").value = "";
-        document.querySelector("#rewardlevel").value = "";
-    }, 1100);
-};
-document.getElementById("newrewardform").onsubmit = function () {
-    event.preventDefault();
-    document.querySelector("#rewardcreate").disabled = true;
-    document.querySelector("#rewardcancel").disabled = true;
-    var newelem = document.createElement("li");
-    var newspan = document.createElement("span");
-    var randnum = document.createElement("randnum");
-    randnum.innerHTML = Math.random()*10;
-    newspan.classList.add("menutext");
-    newspan.textContent = document.querySelector("#rewardname").value + " - Level " + document.querySelector("#rewardlevel").value;
-    newelem.appendChild(newspan);
-    document.querySelector(".menuul").appendChild(newelem);
-    newelem.appendChild(randnum);
-    newelem.onclick = function () {
-        if (document.querySelector("#deletereward").classList.contains("active")) {
-            RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            KRZSStore.setItem("customrewards", JSON.stringify({
-                "names": RewardNames,
-                "levels": RewardLevels,
-                "numbers": RewardNumbers
-            }));
-            event.target.remove();
-            document.querySelector("#deletereward").classList.remove("active");
-        };
-    };
-    RewardNames.push(document.querySelector("#rewardname").value);
-    RewardLevels.push(document.querySelector("#rewardlevel").value);
-    RewardNumbers.push(randnum.innerHTML);
-    KRZSStore.setItem("customrewards", JSON.stringify({
-        "names": RewardNames,
-        "levels": RewardLevels,
-        "numbers": RewardNumbers
-    }));
-    document.querySelector(".modaloverlay").style.opacity = "0%";
-    setTimeout(function () {
-        document.querySelector(".modaloverlay").style.display = "none";
-        document.querySelector(".rewardmodal").style.display = "none";
-        document.querySelector("#rewardcreate").disabled = false;
-        document.querySelector("#rewardcancel").disabled = false;
-        document.querySelector("#rewardname").value = "";
-        document.querySelector("#rewardlevel").value = "0";
-    }, 1100);
-}
 function notify(text) {
     var notification = document.createElement("div");
     notification.classList.add("notification");
     notification.textContent = text;
     document.body.insertBefore(notification, document.body.firstChild);
     var audio = document.querySelector("audio");
-    audio.src = "/assets/sounds/notification.ogg";
     audio.currentTime = 0;
     audio.play();
     setTimeout(function () {
@@ -411,3 +248,26 @@ function developerMode() {
 document.addEventListener('mousemove', function (e) {
     document.getElementById("tooltip").style.top = e.clientY - 15 + "px";
 }, false);
+function blueberryAI() {
+    etg = event.target;
+    etg.disabled = true;
+    var xhr = new XMLHttpRequest();
+    var url = "https://apiprox.krzs.workers.dev/blspecific/tasksuggest";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+            xhrresponse = JSON.parse(xhr.responseText).candidates[0].content.parts[0].text;
+            JSON.parse(xhrresponse).forEach(function (e) {
+                createTask(e, 25, true);
+            })
+            } catch {
+                notify("There was an error upon trying to generate the AI task suggestions.")
+            }
+            etg.disabled = false;
+        }
+    }
+    var data = Names
+    xhr.send(data);
+}

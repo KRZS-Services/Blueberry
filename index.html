@@ -80,8 +80,8 @@
     <body>
         <div class="buttonmenu" onmouseenter='document.getElementById("tooltip").style.display = "block"; document.getElementById("tooltip").textContent = "..."' onmouseleave='document.getElementById("tooltip").style.display = "none"'>
             <button class="menubutton" onclick="statisticsTab()" onmouseenter='document.getElementById("tooltip").textContent = "Statistics"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>bar_chart</button>
-            <button class="menubutton" onclick="customRewardsTab()" onmouseenter='document.getElementById("tooltip").textContent = "Rewards"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>star</button>
-            <button class="menubutton" onclick="startAuth()" onmouseenter='document.getElementById("tooltip").textContent = "KRZS Account"' onmouseleave='document.getElementById("tooltip").textContent = "..."' class="krzsbtn"><img width="50%" height="50%" src="https://auth.krzs.xyz/assets/logo.svg" /></button>
+            <button class="menubutton ai" onclick="blueberryAI()" onmouseenter='document.getElementById("tooltip").textContent = "AI"' onmouseleave='document.getElementById("tooltip").textContent = "..."'>smart_toy</button>
+            <button class="menubutton" onclick="startAuth()" onmouseenter='document.getElementById("tooltip").textContent = "KRZS Account"' onmouseleave='document.getElementById("tooltip").textContent = "..."'><img width="50%" height="50%" src="https://auth.krzs.xyz/assets/logo.svg" /></button>
         </div>
         <div class="tooltip" id="tooltip"><span>...</span></div>
         <div class="content">
@@ -103,15 +103,6 @@
             <span class="menutext"><b>XP gained:</b> <span id="stats2" class="menutext"></span></span>
             <br>
             <span class="menutext"><b>Levels gained:</b> <span id="stats3" class="menutext"></span></span>
-        </div>
-        <div class="customrewards menu">
-            <h1 class="menumain"><div class="menumainicon">star</div>Rewards</h1>
-            <button class="menubutton closebutton" onclick="closeCustomRewardsTab()">clear</button>
-            <hr class="menudivider">
-            <button class="minibutton" id="addreward">Add Reward</button>
-            <button class="minibutton" id="deletereward">Delete Reward</button>
-            <ul class="menuul">
-            </ul>
         </div>
         <div class="modaloverlay">
             <div class="taskmodal modal">

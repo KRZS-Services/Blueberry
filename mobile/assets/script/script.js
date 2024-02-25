@@ -25,47 +25,6 @@ if (KRZSStore.getItem("tasks") == "{}") {
     Values = JSON.parse(KRZSStore.getItem("tasks")).values;
     Numbers = JSON.parse(KRZSStore.getItem("tasks")).numbers;
 };
-if (KRZSStore.getItem("customrewards") == "{}") {
-    RewardNames = [];
-    RewardLevels = [];
-    RewardNumbers = [];
-    KRZSStore.setItem("customrewards", JSON.stringify({
-        "names": [],
-        "levels": [],
-        "numbers": []
-    }));
-} else {
-    RewardNames = JSON.parse(KRZSStore.getItem("customrewards")).names;
-    RewardLevels = JSON.parse(KRZSStore.getItem("customrewards")).levels;
-    RewardNumbers = JSON.parse(KRZSStore.getItem("customrewards")).numbers;
-};
-if (KRZSStore.getItem("customrewards") != "{}") {
-    for (let index = 0; index < JSON.parse(KRZSStore.getItem("customrewards")).names.length; index++) {
-        var newelem = document.createElement("li");
-        var newspan = document.createElement("span");
-        var randnum = document.createElement("randnum");
-        randnum.innerHTML = RewardNumbers[index];
-        newspan.classList.add("menutext");
-        newspan.textContent = RewardNames[index] + " - Level " + RewardLevels[index];
-        newelem.appendChild(newspan);
-        document.querySelector(".menuul").appendChild(newelem);
-        newelem.appendChild(randnum);
-        newelem.onclick = function () {
-            if (document.querySelector("#deletereward").classList.contains("active")) {
-                RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-                RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-                RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-                KRZSStore.setItem("customrewards", JSON.stringify({
-                    "names": RewardNames,
-                    "levels": RewardLevels,
-                    "numbers": RewardNumbers
-                }));
-                event.target.remove();
-                document.querySelector("#deletereward").classList.remove("active");
-            };
-        };
-    };
-};
 function removeItem(item) {
     setTimeout(function () {item.remove();},1500);
 };
@@ -113,8 +72,6 @@ for (let index = 0; index < Names.length; index++) {
         ptext.classList.add("highpriority");
     } else if (Values[index] == "50") {
         ptext.classList.add("lowpriority");
-    } else if (Values[index] == "0") {
-        ptext.classList.add("rewardpriority");
     } else {
         ptext.classList.add("debugpriority");
     };
@@ -164,8 +121,6 @@ document.getElementById("newtaskform").onsubmit = function () {
         ptext.classList.add("highpriority");
     } else if (document.querySelector(".taskpriority").value == "50") {
         ptext.classList.add("lowpriority");
-    } else if (document.querySelector(".taskpriority").value == "0") {
-        ptext.classList.add("rewardpriority");
     } else {
         ptext.classList.add("debugpriority");
     };
@@ -254,77 +209,6 @@ function dataClear() {
         location.reload();
     };
 };
-document.querySelector("#addreward").onclick = function () {
-    document.querySelector(".rewardmodal").style.display = "block";
-    document.querySelector(".modaloverlay").style.display = "flex";
-    setTimeout(function () {document.querySelector(".modaloverlay").style.opacity = "100%";},100);
-};
-document.querySelector("#deletereward").onclick = function () {
-    if (event.target.classList.contains("active")) {
-        event.target.classList.remove("active");
-    } else {
-        event.target.classList.add("active");
-    };
-};
-document.querySelector("#rewardcancel").onclick = function () {
-    event.preventDefault();
-    document.querySelector("#rewardcreate").disabled = true;
-    document.querySelector("#rewardcancel").disabled = true;
-    document.querySelector(".modaloverlay").style.opacity = "0%";
-    setTimeout(function () {
-        document.querySelector(".modaloverlay").style.display = "none";
-        document.querySelector(".rewardmodal").style.display = "none";
-        document.querySelector("#rewardcreate").disabled = false;
-        document.querySelector("#rewardcancel").disabled = false;
-        document.querySelector("#rewardname").value = "";
-        document.querySelector("#rewardlevel").value = "";
-    }, 1100);
-};
-document.getElementById("newrewardform").onsubmit = function () {
-    event.preventDefault();
-    document.querySelector("#rewardcreate").disabled = true;
-    document.querySelector("#rewardcancel").disabled = true;
-    var newelem = document.createElement("li");
-    var newspan = document.createElement("span");
-    var randnum = document.createElement("randnum");
-    randnum.innerHTML = Math.random()*10;
-    newspan.classList.add("menutext");
-    newspan.textContent = document.querySelector("#rewardname").value + " - Level " + document.querySelector("#rewardlevel").value;
-    newelem.appendChild(newspan);
-    document.querySelector(".menuul").appendChild(newelem);
-    newelem.appendChild(randnum);
-    newelem.onclick = function () {
-        if (document.querySelector("#deletereward").classList.contains("active")) {
-            RewardNames.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            RewardLevels.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            RewardNumbers.splice(RewardNumbers.indexOf(event.target.firstChild.nextSibling.textContent), 1);
-            KRZSStore.setItem("customrewards", JSON.stringify({
-                "names": RewardNames,
-                "levels": RewardLevels,
-                "numbers": RewardNumbers
-            }));
-            event.target.remove();
-            document.querySelector("#deletereward").classList.remove("active");
-        };
-    };
-    RewardNames.push(document.querySelector("#rewardname").value);
-    RewardLevels.push(document.querySelector("#rewardlevel").value);
-    RewardNumbers.push(randnum.innerHTML);
-    KRZSStore.setItem("customrewards", JSON.stringify({
-        "names": RewardNames,
-        "levels": RewardLevels,
-        "numbers": RewardNumbers
-    }));
-    document.querySelector(".modaloverlay").style.opacity = "0%";
-    setTimeout(function () {
-        document.querySelector(".modaloverlay").style.display = "none";
-        document.querySelector(".rewardmodal").style.display = "none";
-        document.querySelector("#rewardcreate").disabled = false;
-        document.querySelector("#rewardcancel").disabled = false;
-        document.querySelector("#rewardname").value = "";
-        document.querySelector("#rewardlevel").value = "0";
-    }, 1100);
-}
 function notify(text) {
     var notification = document.createElement("div");
     notification.classList.add("notification");
@@ -361,20 +245,16 @@ function developerMode() {
 function homeTab() {
     document.querySelector(".content").style.display = "none";
     document.querySelector(".statistics").style.display = "none";
-    document.querySelector(".customrewards").style.display = "none";
     document.querySelector(".home").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.remove("tabbedin");
-    document.querySelector("#customrewardsbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.add("tabbedin");
 };
 function tasksTab() {
     document.querySelector(".statistics").style.display = "none";
-    document.querySelector(".customrewards").style.display = "none";
     document.querySelector(".home").style.display = "none";
     document.querySelector(".content").style.display = "block";
     document.querySelector("#statsbutton").classList.remove("tabbedin");
-    document.querySelector("#customrewardsbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
     document.querySelector("#tasksbutton").classList.add("tabbedin");
 };
@@ -391,11 +271,9 @@ function statisticsTab() {
     document.querySelector("#stats2").textContent = allxp;
     document.querySelector("#stats3").textContent = CurrentLevel;
     document.querySelector(".content").style.display = "none";
-    document.querySelector(".customrewards").style.display = "none";
     document.querySelector(".home").style.display = "none";
     document.querySelector(".statistics").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
-    document.querySelector("#customrewardsbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.add("tabbedin");
 };
@@ -403,9 +281,7 @@ function customRewardsTab() {
     document.querySelector(".content").style.display = "none";
     document.querySelector(".statistics").style.display = "none";
     document.querySelector(".home").style.display = "none";
-    document.querySelector(".customrewards").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
-    document.querySelector("#customrewardsbutton").classList.add("tabbedin");
 };
