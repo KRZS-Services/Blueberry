@@ -56,108 +56,16 @@ function updateName(text, index) {
     }));
 };
 for (let index = 0; index < Names.length; index++) {
-    var taskelem = document.createElement("div");
-    taskelem.classList.add("task");
-    var pelem = document.createElement("p");
-    pelem.classList.add("pelem");
-    var checkbox = document.createElement("button");
-    checkbox.classList.add("checkbox");
-    checkbox.onclick = function () { btnClick() };
-    var ptext = document.createElement("span");
-    ptext.contentEditable = true;
-    ptext.textContent = Names[index];
-    if (Values[index] == "75") {
-        ptext.classList.add("normalpriority");
-    } else if (Values[index] == "100") {
-        ptext.classList.add("highpriority");
-    } else if (Values[index] == "50") {
-        ptext.classList.add("lowpriority");
-    } else {
-        ptext.classList.add("debugpriority");
-    };
-    pelem.appendChild(checkbox);
-    pelem.appendChild(ptext);
-    var xpvalue = document.createElement("xpvalue");
-    xpvalue.innerHTML = Values[index];
-    var randnum = document.createElement("randnum");
-    randnum.innerHTML = Numbers[index];
-    ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
-    ptext.onclick = function(){
-        if (ShiftKeyDown) {
-            event.target.parentElement.parentElement.remove();
-            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            KRZSStore.setItem("tasks", JSON.stringify({
-                "names": Names,
-                "values": Values,
-                "numbers": Numbers
-            }));
-        }
-    };
-    taskelem.appendChild(pelem);
-    taskelem.appendChild(xpvalue);
-    taskelem.appendChild(randnum);
-    document.querySelector(".tasks").appendChild(taskelem);
+    createTask(Names[index], Values[index], false, Numbers[index])
+
 }
 document.getElementById("newtaskform").onsubmit = function () {
     event.preventDefault();
     document.querySelector("#taskcreate").disabled = true;
     document.querySelector("#taskcancel").disabled = true;
     document.querySelector("#taskpriority").disabled = true;
-    var taskelem = document.createElement("div");
-    taskelem.classList.add("task");
-    var pelem = document.createElement("p");
-    pelem.classList.add("pelem");
-    var checkbox = document.createElement("button");
-    checkbox.classList.add("checkbox");
-    checkbox.onclick = function () { btnClick() };
-    var ptext = document.createElement("span");
-    ptext.contentEditable = true;
-    ptext.textContent = document.querySelector(".taskname").value;
-    if (document.querySelector(".taskpriority").value == "75") {
-        ptext.classList.add("normalpriority");
-    } else if (document.querySelector(".taskpriority").value == "100") {
-        ptext.classList.add("highpriority");
-    } else if (document.querySelector(".taskpriority").value == "50") {
-        ptext.classList.add("lowpriority");
-    } else {
-        ptext.classList.add("debugpriority");
-    };
-    pelem.appendChild(checkbox);
-    pelem.appendChild(ptext);
-    var xpvalue = document.createElement("xpvalue");
-    xpvalue.innerHTML = document.querySelector(".taskpriority").value;
-    var randnum = document.createElement("randnum");
-    randnum.innerHTML = Math.random()*10;
-    Nindex = Numbers.length;
-    ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
-    ptext.onclick = function(){
-        if (ShiftKeyDown) {
-            event.target.parentElement.parentElement.remove();
-            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            KRZSStore.setItem("tasks", JSON.stringify({
-                "names": Names,
-                "values": Values,
-                "numbers": Numbers
-            }));
-        }
-    };
-    taskelem.appendChild(pelem);
-    taskelem.appendChild(xpvalue);
-    taskelem.appendChild(randnum);
-    document.querySelector(".tasks").appendChild(taskelem);
-    Names.push(document.querySelector("#taskname").value);
-    Values.push(document.querySelector("#taskpriority").value);
-    Numbers.push(randnum.innerHTML);
     document.querySelector(".modaloverlay").style.opacity = "0%";
-    KRZSStore.setItem("tasks", JSON.stringify({
-        "names": Names,
-        "values": Values,
-        "numbers": Numbers
-    }));
+    createTask(document.querySelector(".taskname").value, document.querySelector(".taskpriority").value, true)
     setTimeout(function () {
         document.querySelector(".modaloverlay").style.display = "none";
         document.querySelector(".taskmodal").style.display = "none";
@@ -189,6 +97,67 @@ document.querySelector("#taskcancel").onclick = function () {
         document.querySelector("#taskpriority").value = "75";
     }, 1100);
 };
+function createTask(txt, priority, storetask, id) {
+    var taskelem = document.createElement("div");
+    taskelem.classList.add("task");
+    var pelem = document.createElement("p");
+    var checkbox = document.createElement("button");
+    checkbox.classList.add("checkbox");
+    checkbox.onclick = function () { btnClick() };
+    var ptext = document.createElement("span");
+    ptext.contentEditable = true;
+    ptext.textContent = txt;
+    if (priority == "75") {
+        ptext.classList.add("normalpriority");
+    } else if (priority == "100") {
+        ptext.classList.add("highpriority");
+    } else if (priority == "50") {
+        ptext.classList.add("lowpriority");
+    } else if (priority == "25") {
+        ptext.classList.add("aipriority");
+    } else {
+        ptext.classList.add("debugpriority");
+    };
+    pelem.appendChild(checkbox);
+    pelem.appendChild(ptext);
+    var xpvalue = document.createElement("xpvalue");
+    xpvalue.innerHTML = priority;
+    var randnum = document.createElement("randnum");
+    if (id != "") {
+        randnum.innerHTML = id;
+    } else {
+        randnum.innerHTML = Math.random()*10;
+    }
+    Nindex = Numbers.length;
+    ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
+    ptext.onclick = function(){
+        if (ShiftKeyDown) {
+            event.target.parentElement.parentElement.remove();
+            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            KRZSStore.setItem("tasks", JSON.stringify({
+                "names": Names,
+                "values": Values,
+                "numbers": Numbers
+            }));
+        }
+    };
+    taskelem.appendChild(pelem);
+    taskelem.appendChild(xpvalue);
+    taskelem.appendChild(randnum);
+    document.querySelector(".tasks").appendChild(taskelem);
+    if (storetask) {
+        Names.push(txt);
+        Values.push(priority);
+        Numbers.push(randnum.innerHTML);
+        KRZSStore.setItem("tasks", JSON.stringify({
+            "names": Names,
+            "values": Values,
+            "numbers": Numbers
+        }));
+    }
+}
 function addXp(amount) {
     CurrentXp = CurrentXp + new Number(amount);
     XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
@@ -285,3 +254,26 @@ function customRewardsTab() {
     document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
 };
+function blueberryAI() {
+    etg = event.target;
+    etg.disabled = true;
+    var xhr = new XMLHttpRequest();
+    var url = "https://apiprox.krzs.workers.dev/blspecific/tasksuggest";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+            xhrresponse = JSON.parse(xhr.responseText).candidates[0].content.parts[0].text;
+            JSON.parse(xhrresponse).forEach(function (e) {
+                createTask(e, 25, true);
+            })
+            } catch {
+                notify("There was an error upon trying to generate the AI task suggestions.")
+            }
+            etg.disabled = false;
+        }
+    }
+    var data = Names
+    xhr.send(data);
+}

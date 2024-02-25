@@ -100,6 +100,15 @@ h6 {font-size: 5px}
     padding: 0;
     display: flex;
     align-items: center;
+    animation: widen 1s;
+}
+@keyframes widen {
+    from {
+        transform: scale(1, 0);
+    }
+    to {
+        transform: scale(1, 1);
+    }
 }
 .pelem {
     display: flex;
@@ -140,6 +149,11 @@ h6 {font-size: 5px}
 .debugpriority:before {
     color: green;
     content: " Debug ";
+    font-weight: bold;
+}
+.aipriority:before {
+    color: rgba(0,255,0);
+    content: " AI ";
     font-weight: bold;
 }
 .checkbox {
@@ -353,17 +367,24 @@ h6 {font-size: 5px}
     border: 0;
     background: transparent;
     font-size: 20px;
-    border-radius: 50%;
+    border-radius: 30px;
     cursor: pointer;
     transition: all 0.2s;
     border: 1px solid transparent;
-    border: 1px solid transparent;
-    color: inherit;
     color: rgba(100,100,100);
 }
 .menubutton.tabbedin {
     color: rgba(255,255,255);
     transform: scale(1.2)
+}
+.ai {
+    color: rgba(0,200,0);
+}
+.ai:disabled {
+    background: rgba(0,200,0);
+    color: white;
+    text-shadow: none;
+    font-size: 25px;
 }
 .minibutton {
     padding: 10px 15px;
