@@ -285,8 +285,8 @@ h6 {font-size: 5px}
     transform: scale(0.95);
 }
 .menu {
-    width: calc(100% - 25px);
-    height: calc(100% - 105px);
+    width: calc(100% - 45px);
+    height: calc(100% - 125px);
     display: none;
     position: fixed;
     top: 0;
@@ -539,6 +539,8 @@ h6 {font-size: 5px}
     box-shadow: 7px 7px 10px rgba(0,0,0,0.25);
     text-shadow: 2px 2px 3px rgba(0,0,0,0.5);
     transition: all 0.2s;
+    width: 55px;
+    height: 55px;
 }
 .submitbtn:disabled {
     background: rgba(100,100,100);
