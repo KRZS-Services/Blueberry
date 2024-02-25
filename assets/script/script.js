@@ -116,7 +116,7 @@ function createTask(txt, priority, storetask, id) {
     ptext.textContent = txt;
     if (priority == "75") {
         ptext.classList.add("normalpriority");
-    } else if (priority.value == "100") {
+    } else if (priority == "100") {
         ptext.classList.add("highpriority");
     } else if (priority == "50") {
         ptext.classList.add("lowpriority");
