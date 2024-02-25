@@ -473,12 +473,24 @@ h6 {font-size: 10px}
 .menubutton.ai {
     color: rgba(0,200,0);
 }
+@keyframes pulse {
+    0% {
+        font-size: 20px;
+    }
+    50% {
+        font-size: 25px;
+    }
+    100% {
+        font-size: 20px;
+    }
+}
 .menubutton.ai:disabled {
     background: rgba(0,200,0);
     outline: 2px solid rgba(0,100,0);
     color: white;
     text-shadow: none;
     font-size: 25px;
+    animation: linear infinite pulse 1s;
 }
 .minibutton {
     padding: 10px 15px;
