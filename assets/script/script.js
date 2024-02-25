@@ -212,6 +212,22 @@ function closeStatisticsTab() {
     setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".statistics").style.right = "-50%"}else{document.querySelector(".statistics").style.right = "-100%"}},100);
     setTimeout(function(){document.querySelector(".statistics").style.position = "absolute";document.querySelector(".statistics").style.display = "none";EvTarget.disabled = false;},1100);
 };
+function aiTab() {
+    EvTarget = event.target
+    EvTarget.disabled = true;
+    document.querySelector(".ai").style.position = "fixed";
+    if(document.documentElement.scrollWidth > 950){document.querySelector(".ai").style.right = "-50%";}else{document.querySelector(".ai").style.right = "-100%";};
+    document.querySelector(".ai").style.display = "flex";
+    setTimeout(function(){document.querySelector(".ai").style.right = "0"},100);
+    setTimeout(function(){document.querySelector(".ai").style.position = "absolute";EvTarget.disabled = false;},1100);
+};
+function closeAiTab() {
+    EvTarget = event.target;
+    EvTarget.disabled = true;
+    document.querySelector(".ai").style.position = "fixed";
+    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".ai").style.right = "-50%"}else{document.querySelector(".ai").style.right = "-100%"}},100);
+    setTimeout(function(){document.querySelector(".ai").style.position = "absolute";document.querySelector(".ai").style.display = "none";EvTarget.disabled = false;},1100);
+};
 function notify(text) {
     var notification = document.createElement("div");
     notification.classList.add("notification");
@@ -248,9 +264,10 @@ function developerMode() {
 document.addEventListener('mousemove', function (e) {
     document.getElementById("tooltip").style.top = e.clientY - 15 + "px";
 }, false);
-function blueberryAI() {
+function suggestTasks() {
     etg = event.target;
     etg.disabled = true;
+    etg.firstChild.style.display = "inline-block";
     var xhr = new XMLHttpRequest();
     var url = "https://apiprox.krzs.workers.dev/blspecific/tasksuggest";
     xhr.open("POST", url, true);
@@ -266,8 +283,55 @@ function blueberryAI() {
                 notify("There was an error upon trying to generate the AI task suggestions.")
             }
             etg.disabled = false;
+            etg.firstChild.style.display = "none";
         }
     }
     var data = Names
+    xhr.send(data);
+}
+AiChat = "AI: Hi, I'm Blueberry AI! How can I help you?";
+function sendAiMessage() {
+    var newelem = document.createElement("span");
+    var belem = document.createElement("b");
+    belem.textContent = localStorage.getItem("cookieusername") + ": ";
+    newelem.appendChild(belem);
+    var pelem = document.createElement("span");
+    var pelemtxt = document.getElementById("aiinput").value;
+    pelem.textContent = pelemtxt;
+    newelem.appendChild(pelem);
+    document.getElementById("chatbox").appendChild(newelem);
+    AiChat = AiChat + "\n\nUser: " + pelemtxt + "\n\nAI: ";
+    var xhr = new XMLHttpRequest();
+    var url = "https://apiprox.krzs.workers.dev/blspecific/chatai";
+    xhr.open("POST", url, true);
+    document.getElementById("aiinput").disabled = true;
+    document.getElementById("aiinput").value = "AI is thinking...";
+    document.getElementById("aisubmitbtn").disabled = true;
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+                xhrresponse = JSON.parse(xhr.responseText).candidates[0].content.parts[0].text;
+                var newelem = document.createElement("span");
+                var belem = document.createElement("b");
+                belem.textContent = "AI: ";
+                newelem.appendChild(belem);
+                var pelem = document.createElement("span");
+                pelem.textContent = xhrresponse;
+                newelem.appendChild(pelem);
+                document.getElementById("chatbox").appendChild(newelem);
+                document.getElementById("aiinput").disabled = false;
+                document.getElementById("aiinput").value = "";
+                document.getElementById("aisubmitbtn").disabled = false;
+                AiChat = AiChat + xhrresponse;
+            } catch {
+                notify("There was an error upon trying to generate the AI's reponse.'")
+            }
+        }
+    }
+    var data = JSON.stringify({
+        "tasks": Names,
+        "timeline": AiChat
+    });
     xhr.send(data);
 }

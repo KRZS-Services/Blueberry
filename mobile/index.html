@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="krzs-show-login" content="true">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/mobile/assets/script/styles.css?5.4.1">
+        <link rel="stylesheet" href="/mobile/assets/script/styles.css?6">
         <meta name="apple-mobile-web-app-title" content="Blueberry">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -92,7 +92,7 @@
             <button class="menubutton" onclick="homeTab()" id="homebutton">home</button>
             <button class="menubutton tabbedin" onclick="tasksTab()" id="tasksbutton">checklist</button>
             <button class="menubutton" onclick="statisticsTab()" id="statsbutton">bar_chart</button>
-            <button class="menubutton ai" onclick="blueberryAI()">smart_toy</button>
+            <button class="menubutton" onclick="aiTab()" id="aibutton">robot</button>
         </div>
         <div class="menu content" id="content">
             <div class="xpbar">
@@ -111,6 +111,22 @@
             <span class="menutext"><b>XP gained:</b> <span id="stats2" class="menutext"></span></span>
             <br>
             <span class="menutext"><b>Levels gained:</b> <span id="stats3" class="menutext"></span></span>
+        </div>
+        <div class="ai menu">
+            <div class="head">
+                <h1 class="menumain"><div class="menumainicon">robot</div>AI</h1>
+                <button class="minibutton aibtn" onclick="suggestTasks()"><div class="loader">sync</div> Brainstorm Task Ideas</button>
+                <hr class="menudivider">
+            </div>
+            <div class="chatui">
+                <div class="glasschatbox" id="chatbox">
+                    <span class="message"><b>AI: </b>Hi, I'm Blueberry AI! How can I help you?</span>
+                </div>
+                <form class="inputfield" onsubmit="event.preventDefault(); sendAiMessage(); return false">
+                    <input class="glassinput aichat" type="text" id="aiinput" placeholder="Type to chat..." required autocomplete="off" />
+                    <input class="submitbtn" type="submit" id="aisubmitbtn" value="send" />
+                </form>
+            </div>
         </div>
         <div class="home menu">
             <h1 class="hometitle">Blueberry</h1>
@@ -134,17 +150,8 @@
                     <button type="submit" class="taskcreate" id="taskcreate">Create</button>
                 </form>
             </div>
-            <div class="rewardmodal modal">
-                <form id="newrewardform" class="modalform">
-                    <h2 class="fontheader">Reward Creation</h2>
-                    <input class="taskname" id="rewardname" placeholder="Name" type="text" required />
-                    <input class="taskname" id="rewardlevel" placeholder="Level" type="number" required />
-                    <button class="taskcancel" id="rewardcancel">Cancel</button>
-                    <button type="submit" class="taskcreate" id="rewardcreate">Create</button>
-                </form>
-            </div>
         </div>
     </body>
     <script src="https://auth.krzs.xyz/api.js?,2"></script>
-    <script class="krzs" id="/mobile/assets/script/script.js?5.4.1"></script>
+    <script class="krzs" id="/mobile/assets/script/script.js?6"></script>
 </html>

@@ -35,7 +35,6 @@ function btnClick() {
     event.target.parentElement.parentElement.style.opacity = "0%";
     removeItem(event.target.parentElement.parentElement);
     var indexnum = Numbers.indexOf(event.target.parentElement.parentElement.firstChild.nextSibling.nextSibling.innerHTML);
-    
     Numbers.splice(indexnum, 1);
     Names.splice(indexnum, 1);
     Values.splice(indexnum, 1);
@@ -214,17 +213,21 @@ function developerMode() {
 function homeTab() {
     document.querySelector(".content").style.display = "none";
     document.querySelector(".statistics").style.display = "none";
+    document.querySelector(".ai").style.display = "none";
     document.querySelector(".home").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.remove("tabbedin");
+    document.querySelector("#aibutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.add("tabbedin");
 };
 function tasksTab() {
     document.querySelector(".statistics").style.display = "none";
     document.querySelector(".home").style.display = "none";
-    document.querySelector(".content").style.display = "block";
+    document.querySelector(".ai").style.display = "none";
+    document.querySelector(".content").style.display = "flex";
     document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
+    document.querySelector("#aibutton").classList.remove("tabbedin");
     document.querySelector("#tasksbutton").classList.add("tabbedin");
 };
 function statisticsTab() {
@@ -241,22 +244,27 @@ function statisticsTab() {
     document.querySelector("#stats3").textContent = CurrentLevel;
     document.querySelector(".content").style.display = "none";
     document.querySelector(".home").style.display = "none";
+    document.querySelector(".ai").style.display = "none";
     document.querySelector(".statistics").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
+    document.querySelector("#aibutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.add("tabbedin");
 };
-function customRewardsTab() {
+function aiTab() {
     document.querySelector(".content").style.display = "none";
-    document.querySelector(".statistics").style.display = "none";
     document.querySelector(".home").style.display = "none";
+    document.querySelector(".statistics").style.display = "none";
+    document.querySelector(".ai").style.display = "flex";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
-    document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
+    document.querySelector("#statsbutton").classList.remove("tabbedin");
+    document.querySelector("#aibutton").classList.add("tabbedin");
 };
-function blueberryAI() {
+function suggestTasks() {
     etg = event.target;
     etg.disabled = true;
+    etg.firstChild.style.display = "inline-block";
     var xhr = new XMLHttpRequest();
     var url = "https://apiprox.krzs.workers.dev/blspecific/tasksuggest";
     xhr.open("POST", url, true);
@@ -272,8 +280,56 @@ function blueberryAI() {
                 notify("There was an error upon trying to generate the AI task suggestions.")
             }
             etg.disabled = false;
+            etg.firstChild.style.display = "none";
+            tasksTab()
         }
     }
     var data = Names
+    xhr.send(data);
+}
+AiChat = "AI: Hi, I'm Blueberry AI! How can I help you?";
+function sendAiMessage() {
+    var newelem = document.createElement("span");
+    var belem = document.createElement("b");
+    belem.textContent = localStorage.getItem("cookieusername") + ": ";
+    newelem.appendChild(belem);
+    var pelem = document.createElement("span");
+    var pelemtxt = document.getElementById("aiinput").value;
+    pelem.textContent = pelemtxt;
+    newelem.appendChild(pelem);
+    document.getElementById("chatbox").appendChild(newelem);
+    AiChat = AiChat + "\n\nUser: " + pelemtxt + "\n\nAI: ";
+    var xhr = new XMLHttpRequest();
+    var url = "https://apiprox.krzs.workers.dev/blspecific/chatai";
+    xhr.open("POST", url, true);
+    document.getElementById("aiinput").disabled = true;
+    document.getElementById("aiinput").value = "AI is thinking...";
+    document.getElementById("aisubmitbtn").disabled = true;
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+                xhrresponse = JSON.parse(xhr.responseText).candidates[0].content.parts[0].text;
+                var newelem = document.createElement("span");
+                var belem = document.createElement("b");
+                belem.textContent = "AI: ";
+                newelem.appendChild(belem);
+                var pelem = document.createElement("span");
+                pelem.textContent = xhrresponse;
+                newelem.appendChild(pelem);
+                document.getElementById("chatbox").appendChild(newelem);
+                document.getElementById("aiinput").disabled = false;
+                document.getElementById("aiinput").value = "";
+                document.getElementById("aisubmitbtn").disabled = false;
+                AiChat = AiChat + xhrresponse;
+            } catch {
+                notify("There was an error upon trying to generate the AI's reponse.'")
+            }
+        }
+    }
+    var data = JSON.stringify({
+        "tasks": Names,
+        "timeline": AiChat
+    });
     xhr.send(data);
 }
