@@ -228,6 +228,22 @@ function closeAiTab() {
     setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".ai").style.right = "-50%"}else{document.querySelector(".ai").style.right = "-100%"}},100);
     setTimeout(function(){document.querySelector(".ai").style.position = "absolute";document.querySelector(".ai").style.display = "none";EvTarget.disabled = false;},1100);
 };
+function themeTab() {
+    EvTarget = event.target
+    EvTarget.disabled = true;
+    document.querySelector(".theme").style.position = "fixed";
+    if(document.documentElement.scrollWidth > 950){document.querySelector(".theme").style.right = "-50%";}else{document.querySelector(".theme").style.right = "-100%";};
+    document.querySelector(".theme").style.display = "flex";
+    setTimeout(function(){document.querySelector(".theme").style.right = "0"},100);
+    setTimeout(function(){document.querySelector(".theme").style.position = "absolute";EvTarget.disabled = false;},1100);
+};
+function closeThemeTab() {
+    EvTarget = event.target;
+    EvTarget.disabled = true;
+    document.querySelector(".theme").style.position = "fixed";
+    setTimeout(function(){if(document.documentElement.scrollWidth > 950){document.querySelector(".theme").style.right = "-50%"}else{document.querySelector(".theme").style.right = "-100%"}},100);
+    setTimeout(function(){document.querySelector(".theme").style.position = "absolute";document.querySelector(".theme").style.display = "none";EvTarget.disabled = false;},1100);
+};
 function notify(text) {
     var notification = document.createElement("div");
     notification.classList.add("notification");
@@ -335,3 +351,50 @@ function sendAiMessage() {
     });
     xhr.send(data);
 }
+if (KRZSStore.getItem("themeColor1") != "{}") {
+    document.getElementById("themeColor1").value = KRZSStore.getItem("themeColor1");
+}
+if (KRZSStore.getItem("themeColor2") != "{}") {
+    document.getElementById("themeColor2").value = KRZSStore.getItem("themeColor2");
+}
+if (KRZSStore.getItem("themeColor3") != "{}") {
+    document.getElementById("themeColor3").value = KRZSStore.getItem("themeColor3");
+}
+if (KRZSStore.getItem("themeColor4") != "{}") {
+    document.getElementById("themeColor4").value = KRZSStore.getItem("themeColor4");
+}
+if (KRZSStore.getItem("themeColor5") != "{}") {
+    document.getElementById("themeColor5").value = KRZSStore.getItem("themeColor5");
+}
+function themeColorChange(log, num) {
+document.getElementById("stylecolors").textContent = `
+body, html {
+    background: ${document.getElementById("themeColor1").value};
+}
+.tasks {
+    background: ${document.getElementById("themeColor2").value};
+}
+.task p span {
+    color: ${document.getElementById("themeColor3").value};
+}
+.checkbox {
+    border: 2px solid ${document.getElementById("themeColor3").value};
+}
+.main {
+    color: ${document.getElementById("themeColor4").value};
+}
+.xpbar {
+    outline: 3px solid ${document.getElementById("themeColor5").value};
+}
+.xpwidth {
+    background: ${document.getElementById("themeColor5").value};
+}
+.xplevel {
+    color: ${document.getElementById("themeColor5").value};
+}
+`
+if (log != undefined) {
+    KRZSStore.setItem("themeColor" + num, log);
+}
+}
+themeColorChange()

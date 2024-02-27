@@ -331,6 +331,7 @@ h6 {font-size: 10px}
     background: rgba(0,0,0,0.5);
     height: calc(100% - 150px);
     display: none;
+    flex-direction: column;
     position: absolute;
     right: 35px;
     top: 35px;
@@ -411,6 +412,80 @@ h6 {font-size: 10px}
 .menuul li span:focus {
     cursor: text;
 }
+.colorselect {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+}
+.colorselect:not(:last-child) {
+    margin-bottom: 15px;
+}
+.themecolorinput {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    height: 30px;
+    width: 100%;
+}
+.themecolorinput::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+.themecolorinput::-webkit-color-swatch {
+    border-radius: 10px;
+	border: none;
+}
+.themesend {
+    font-family: "Outfit";
+    background: rgba(255,255,255,0.1);
+    box-shadow: 7px 7px 10px rgba(0,0,0,0.25);
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.5);
+    color: white;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+.themesend:hover {
+    background: rgba(255,255,255,0.25);
+}
+.themesend:active {
+    background: rgba(0,0,0,0.2);
+}
+.themeheader {
+    margin: 0;
+    text-shadow: 3px 3px 7px black;
+    font-size: 25px;
+}
+.themetext {
+    margin: 0;
+    margin-bottom: 5px;
+    text-shadow: 3px 3px 7px black;
+    color: white;
+    font-size: 17px;
+    font-family: 'Outfit';
+}
+.glassthemebox {
+    width: calc(100% - 40px);
+    height: fit-content;
+    margin-bottom: 7px;
+    margin-top: 10px;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-family: 'Outfit';
+    box-shadow: 7px 7px 10px rgba(0,0,0,0.25);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.5);
+    white-space: pre;
+    text-wrap: pretty;
+}
 .content {
     width: calc(100% - 110px);
     height: calc(100% - 40px);
@@ -434,6 +509,7 @@ h6 {font-size: 10px}
     flex-direction: column;
     background: black;
     animation: slidein 1s;
+    color: white;
 }
 @keyframes slidein {
     from {

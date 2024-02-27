@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="krzs-show-login" content="true">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/mobile/assets/script/styles.css?6.0.1">
+        <link rel="stylesheet" href="/mobile/assets/script/styles.css?6.1">
         <meta name="apple-mobile-web-app-title" content="Blueberry">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -37,29 +37,20 @@
             .tasks {
                 background: #3760db;
             }
-            span {
+            .task p span {
                 color: #ffffff;
             }
             .checkbox {
                 border: 2px solid #ffffff;
             }
-            .main {
-                color: #ffffff;
-            }
-            .buttonmenu {
-                color: #ffffff;
-            }
             .xpbar {
-                outline: 3px solid #00af00;
+                outline: 3px solid #00ff00;
             }
             .xpwidth {
-                background: #00af00;
+                background: #00ff00;
             }
             .xplevel {
                 color: #00ff00;
-            }
-            .minibutton {
-                color: #ffffff;
             }
         </style>
         <style id="stylefonts">
@@ -78,9 +69,6 @@
             .addnewtask {
                 font-family: 'Outfit';
             }
-            .minibutton {
-                font-family: 'Outfit';
-            }
         </style>
         <style id="devmode">xpvalue,randnum{display:none}</style>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -90,6 +78,7 @@
     <body>
         <div class="buttonmenu">
             <button class="menubutton" onclick="homeTab()" id="homebutton">home</button>
+            <button class="menubutton" onclick="themeTab()" id="themebutton">palette</button>
             <button class="menubutton tabbedin" onclick="tasksTab()" id="tasksbutton">checklist</button>
             <button class="menubutton" onclick="statisticsTab()" id="statsbutton">bar_chart</button>
             <button class="menubutton" onclick="aiTab()" id="aibutton">robot</button>
@@ -111,6 +100,40 @@
             <span class="menutext"><b>XP gained:</b> <span id="stats2" class="menutext"></span></span>
             <br>
             <span class="menutext"><b>Levels gained:</b> <span id="stats3" class="menutext"></span></span>
+        </div>
+        <div class="theme menu">
+            <div>
+                <h1 class="menumain"><div class="menumainicon">palette</div>Theme</h1>
+                <hr class="menudivider">
+            </div>
+            <h2 class="themeheader">Colors</h1>
+            <div class="glassthemebox">
+                <span class="themetext">Background:</span></span>
+                <div class="colorselect">
+                    <input type="color" class="themecolorinput" value="#032d70" id="themeColor1" />
+                    <button class="themesend" onclick="themeColorChange(document.getElementById('themeColor1').value, 1)">Change</button>
+                </div>
+                <span class="themetext">Task List:</span></span>
+                <div class="colorselect">
+                    <input type="color" class="themecolorinput" value="#3760db" id="themeColor2" />
+                    <button class="themesend" onclick="themeColorChange(document.getElementById('themeColor2').value, 2)">Change</button>
+                </div>
+                <span class="themetext">Task Text:</span></span>
+                <div class="colorselect">
+                    <input type="color" class="themecolorinput" value="#ffffff" id="themeColor3" />
+                    <button class="themesend" onclick="themeColorChange(document.getElementById('themeColor3').value, 3)">Change</button>
+                </div>
+                <span class="themetext">Header:</span></span>
+                <div class="colorselect">
+                    <input type="color" class="themecolorinput" value="#ffffff" id="themeColor4" />
+                    <button class="themesend" onclick="themeColorChange(document.getElementById('themeColor4').value, 4)">Change</button>
+                </div>
+                <span class="themetext">XP Bar:</span></span>
+                <div class="colorselect">
+                    <input type="color" class="themecolorinput" value="#00ff00" id="themeColor5" />
+                    <button class="themesend" onclick="themeColorChange(document.getElementById('themeColor5').value, 5)">Change</button>
+                </div>
+            </div>
         </div>
         <div class="ai menu">
             <div class="head">
@@ -153,5 +176,5 @@
         </div>
     </body>
     <script src="https://auth.krzs.xyz/api.js?,2"></script>
-    <script class="krzs" id="/mobile/assets/script/script.js?6.0.1"></script>
+    <script class="krzs" id="/mobile/assets/script/script.js?6.1"></script>
 </html>

@@ -214,21 +214,37 @@ function homeTab() {
     document.querySelector(".content").style.display = "none";
     document.querySelector(".statistics").style.display = "none";
     document.querySelector(".ai").style.display = "none";
+    document.querySelector(".theme").style.display = "none";
     document.querySelector(".home").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#aibutton").classList.remove("tabbedin");
+    document.querySelector("#themebutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.add("tabbedin");
 };
 function tasksTab() {
     document.querySelector(".statistics").style.display = "none";
     document.querySelector(".home").style.display = "none";
     document.querySelector(".ai").style.display = "none";
+    document.querySelector(".theme").style.display = "none";
     document.querySelector(".content").style.display = "flex";
     document.querySelector("#statsbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
     document.querySelector("#aibutton").classList.remove("tabbedin");
+    document.querySelector("#themebutton").classList.remove("tabbedin");
     document.querySelector("#tasksbutton").classList.add("tabbedin");
+};
+function themeTab() {
+    document.querySelector(".content").style.display = "none";
+    document.querySelector(".home").style.display = "none";
+    document.querySelector(".statistics").style.display = "none";
+    document.querySelector(".ai").style.display = "none";
+    document.querySelector(".theme").style.display = "flex";
+    document.querySelector("#tasksbutton").classList.remove("tabbedin");
+    document.querySelector("#homebutton").classList.remove("tabbedin");
+    document.querySelector("#statsbutton").classList.remove("tabbedin");
+    document.querySelector("#aibutton").classList.remove("tabbedin");
+    document.querySelector("#themebutton").classList.add("tabbedin");
 };
 function statisticsTab() {
     allxp = 0;
@@ -245,6 +261,7 @@ function statisticsTab() {
     document.querySelector(".content").style.display = "none";
     document.querySelector(".home").style.display = "none";
     document.querySelector(".ai").style.display = "none";
+    document.querySelector(".theme").style.display = "none";
     document.querySelector(".statistics").style.display = "block";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
@@ -255,10 +272,12 @@ function aiTab() {
     document.querySelector(".content").style.display = "none";
     document.querySelector(".home").style.display = "none";
     document.querySelector(".statistics").style.display = "none";
+    document.querySelector(".theme").style.display = "none";
     document.querySelector(".ai").style.display = "flex";
     document.querySelector("#tasksbutton").classList.remove("tabbedin");
     document.querySelector("#homebutton").classList.remove("tabbedin");
     document.querySelector("#statsbutton").classList.remove("tabbedin");
+    document.querySelector("#themebutton").classList.remove("tabbedin");
     document.querySelector("#aibutton").classList.add("tabbedin");
 };
 function suggestTasks() {
@@ -333,3 +352,50 @@ function sendAiMessage() {
     });
     xhr.send(data);
 }
+if (KRZSStore.getItem("themeColor1") != "{}") {
+    document.getElementById("themeColor1").value = KRZSStore.getItem("themeColor1");
+}
+if (KRZSStore.getItem("themeColor2") != "{}") {
+    document.getElementById("themeColor2").value = KRZSStore.getItem("themeColor2");
+}
+if (KRZSStore.getItem("themeColor3") != "{}") {
+    document.getElementById("themeColor3").value = KRZSStore.getItem("themeColor3");
+}
+if (KRZSStore.getItem("themeColor4") != "{}") {
+    document.getElementById("themeColor4").value = KRZSStore.getItem("themeColor4");
+}
+if (KRZSStore.getItem("themeColor5") != "{}") {
+    document.getElementById("themeColor5").value = KRZSStore.getItem("themeColor5");
+}
+function themeColorChange(log, num) {
+document.getElementById("stylecolors").textContent = `
+body, html {
+    background: ${document.getElementById("themeColor1").value};
+}
+.tasks {
+    background: ${document.getElementById("themeColor2").value};
+}
+.task p span {
+    color: ${document.getElementById("themeColor3").value};
+}
+.checkbox {
+    border: 2px solid ${document.getElementById("themeColor3").value};
+}
+.main {
+    color: ${document.getElementById("themeColor4").value};
+}
+.xpbar {
+    outline: 3px solid ${document.getElementById("themeColor5").value};
+}
+.xpwidth {
+    background: ${document.getElementById("themeColor5").value};
+}
+.xplevel {
+    color: ${document.getElementById("themeColor5").value};
+}
+`
+if (log != undefined) {
+    KRZSStore.setItem("themeColor" + num, log);
+}
+}
+themeColorChange()
