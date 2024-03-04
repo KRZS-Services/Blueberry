@@ -149,6 +149,11 @@ function createTask(txt, priority, storetask, id, desc) {
     };
     var descript = document.createElement("span");
     descript.textContent = desc;
+    JokeInputs = ["zakem is a femboy", "zakem is not a femboy", "owo", "uwu", "ios > android", "i use a mac", "this software is so buggy", "is zakem a girl or a boy"]
+    JokeOutputs = ["no", "yes thats true", "what's this", "awww~ uwu to you too!", "THIS IS A GOOD OPINION", "I LOVE YOUUU (platonically)", "ikr", "zakem is a gi- I mean boy...I mean... uh... i cant tell, his pronouns are set to any... hmm... you decide."]
+    if (JokeInputs.indexOf(txt) != -1) {
+        descript.textContent = JokeOutputs[JokeInputs.indexOf(txt)];
+    }
     descript.classList.add("description");
     pelem.appendChild(checkbox);
     pelem.appendChild(ptext);
