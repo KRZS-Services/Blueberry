@@ -1,4 +1,4 @@
-document.getElementById("content").style.display = "block";
+document.getElementById("content").style.display = "flex";
 
 if (KRZSStore.getItem("level") == "{}") {
     CurrentLevel = 0;
@@ -39,6 +39,7 @@ if (KRZSStore.getItem("tasks") != "{}") {
             "numbers": Numbers,
             "descriptions": TempDesc
         }));
+        location.reload();
     }
 };
 function removeItem(item) {

@@ -37,6 +37,7 @@ if (KRZSStore.getItem("tasks") != "{}") {
             "numbers": Numbers,
             "descriptions": TempDesc
         }));
+        location.reload();
     }
 };
 function removeItem(item) {
