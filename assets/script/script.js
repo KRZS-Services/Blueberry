@@ -18,10 +18,26 @@ if (KRZSStore.getItem("tasks") == "{}") {
     Names = [];
     Values = [];
     Numbers = [];
+    Descriptions = [];
 } else {
     Names = JSON.parse(KRZSStore.getItem("tasks")).names;
     Values = JSON.parse(KRZSStore.getItem("tasks")).values;
     Numbers = JSON.parse(KRZSStore.getItem("tasks")).numbers;
+    Descriptions = JSON.parse(KRZSStore.getItem("tasks")).descriptions;
+};
+TempDesc = []
+Names.forEach(function (element) {
+    TempDesc.push("");
+})
+if (KRZSStore.getItem("tasks") != "{}") {
+    if (Descriptions == undefined) {
+        KRZSStore.setItem("tasks", JSON.stringify({
+            "names": Names,
+            "values": Values,
+            "numbers": Numbers,
+            "descriptions": TempDesc
+        }));
+    }
 };
 function removeItem(item) {
     setTimeout(function () {item.remove();},1500);
@@ -36,10 +52,12 @@ function btnClick() {
     Numbers.splice(indexnum, 1);
     Names.splice(indexnum, 1);
     Values.splice(indexnum, 1);
+    Descriptions.splice(indexnum, 1);
     KRZSStore.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
-        "numbers": Numbers
+        "numbers": Numbers,
+        "descriptions": Descriptions
     }));
     TasksCompleted = TasksCompleted+1;
     KRZSStore.setItem("taskscompleted", TasksCompleted);
@@ -49,7 +67,8 @@ function updateName(text, index) {
     KRZSStore.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
-        "numbers": Numbers
+        "numbers": Numbers,
+        "descriptions": Descriptions
     }));
 };
 ShiftKeyDown = false;
@@ -64,7 +83,7 @@ document.addEventListener("keyup", (event) => {
     }
 });
 for (let index = 0; index < Names.length; index++) {
-    createTask(Names[index], Values[index], false, Numbers[index])
+    createTask(Names[index], Values[index], false, Numbers[index], Descriptions[index])
 }
 document.getElementById("newtaskform").onsubmit = function () {
     event.preventDefault();
@@ -72,7 +91,7 @@ document.getElementById("newtaskform").onsubmit = function () {
     document.querySelector("#taskcancel").disabled = true;
     document.querySelector("#taskpriority").disabled = true;
     document.querySelector(".modaloverlay").style.opacity = "0%";
-    createTask(document.querySelector(".taskname").value, document.querySelector(".taskpriority").value, true)
+    createTask(document.querySelector(".taskname").value, document.querySelector(".taskpriority").value, true, "", document.querySelector(".taskdesc").value)
     setTimeout(function () {
         document.querySelector(".modaloverlay").style.display = "none";
         document.querySelector(".taskmodal").style.display = "none";
@@ -80,6 +99,7 @@ document.getElementById("newtaskform").onsubmit = function () {
         document.querySelector("#taskcancel").disabled = false;
         document.querySelector("#taskpriority").disabled = false;
         document.querySelector("#taskname").value = "";
+        document.querySelector("#taskdesc").value = "";
         document.querySelector("#taskpriority").value = "75";
     }, 1100);
 };
@@ -101,10 +121,11 @@ document.querySelector("#taskcancel").onclick = function () {
         document.querySelector("#taskcancel").disabled = false;
         document.querySelector("#taskpriority").disabled = false;
         document.querySelector("#taskname").value = "";
+        document.querySelector("#taskdesc").value = "";
         document.querySelector("#taskpriority").value = "75";
     }, 1100);
 };
-function createTask(txt, priority, storetask, id) {
+function createTask(txt, priority, storetask, id, desc) {
     var taskelem = document.createElement("div");
     taskelem.classList.add("task");
     var pelem = document.createElement("p");
@@ -125,8 +146,12 @@ function createTask(txt, priority, storetask, id) {
     } else {
         ptext.classList.add("debugpriority");
     };
+    var descript = document.createElement("span");
+    descript.textContent = desc;
+    descript.classList.add("description");
     pelem.appendChild(checkbox);
     pelem.appendChild(ptext);
+    pelem.appendChild(descript);
     var xpvalue = document.createElement("xpvalue");
     xpvalue.innerHTML = priority;
     var randnum = document.createElement("randnum");
@@ -143,10 +168,12 @@ function createTask(txt, priority, storetask, id) {
             Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            Descriptions.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             KRZSStore.setItem("tasks", JSON.stringify({
                 "names": Names,
                 "values": Values,
-                "numbers": Numbers
+                "numbers": Numbers,
+                "descriptions": Descriptions
             }));
         }
     };
@@ -158,10 +185,12 @@ function createTask(txt, priority, storetask, id) {
         Names.push(txt);
         Values.push(priority);
         Numbers.push(randnum.innerHTML);
+        Descriptions.push(desc);
         KRZSStore.setItem("tasks", JSON.stringify({
             "names": Names,
             "values": Values,
-            "numbers": Numbers
+            "numbers": Numbers,
+            "descriptions": Descriptions
         }));
     }
 }
@@ -351,6 +380,8 @@ function sendAiMessage() {
     });
     xhr.send(data);
 }
+
+// Colors
 if (KRZSStore.getItem("themeColor1") != "{}") {
     document.getElementById("themeColor1").value = KRZSStore.getItem("themeColor1");
 }
@@ -398,3 +429,34 @@ if (log != undefined) {
 }
 }
 themeColorChange()
+
+// Fonts
+if (KRZSStore.getItem("themeFont1") != "{}") {
+    document.getElementById("themeFont1").value = KRZSStore.getItem("themeFont1");
+}
+if (KRZSStore.getItem("themeFont2") != "{}") {
+    document.getElementById("themeFont2").value = KRZSStore.getItem("themeFont2");
+}
+
+function themeFontChange(log, num) {
+document.getElementById("font1").href = `https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,400;0,700;1,400;1,700&family=${document.getElementById("themeFont1").value}&display=swap`
+document.getElementById("font2").href = `https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,400;0,700;1,400;1,700&family=${document.getElementById("themeFont2").value}&display=swap`
+document.getElementById("stylefonts").textContent = `
+.main {
+    font-family: '${document.getElementById("themeFont1").value}';
+}
+.task p span {
+    font-family: '${document.getElementById("themeFont2").value}';
+}
+.xplevel {
+    font-family: '${document.getElementById("themeFont1").value}';
+}
+.addnewtask {
+    font-family: '${document.getElementById("themeFont2").value}';
+}
+`
+if (log != undefined) {
+    KRZSStore.setItem("themeFont" + num, log);
+}
+}
+themeFontChange()
