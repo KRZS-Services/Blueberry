@@ -26,7 +26,7 @@ if (KRZSStore.getItem("tasks") == "{}") {
     Descriptions = JSON.parse(KRZSStore.getItem("tasks")).descriptions;
 };
 TempDesc = []
-Names.forEach(function (element) {
+Names.forEach(function () {
     TempDesc.push("");
 })
 if (KRZSStore.getItem("tasks") != "{}") {
@@ -403,6 +403,16 @@ if (KRZSStore.getItem("themeColor4") != "{}") {
 if (KRZSStore.getItem("themeColor5") != "{}") {
     document.getElementById("themeColor5").value = KRZSStore.getItem("themeColor5");
 }
+function hexToRGB(hex, alpha) {
+    var r = parseInt(hex.slice(1, 3), 16),
+        g = parseInt(hex.slice(3, 5), 16),
+        b = parseInt(hex.slice(5, 7), 16);
+    if (alpha) {
+        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+    } else {
+        return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+}
 function themeColorChange(log, num) {
 document.getElementById("stylecolors").textContent = `
 body, html {
@@ -413,6 +423,9 @@ body, html {
 }
 .task p span {
     color: ${document.getElementById("themeColor3").value};
+}
+.task {
+    border-bottom: 1px solid ${hexToRGB(document.getElementById("themeColor3").value,0.2)};
 }
 .checkbox {
     border: 2px solid ${document.getElementById("themeColor3").value};
@@ -428,6 +441,10 @@ body, html {
 }
 .xplevel {
     color: ${document.getElementById("themeColor5").value};
+}
+.copyright {
+    background: ${document.getElementById("themeColor2").value};
+    color: ${document.getElementById("themeColor3").value};
 }
 `
 if (log != undefined) {
@@ -458,6 +475,9 @@ document.getElementById("stylefonts").textContent = `
     font-family: '${document.getElementById("themeFont1").value}';
 }
 .addnewtask {
+    font-family: '${document.getElementById("themeFont2").value}';
+}
+.copyright {
     font-family: '${document.getElementById("themeFont2").value}';
 }
 `

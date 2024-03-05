@@ -679,10 +679,7 @@ h6 {font-size: 5px}
 .hometitle {
     font-size: 50px;
     margin: 0;
-}
-.homesubtitle {
-    font-size: 15px;
-    margin: 0;
+    text-shadow: 3px 3px 7px black;
 }
 xpvalue:before {
     content: "XP Value: "

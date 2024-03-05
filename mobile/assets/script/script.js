@@ -403,6 +403,16 @@ if (KRZSStore.getItem("themeColor4") != "{}") {
 if (KRZSStore.getItem("themeColor5") != "{}") {
     document.getElementById("themeColor5").value = KRZSStore.getItem("themeColor5");
 }
+function hexToRGB(hex, alpha) {
+    var r = parseInt(hex.slice(1, 3), 16),
+        g = parseInt(hex.slice(3, 5), 16),
+        b = parseInt(hex.slice(5, 7), 16);
+    if (alpha) {
+        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+    } else {
+        return "rgb(" + r + ", " + g + ", " + b + ")";
+    }
+}
 function themeColorChange(log, num) {
 document.getElementById("stylecolors").textContent = `
 body, html {
@@ -413,6 +423,9 @@ body, html {
 }
 .task p span {
     color: ${document.getElementById("themeColor3").value};
+}
+.task {
+    border-bottom: 1px solid ${hexToRGB(document.getElementById("themeColor3").value,0.2)};
 }
 .checkbox {
     border: 2px solid ${document.getElementById("themeColor3").value};
@@ -448,6 +461,9 @@ function themeFontChange(log, num) {
 document.getElementById("font1").href = `https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,400;0,700;1,400;1,700&family=${document.getElementById("themeFont1").value}&display=swap`
 document.getElementById("font2").href = `https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,400;0,700;1,400;1,700&family=${document.getElementById("themeFont2").value}&display=swap`
 document.getElementById("stylefonts").textContent = `
+h1, h2, h3, h4, h5, h6 {
+    font-family: '${document.getElementById("themeFont1").value}';
+}
 .menumain {
     font-family: '${document.getElementById("themeFont1").value}';
 }

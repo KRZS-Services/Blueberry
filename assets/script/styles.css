@@ -108,6 +108,13 @@ h6 {font-size: 10px}
         font-size: 30px;
     }
 }
+.copyright {
+    border-radius: 10px;
+    width: calc(100% - 30px);
+    animation: scalein 1s;
+    padding: 15px;
+    box-shadow: 7px 7px 10px rgba(0,0,0,0.25);
+}
 .tasks {
     border-radius: 10px;
     width: 100%;
@@ -497,6 +504,28 @@ h6 {font-size: 10px}
     color: white;
     font-size: 17px;
     font-family: 'Outfit';
+}
+.advice {
+    margin: 0;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    font-size: 15px;
+    font-family: 'Outfit';
+    border: none;
+    box-shadow: 7px 7px 10px rgba(0,0,0,0.25);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255,0,0,0.1);
+}
+.advice::before {
+    content: "!";
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 1.5em;
 }
 .glassthemebox {
     width: calc(100% - 40px);
