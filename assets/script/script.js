@@ -40,13 +40,19 @@ if (KRZSStore.getItem("tasks") != "{}") {
         location.reload();
     }
 };
+function playSound(soundFile) {
+    try {
+        const audio = new Audio(soundFile);
+        audio.play();
+    } catch {}
+}
 function removeItem(item) {
     setTimeout(function () {item.remove();},1500);
 };
-function btnClick() {
+function btnClick(priority) {
     event.target.disabled = true;
     Parenttarget = event.target.parentElement.parentElement;
-    addXp(event.target.parentElement.parentElement.firstChild.nextSibling.innerHTML);
+    addXp(event.target.parentElement.parentElement.firstChild.nextSibling.innerHTML, priority);
     event.target.parentElement.parentElement.style.opacity = "0%";
     removeItem(event.target.parentElement.parentElement);
     var indexnum = Numbers.indexOf(event.target.parentElement.parentElement.firstChild.nextSibling.nextSibling.innerHTML);
@@ -132,7 +138,7 @@ function createTask(txt, priority, storetask, id, desc) {
     var pelem = document.createElement("p");
     var checkbox = document.createElement("button");
     checkbox.classList.add("checkbox");
-    checkbox.onclick = function () { btnClick() };
+    checkbox.onclick = function () { btnClick(priority) };
     var ptext = document.createElement("span");
     ptext.contentEditable = true;
     ptext.textContent = txt;
@@ -200,14 +206,22 @@ function createTask(txt, priority, storetask, id, desc) {
         }));
     }
 }
-function addXp(amount) {
+function addXp(amount, priority) {
+    document.getElementById("xpadded").style.display = "flex";
+    document.getElementById("xpadded").style.color = document.getElementById("themeColor5").value;
+    setTimeout(function () { document.getElementById("xpadded").style.display = "none" },3000)
     CurrentXp = CurrentXp + new Number(amount);
     XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
     if (XpToNextLevel <= 0) {
+        playSound("/assets/sfx/levelup.mp3");
+        document.getElementById("xpadded").textContent = "LEVEL UP!";
         CurrentLevel = CurrentLevel + 1;
         CurrentXp = Math.abs(XpToNextLevel);
         XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
         document.querySelector(".xplevel").textContent = CurrentLevel;
+    } else {
+        playSound("/assets/sfx/complete.mp3");
+        document.getElementById("xpadded").textContent = "+" + priority + " XP";
     }
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
     KRZSStore.setItem("level", CurrentLevel);
@@ -221,6 +235,7 @@ function dataClear() {
     };
 };
 function statisticsTab() {
+    playSound("/assets/sfx/openmenu.mp3");
     allxp = 0;
     for (let i = 0; i < CurrentLevel-1; i++) {
         var allxp = allxp + (5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90);
@@ -241,6 +256,7 @@ function statisticsTab() {
     setTimeout(function(){document.querySelector(".statistics").style.position = "absolute";EvTarget.disabled = false;},1100);
 };
 function closeStatisticsTab() {
+    playSound("/assets/sfx/closemenu.mp3");
     EvTarget = event.target;
     EvTarget.disabled = true;
     document.querySelector(".statistics").style.position = "fixed";
@@ -248,6 +264,7 @@ function closeStatisticsTab() {
     setTimeout(function(){document.querySelector(".statistics").style.position = "absolute";document.querySelector(".statistics").style.display = "none";EvTarget.disabled = false;},1100);
 };
 function aiTab() {
+    playSound("/assets/sfx/openmenu.mp3");
     EvTarget = event.target
     EvTarget.disabled = true;
     document.querySelector(".ai").style.position = "fixed";
@@ -257,6 +274,7 @@ function aiTab() {
     setTimeout(function(){document.querySelector(".ai").style.position = "absolute";EvTarget.disabled = false;},1100);
 };
 function closeAiTab() {
+    playSound("/assets/sfx/closemenu.mp3");
     EvTarget = event.target;
     EvTarget.disabled = true;
     document.querySelector(".ai").style.position = "fixed";
@@ -264,6 +282,7 @@ function closeAiTab() {
     setTimeout(function(){document.querySelector(".ai").style.position = "absolute";document.querySelector(".ai").style.display = "none";EvTarget.disabled = false;},1100);
 };
 function themeTab() {
+    playSound("/assets/sfx/openmenu.mp3");
     EvTarget = event.target
     EvTarget.disabled = true;
     document.querySelector(".theme").style.position = "fixed";
@@ -273,6 +292,7 @@ function themeTab() {
     setTimeout(function(){document.querySelector(".theme").style.position = "absolute";EvTarget.disabled = false;},1100);
 };
 function closeThemeTab() {
+    playSound("/assets/sfx/closemenu.mp3");
     EvTarget = event.target;
     EvTarget.disabled = true;
     document.querySelector(".theme").style.position = "fixed";
@@ -280,13 +300,11 @@ function closeThemeTab() {
     setTimeout(function(){document.querySelector(".theme").style.position = "absolute";document.querySelector(".theme").style.display = "none";EvTarget.disabled = false;},1100);
 };
 function notify(text) {
+    playSound("/assets/sfx/notif.mp3");
     var notification = document.createElement("div");
     notification.classList.add("notification");
     notification.textContent = text;
     document.body.insertBefore(notification, document.body.firstChild);
-    var audio = document.querySelector("audio");
-    audio.currentTime = 0;
-    audio.play();
     setTimeout(function () {
         notification.remove();
     },5000);
@@ -322,12 +340,14 @@ function suggestTasks() {
     var xhr = new XMLHttpRequest();
     var url = "https://apiprox.krzs.workers.dev/blspecific/tasksuggest";
     xhr.open("POST", url, true);
+    playSound("/assets/sfx/aito.mp3");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             try {
             xhrresponse = JSON.parse(xhr.responseText).candidates[0].content.parts[0].text;
             JSON.parse(xhrresponse).forEach(function (e) {
+                playSound("/assets/sfx/aifrom.mp3");
                 createTask(e, 25, true);
             })
             } catch {
@@ -342,6 +362,7 @@ function suggestTasks() {
 }
 AiChat = "AI: Hi, I'm Blueberry AI! How can I help you?";
 function sendAiMessage() {
+    playSound("/assets/sfx/aito.mp3");
     var newelem = document.createElement("span");
     var belem = document.createElement("b");
     belem.textContent = localStorage.getItem("cookieusername") + ": ";
@@ -362,6 +383,7 @@ function sendAiMessage() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             try {
+                playSound("/assets/sfx/aifrom.mp3");
                 xhrresponse = JSON.parse(xhr.responseText).candidates[0].content.parts[0].text;
                 var newelem = document.createElement("span");
                 var belem = document.createElement("b");
