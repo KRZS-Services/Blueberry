@@ -133,29 +133,30 @@ h6 {font-size: 5px}
     font-weight: bold;
 }
 .normalpriority:before {
-    color: red;
     content: " ! ";
     font-weight: bold;
 }
 .highpriority:before {
-    color: red;
     content: " !! ";
     font-weight: bold;
 }
 .debugpriority:before {
-    color: green;
     content: " Debug ";
     font-weight: bold;
 }
 .aipriority:before {
-    color: rgba(0,255,0);
     content: " AI ";
     font-weight: bold;
+}
+.task p span:before {
+    font-weight: bold;
+    position: absolute;
+    right: 35px;
 }
 .checkbox {
     aspect-ratio: 1 / 1;
     background: transparent;
-    margin-right: 5px;
+    margin-right: 7px;
     display: inline-block;
     cursor: pointer;
     box-shadow: 0 0 0 rgba(0,0,0);
