@@ -18,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="krzs-show-login" content="true">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/assets/script/styles.css?6.4">
+        <link rel="stylesheet" href="/assets/script/styles.css?6.5">
         <style id="stylecolors">
             body, html {
                 background: #032d70;
@@ -92,7 +92,6 @@
                 <button class="addnewtask">Add new task...</button>
             </div>
             <span class="copyright">&copy; 2023 KRZS Services</span>
-            <span class="xpadded" id="xpadded">+ 10 XP</span>
         </div>
         <div class="statistics menu">
             <h1 class="menumain"><div class="menumainicon">bar_chart</div>Statistics</h1>
@@ -181,6 +180,7 @@
                             <option value="100">Important (100 xp)</option>
                         </optgroup>
                     </select>
+                    <input class="taskdue" id="taskdue" type="datetime-local" />
                     <textarea class="taskdesc" id="taskdesc" placeholder="Description" type="text"></textarea>
                     <button class="taskcancel" id="taskcancel">Cancel</button>
                     <button type="submit" class="taskcreate" id="taskcreate">Create</button>
@@ -189,5 +189,5 @@
         </div>
     </body>
     <script src="https://auth.krzs.xyz/api.js?,2"></script>
-    <script class="krzs" id="/assets/script/script.js?6.4"></script>
+    <script class="krzs" id="/assets/script/script.js?6.5"></script>
 </html>

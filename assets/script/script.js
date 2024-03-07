@@ -1,3 +1,4 @@
+CurDate = "";
 if (KRZSStore.getItem("level") == "{}") {
     CurrentLevel = 0;
     CurrentXp = 0;
@@ -19,15 +20,21 @@ if (KRZSStore.getItem("tasks") == "{}") {
     Values = [];
     Numbers = [];
     Descriptions = [];
+    DueDates = [];
 } else {
     Names = JSON.parse(KRZSStore.getItem("tasks")).names;
     Values = JSON.parse(KRZSStore.getItem("tasks")).values;
     Numbers = JSON.parse(KRZSStore.getItem("tasks")).numbers;
     Descriptions = JSON.parse(KRZSStore.getItem("tasks")).descriptions;
+    DueDates = JSON.parse(KRZSStore.getItem("tasks")).duedates;
 };
 TempDesc = []
+TempDue = []
 Names.forEach(function () {
     TempDesc.push("");
+})
+Names.forEach(function () {
+    TempDue.push("");
 })
 if (KRZSStore.getItem("tasks") != "{}") {
     if (Descriptions == undefined) {
@@ -36,6 +43,16 @@ if (KRZSStore.getItem("tasks") != "{}") {
             "values": Values,
             "numbers": Numbers,
             "descriptions": TempDesc
+        }));
+        location.reload();
+    }
+    if (DueDates == undefined) {
+        KRZSStore.setItem("tasks", JSON.stringify({
+            "names": Names,
+            "values": Values,
+            "numbers": Numbers,
+            "descriptions": Descriptions,
+            "duedates": TempDue
         }));
         location.reload();
     }
@@ -60,11 +77,13 @@ function btnClick(priority) {
     Names.splice(indexnum, 1);
     Values.splice(indexnum, 1);
     Descriptions.splice(indexnum, 1);
+    DueDates.splice(indexnum, 1);
     KRZSStore.setItem("tasks", JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers,
-        "descriptions": Descriptions
+        "descriptions": Descriptions,
+        "duedates": DueDates
     }));
     TasksCompleted = TasksCompleted+1;
     KRZSStore.setItem("taskscompleted", TasksCompleted);
@@ -75,7 +94,8 @@ function updateName(text, index) {
         "names": Names,
         "values": Values,
         "numbers": Numbers,
-        "descriptions": Descriptions
+        "descriptions": Descriptions,
+        "duedates": DueDates
     }));
 };
 ShiftKeyDown = false;
@@ -90,7 +110,7 @@ document.addEventListener("keyup", (event) => {
     }
 });
 for (let index = 0; index < Names.length; index++) {
-    createTask(Names[index], Values[index], false, Numbers[index], Descriptions[index])
+    createTask(Names[index], Values[index], false, Numbers[index], Descriptions[index], DueDates[index])
 }
 document.getElementById("newtaskform").onsubmit = function () {
     event.preventDefault();
@@ -98,7 +118,11 @@ document.getElementById("newtaskform").onsubmit = function () {
     document.querySelector("#taskcancel").disabled = true;
     document.querySelector("#taskpriority").disabled = true;
     document.querySelector(".modaloverlay").style.opacity = "0%";
-    createTask(document.querySelector(".taskname").value, document.querySelector(".taskpriority").value, true, "", document.querySelector(".taskdesc").value)
+    if (document.querySelector(".taskdue").value != CurDate) {
+        createTask(document.querySelector(".taskname").value, document.querySelector(".taskpriority").value, true, "", document.querySelector(".taskdesc").value, document.querySelector(".taskdue").value)
+    } else {
+        createTask(document.querySelector(".taskname").value, document.querySelector(".taskpriority").value, true, "", document.querySelector(".taskdesc").value, "")
+    }
     setTimeout(function () {
         document.querySelector(".modaloverlay").style.display = "none";
         document.querySelector(".taskmodal").style.display = "none";
@@ -110,7 +134,17 @@ document.getElementById("newtaskform").onsubmit = function () {
         document.querySelector("#taskpriority").value = "75";
     }, 1100);
 };
+function convertToDateTimeLocalString(date) {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
 document.querySelector(".addnewtask").onclick = function () {
+    CurDate = convertToDateTimeLocalString(new Date());
+    document.getElementById("taskdue").value = CurDate;
     document.querySelector(".taskmodal").style.display = "block";
     document.querySelector(".modaloverlay").style.display = "flex";
     setTimeout(function () {document.querySelector(".modaloverlay").style.opacity = "100%";},100);
@@ -132,7 +166,7 @@ document.querySelector("#taskcancel").onclick = function () {
         document.querySelector("#taskpriority").value = "75";
     }, 1100);
 };
-function createTask(txt, priority, storetask, id, desc) {
+function createTask(txt, priority, storetask, id, desc, duedate) {
     var taskelem = document.createElement("div");
     taskelem.classList.add("task");
     var pelem = document.createElement("p");
@@ -164,6 +198,26 @@ function createTask(txt, priority, storetask, id, desc) {
     pelem.appendChild(checkbox);
     pelem.appendChild(ptext);
     pelem.appendChild(descript);
+    if (duedate != "") {
+        var duedateelem = document.createElement("span");
+        var countDownDate = new Date(duedate).getTime();
+        var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        duedateelem.textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+        if (distance < 0) {
+            clearInterval(x);
+            duedateelem.classList.add("dateexpire");
+            duedateelem.textContent = "Task is due.";
+        }
+        }, 1000);
+        duedateelem.classList.add("ddateitem");
+        pelem.appendChild(duedateelem);
+    }
     var xpvalue = document.createElement("xpvalue");
     xpvalue.innerHTML = priority;
     var randnum = document.createElement("randnum");
@@ -181,11 +235,13 @@ function createTask(txt, priority, storetask, id, desc) {
             Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Descriptions.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
+            DueDates.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             KRZSStore.setItem("tasks", JSON.stringify({
                 "names": Names,
                 "values": Values,
                 "numbers": Numbers,
-                "descriptions": Descriptions
+                "descriptions": Descriptions,
+                "duedates": DueDates
             }));
         }
     };
@@ -198,30 +254,27 @@ function createTask(txt, priority, storetask, id, desc) {
         Values.push(priority);
         Numbers.push(randnum.innerHTML);
         Descriptions.push(desc);
+        DueDates.push(duedate);
         KRZSStore.setItem("tasks", JSON.stringify({
             "names": Names,
             "values": Values,
             "numbers": Numbers,
-            "descriptions": Descriptions
+            "descriptions": Descriptions,
+            "duedates": DueDates
         }));
     }
 }
 function addXp(amount, priority) {
-    document.getElementById("xpadded").style.display = "flex";
-    document.getElementById("xpadded").style.color = document.getElementById("themeColor5").value;
-    setTimeout(function () { document.getElementById("xpadded").style.display = "none" },3000)
     CurrentXp = CurrentXp + new Number(amount);
     XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
     if (XpToNextLevel <= 0) {
         playSound("/assets/sfx/levelup.mp3");
-        document.getElementById("xpadded").textContent = "LEVEL UP!";
         CurrentLevel = CurrentLevel + 1;
         CurrentXp = Math.abs(XpToNextLevel);
         XpToNextLevel = 5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90 - CurrentXp;
         document.querySelector(".xplevel").textContent = CurrentLevel;
     } else {
         playSound("/assets/sfx/complete.mp3");
-        document.getElementById("xpadded").textContent = "+" + priority + " XP";
     }
     document.querySelector(".xpwidth").style.width = (CurrentXp*100)/(5 * (CurrentLevel ^ 2) + (50 * CurrentLevel) + 90) + "%";
     KRZSStore.setItem("level", CurrentLevel);

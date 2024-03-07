@@ -128,30 +128,25 @@ h6 {font-size: 5px}
     text-align: left;
     cursor: pointer;
 }
-.lowpriority:before {
-    content: " ";
-    font-weight: bold;
-}
-.normalpriority:before {
-    content: " ! ";
-    font-weight: bold;
-}
-.highpriority:before {
-    content: " !! ";
-    font-weight: bold;
-}
-.debugpriority:before {
-    content: " Debug ";
-    font-weight: bold;
-}
-.aipriority:before {
-    content: " AI ";
-    font-weight: bold;
-}
-.task p span:before {
+.task p span:after {
     font-weight: bold;
     position: absolute;
-    right: 35px;
+    right: 30px;
+}
+.lowpriority:after {
+    content: " ";
+}
+.normalpriority:after {
+    content: " ! ";
+}
+.highpriority:after {
+    content: " !! ";
+}
+.debugpriority:after {
+    content: " Debug ";
+}
+.aipriority:after {
+    content: " AI ";
 }
 .checkbox {
     aspect-ratio: 1 / 1;
@@ -172,6 +167,33 @@ h6 {font-size: 5px}
     margin-top: 6px;
     display: block;
     opacity: 50%;
+}
+.ddateitem {
+    font-size: 15px;
+    width: 100%;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    opacity: 100%;
+}
+.ddateitem:before {
+    font-family: "Material Symbols Rounded";
+    content: "schedule";
+    font-size: 18px;
+    margin-right: 5px;
+    display: block;
+}
+.dateexpire:before {
+    content: "history_toggle_off";
+    animation: infinite linear 2s blinkclock;
+}
+@keyframes blinkclock {
+    0% {
+        content: "history_toggle_off";
+    }
+    50% {
+        content: "schedule";
+    }
 }
 .confetti {
     aspect-ratio: 8 / 6;
@@ -235,6 +257,22 @@ h6 {font-size: 5px}
     cursor: text;
 }
 .taskname::placeholder {
+    color: rgba(100,100,100);
+    opacity: 1;
+}
+.taskdue {
+    width: calc(100% - 50px);
+    font-size: 20px;
+    padding: 10px;
+    margin: 10px;
+    background: black;
+    border: 2px solid white;
+    border-radius: 20px;
+    font-family: 'Outfit';
+    color: white;
+    cursor: text;
+}
+.taskdue::placeholder {
     color: rgba(100,100,100);
     opacity: 1;
 }
