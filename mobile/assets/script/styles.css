@@ -100,7 +100,7 @@ h6 {font-size: 5px}
     border-bottom: 1px solid black;
     transition: all 1s;
     padding: 0;
-    display: flex;
+    display: block;
     align-items: center;
     animation: widen 1s;
 }
@@ -130,8 +130,7 @@ h6 {font-size: 5px}
 }
 .task p span:after {
     font-weight: bold;
-    position: absolute;
-    right: 30px;
+    float: right;
 }
 .lowpriority:after {
     content: " ";
