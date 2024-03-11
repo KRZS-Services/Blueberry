@@ -517,6 +517,10 @@ body, html {
 .xplevel {
     color: ${document.getElementById("themeColor5").value};
 }
+.addnewtask {
+    background: ${document.getElementById("themeColor2").value};
+    color: ${document.getElementById("themeColor3").value};
+}
 .copyright {
     background: ${document.getElementById("themeColor2").value};
     color: ${document.getElementById("themeColor3").value};

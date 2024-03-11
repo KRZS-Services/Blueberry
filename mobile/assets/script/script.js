@@ -499,6 +499,10 @@ body, html {
 .xplevel {
     color: ${document.getElementById("themeColor5").value};
 }
+.addnewtask {
+    background: ${document.getElementById("themeColor2").value};
+    color: ${document.getElementById("themeColor3").value};
+}
 `
 if (log != undefined) {
     KRZSStore.setItem("themeColor" + num, log);
