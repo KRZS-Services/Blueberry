@@ -13,7 +13,7 @@ if (KRZSStore.getItem("lists") != "{}") {
     ListItems = [];
 }
 if (KRZSStore.getItem("tasks") != "{}") {
-    KRZSStore.setItem("tasks0", KRZSStore.getItem("tasks"))
+    KRZSStore.setItem("tasks0", KRZSStore.getItem("tasks"));
 }
 CurrentList = new Number(document.getElementById("listslist").value);
 if (KRZSStore.getItem("level") == "{}") {
@@ -588,11 +588,7 @@ function changeList(lnum) {
         document.querySelector(".modaloverlay").style.display = "flex";
         setTimeout(function () {document.querySelector(".modaloverlay").style.opacity = "100%";},100);
     } else {
-        if (lnum != "NaN") {
-            CurrentList = lnum;
-        } else {
-            CurrentList = "";
-        }
+        CurrentList = lnum;
         document.querySelector(".tasks").innerHTML = "";
         if (KRZSStore.getItem("tasks" + CurrentList) == "{}") {
             Names = [];
@@ -619,11 +615,12 @@ document.getElementById("newlistform").onsubmit = function () {
     document.querySelector(".modaloverlay").style.opacity = "0%";
     var newop = document.createElement("option");
     newop.innerHTML = document.querySelector("#listname").value;
-    newop.value = ListItems.length;
+    newop.value = ListItems.length+1;
     document.getElementById("listsgroup").appendChild(newop);
     ListItems.push(document.querySelector("#listname").value);
     KRZSStore.setItem("lists", JSON.stringify({"items":ListItems}));
     document.getElementById("listslist").value = newop.value;
+    changeList(newop.value)
     setTimeout(function () {
         document.querySelector(".modaloverlay").style.display = "none";
         document.querySelector(".listmodal").style.display = "none";

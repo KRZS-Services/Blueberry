@@ -14,7 +14,7 @@ if (KRZSStore.getItem("lists") != "{}") {
     ListItems = [];
 }
 if (KRZSStore.getItem("tasks") != "{}") {
-    KRZSStore.setItem("tasks0", KRZSStore.getItem("tasks"))
+    KRZSStore.setItem("tasks0", KRZSStore.getItem("tasks"));
 }
 CurrentList = new Number(document.getElementById("listslist").value);
 if (KRZSStore.getItem("level") == "{}") {
@@ -33,18 +33,18 @@ if (KRZSStore.getItem("taskscompleted") == "{}") {
 } else {
     TasksCompleted = new Number(KRZSStore.getItem("taskscompleted"));
 };
-if (KRZSStore.getItem("tasks") == "{}") {
+if (KRZSStore.getItem("tasks" + CurrentList) == "{}") {
     Names = [];
     Values = [];
     Numbers = [];
     Descriptions = [];
     DueDates = [];
 } else {
-    Names = JSON.parse(KRZSStore.getItem("tasks")).names;
-    Values = JSON.parse(KRZSStore.getItem("tasks")).values;
-    Numbers = JSON.parse(KRZSStore.getItem("tasks")).numbers;
-    Descriptions = JSON.parse(KRZSStore.getItem("tasks")).descriptions;
-    DueDates = JSON.parse(KRZSStore.getItem("tasks")).duedates;
+    Names = JSON.parse(KRZSStore.getItem("tasks" + CurrentList)).names;
+    Values = JSON.parse(KRZSStore.getItem("tasks" + CurrentList)).values;
+    Numbers = JSON.parse(KRZSStore.getItem("tasks" + CurrentList)).numbers;
+    Descriptions = JSON.parse(KRZSStore.getItem("tasks" + CurrentList)).descriptions;
+    DueDates = JSON.parse(KRZSStore.getItem("tasks" + CurrentList)).duedates;
 };
 TempDesc = []
 TempDue = []
@@ -54,9 +54,9 @@ Names.forEach(function (element) {
 Names.forEach(function () {
     TempDue.push("");
 })
-if (KRZSStore.getItem("tasks") != "{}") {
+if (KRZSStore.getItem("tasks" + CurrentList) != "{}") {
     if (Descriptions == undefined) {
-        KRZSStore.setItem("tasks", JSON.stringify({
+        KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
             "names": Names,
             "values": Values,
             "numbers": Numbers,
@@ -65,7 +65,7 @@ if (KRZSStore.getItem("tasks") != "{}") {
         location.reload();
     }
     if (DueDates == undefined) {
-        KRZSStore.setItem("tasks", JSON.stringify({
+        KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
             "names": Names,
             "values": Values,
             "numbers": Numbers,
@@ -90,7 +90,7 @@ function btnClick() {
     Values.splice(indexnum, 1);
     Descriptions.splice(indexnum, 1);
     DueDates.splice(indexnum, 1);
-    KRZSStore.setItem("tasks", JSON.stringify({
+    KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers,
@@ -102,7 +102,7 @@ function btnClick() {
 };
 function updateName(text, index) {
     Names.splice(new Number(index), 1, text);
-    KRZSStore.setItem("tasks", JSON.stringify({
+    KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
         "names": Names,
         "values": Values,
         "numbers": Numbers,
@@ -237,7 +237,7 @@ function createTask(txt, priority, storetask, id, desc, duedate) {
             Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             Descriptions.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
             DueDates.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            KRZSStore.setItem("tasks", JSON.stringify({
+            KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
                 "names": Names,
                 "values": Values,
                 "numbers": Numbers,
@@ -256,7 +256,7 @@ function createTask(txt, priority, storetask, id, desc, duedate) {
         Numbers.push(randnum.innerHTML);
         Descriptions.push(desc);
         DueDates.push(duedate);
-        KRZSStore.setItem("tasks", JSON.stringify({
+        KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
             "names": Names,
             "values": Values,
             "numbers": Numbers,
@@ -566,11 +566,7 @@ function changeList(lnum) {
         document.querySelector(".modaloverlay").style.display = "flex";
         setTimeout(function () {document.querySelector(".modaloverlay").style.opacity = "100%";},100);
     } else {
-        if (lnum != "NaN") {
-            CurrentList = lnum;
-        } else {
-            CurrentList = "";
-        }
+        CurrentList = lnum;
         document.querySelector(".tasks").innerHTML = "";
         if (KRZSStore.getItem("tasks" + CurrentList) == "{}") {
             Names = [];
@@ -597,7 +593,7 @@ document.getElementById("newlistform").onsubmit = function () {
     document.querySelector(".modaloverlay").style.opacity = "0%";
     var newop = document.createElement("option");
     newop.innerHTML = document.querySelector("#listname").value;
-    newop.value = ListItems.length;
+    newop.value = ListItems.length+1;
     document.getElementById("listsgroup").appendChild(newop);
     ListItems.push(document.querySelector("#listname").value);
     KRZSStore.setItem("lists", JSON.stringify({"items":ListItems}));
