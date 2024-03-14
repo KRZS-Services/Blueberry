@@ -519,7 +519,7 @@ h6 {font-size: 5px}
     height: 60px;
     width: calc(100% - 20px);
     padding: 10px;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.5);
 }
 .menubutton {
     width: 100%;
@@ -733,4 +733,18 @@ xpvalue,randnum {
     font-family: 'Outfit';
     font-size: 15px;
     margin: 10px;
+}
+#listslist {
+    background: rgba(0,0,0,0.25);
+    width: 100%;
+    color: white;
+    font-family: 'Outfit';
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.25);
+}
+#listslist:focus {
+    outline: 0px solid transparent;
 }

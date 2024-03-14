@@ -18,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="krzs-show-login" content="true">
         <title>Blueberry</title>
-        <link rel="stylesheet" href="/assets/script/styles.css?6.5.2">
+        <link rel="stylesheet" href="/assets/script/styles.css?6.6">
         <style id="stylecolors">
             body, html {
                 background: #032d70;
@@ -92,8 +92,14 @@
                 <div class="xplevel">0</div>
                 <div class="xpwidth"></div>
             </div>
-                <button class="addnewtask">Add new task...</button>
-                <div class="tasks"></div>
+            <select id="listslist" onchange="changeList(new Number(event.target.value))">
+                <option value="-1">New List</option>
+                <optgroup label="Lists" id="listsgroup">
+                    <option value="" selected>Main List</option>
+                </optgroup>
+            </select>
+            <button class="addnewtask">Add new task...</button>
+            <div class="tasks"></div>
             <span class="copyright">&copy; 2024 KRZS Services</span>
         </div>
         <div class="statistics menu">
@@ -189,8 +195,16 @@
                     <button type="submit" class="taskcreate" id="taskcreate">Create</button>
                 </form>
             </div>
+            <div class="listmodal modal">
+                <form id="newlistform" class="modalform">
+                    <h2 class="fontheader">List Creation</h2>
+                    <input class="taskname" id="listname" placeholder="List Name" type="text" required />
+                    <button class="taskcancel" id="listcancel">Cancel</button>
+                    <button type="submit" class="taskcreate" id="listcreate">Create</button>
+                </form>
+            </div>
         </div>
     </body>
     <script src="https://auth.krzs.xyz/api.js?,4"></script>
-    <script class="krzs" id="/assets/script/script.js?6.5.2"></script>
+    <script class="krzs" id="/assets/script/script.js?6.6"></script>
 </html>
