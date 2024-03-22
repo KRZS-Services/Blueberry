@@ -59,7 +59,8 @@ if (KRZSStore.getItem("tasks" + CurrentList) != "{}") {
             "names": Names,
             "values": Values,
             "numbers": Numbers,
-            "descriptions": TempDesc
+            "descriptions": TempDesc,
+            "duedates": DueDates
         }));
         location.reload();
     }
@@ -95,25 +96,13 @@ function btnClick(priority) {
     Values.splice(indexnum, 1);
     Descriptions.splice(indexnum, 1);
     DueDates.splice(indexnum, 1);
-    KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
-        "names": Names,
-        "values": Values,
-        "numbers": Numbers,
-        "descriptions": Descriptions,
-        "duedates": DueDates
-    }));
+    updateCloudTasks();
     TasksCompleted = TasksCompleted+1;
     KRZSStore.setItem("taskscompleted", TasksCompleted);
 };
 function updateName(text, index) {
     Names.splice(new Number(index), 1, text);
-    KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
-        "names": Names,
-        "values": Values,
-        "numbers": Numbers,
-        "descriptions": Descriptions,
-        "duedates": DueDates
-    }));
+    updateCloudTasks();
 };
 ShiftKeyDown = false;
 document.addEventListener("keydown", (event) => {
@@ -191,7 +180,9 @@ function createTask(txt, priority, storetask, id, desc, duedate) {
     checkbox.classList.add("checkbox");
     checkbox.onclick = function () { btnClick(priority) };
     var ptext = document.createElement("span");
-    ptext.contentEditable = true;
+    ptext.onclick = function () {
+        editTask()
+    }
     ptext.textContent = txt;
     if (priority == "75") {
         ptext.classList.add("normalpriority");
@@ -245,23 +236,6 @@ function createTask(txt, priority, storetask, id, desc, duedate) {
     }
     Nindex = Numbers.length;
     ptext.onblur = function(){updateName(event.target.textContent, Numbers.indexOf(event.target.parentElement.nextSibling.nextSibling.textContent.toString()))};
-    ptext.onclick = function(){
-        if (ShiftKeyDown) {
-            event.target.parentElement.parentElement.remove();
-            Numbers.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Names.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Values.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            Descriptions.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            DueDates.splice(Numbers.indexOf((new Number(event.target.parentElement.nextSibling.nextSibling.textContent)+1).toString()), 1);
-            KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
-                "names": Names,
-                "values": Values,
-                "numbers": Numbers,
-                "descriptions": Descriptions,
-                "duedates": DueDates
-            }));
-        }
-    };
     taskelem.appendChild(pelem);
     taskelem.appendChild(xpvalue);
     taskelem.appendChild(randnum);
@@ -272,13 +246,7 @@ function createTask(txt, priority, storetask, id, desc, duedate) {
         Numbers.push(randnum.innerHTML);
         Descriptions.push(desc);
         DueDates.push(duedate);
-        KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
-            "names": Names,
-            "values": Values,
-            "numbers": Numbers,
-            "descriptions": Descriptions,
-            "duedates": DueDates
-        }));
+        updateCloudTasks();
     }
 }
 function addXp(amount) {
@@ -641,5 +609,67 @@ document.getElementById("listcancel").onclick = function () {
         document.querySelector("#listcreate").disabled = false;
         document.querySelector("#listcancel").disabled = false;
         document.querySelector("#listname").value = "";
+    }, 1100);
+};
+function updateCloudTasks() {
+    KRZSStore.setItem("tasks" + CurrentList, JSON.stringify({
+        "names": Names,
+        "values": Values,
+        "numbers": Numbers,
+        "descriptions": Descriptions,
+        "duedates": DueDates
+    }));
+}
+function editTask() {
+    Idindex = Numbers.indexOf(event.target.parentElement.parentElement.firstChild.nextSibling.nextSibling.innerHTML);
+    Idelem = event.target.parentElement.parentElement;
+    document.getElementById("e-taskname").value = Names[Idindex];
+    document.getElementById("e-taskpriority").value = Values[Idindex];
+    document.getElementById("e-taskdesc").value = Descriptions[Idindex];
+    document.querySelector(".editmodal").style.display = "block";
+    document.querySelector(".modaloverlay").style.display = "flex";
+    setTimeout(function () {document.querySelector(".modaloverlay").style.opacity = "100%";},100);
+};
+document.getElementById("editform").onsubmit = function () {
+    event.preventDefault();
+    document.querySelector("#e-taskcreate").disabled = true;
+    document.querySelector("#e-taskcancel").disabled = true;
+    document.querySelector(".modaloverlay").style.opacity = "0%";
+    Idelem.firstChild.firstChild.nextSibling.textContent = document.getElementById("e-taskname").value;
+    Names.splice(new Number(Idindex), 1, document.getElementById("e-taskname").value);
+    var priority = document.getElementById("e-taskpriority").value;
+    Idelem.firstChild.firstChild.nextSibling.className = '';
+    if (priority == "75") {
+        Idelem.firstChild.firstChild.nextSibling.classList.add("normalpriority");
+    } else if (priority == "100") {
+        Idelem.firstChild.firstChild.nextSibling.classList.add("highpriority");
+    } else if (priority == "50") {
+        Idelem.firstChild.firstChild.nextSibling.classList.add("lowpriority");
+    } else if (priority == "25") {
+        Idelem.firstChild.firstChild.nextSibling.classList.add("aipriority");
+    } else {
+        Idelem.firstChild.firstChild.nextSibling.classList.add("debugpriority");
+    };
+    Values.splice(new Number(Idindex), 1, document.getElementById("e-taskpriority").value);
+    Idelem.firstChild.firstChild.nextSibling.nextSibling.textContent = document.getElementById("e-taskdesc").value;
+    Descriptions.splice(new Number(Idindex), 1, document.getElementById("e-taskdesc").value);
+    updateCloudTasks();
+    setTimeout(function () {
+        document.querySelector(".modaloverlay").style.display = "none";
+        document.querySelector(".editmodal").style.display = "none";
+        document.querySelector("#e-taskcreate").disabled = false;
+        document.querySelector("#e-taskcancel").disabled = false;
+    }, 1100);
+};
+document.getElementById("e-taskcancel").onclick = function () {
+    event.preventDefault();
+    document.querySelector("#e-taskcreate").disabled = true;
+    document.querySelector("#e-taskcancel").disabled = true;
+    document.querySelector(".modaloverlay").style.opacity = "0%";
+    setTimeout(function () {
+        document.querySelector(".modaloverlay").style.display = "none";
+        document.querySelector(".editmodal").style.display = "none";
+        document.querySelector("#e-taskcreate").disabled = false;
+        document.querySelector("#e-taskcancel").disabled = false;
     }, 1100);
 };
