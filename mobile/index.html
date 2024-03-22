@@ -212,8 +212,24 @@
                     <button type="submit" class="taskcreate" id="listcreate">Create</button>
                 </form>
             </div>
+            <div class="editmodal modal">
+                <form id="editform" class="modalform">
+                    <h2 class="fontheader">Edit Task</h2>
+                    <input class="taskname" id="e-taskname" placeholder="Task Name" type="text" required />
+                    <select class="taskpriority" id="e-taskpriority">
+                        <optgroup label="Priority">
+                            <option value="50">Unimportant (50 xp)</option>
+                            <option value="75" selected>Normal (75 xp)</option>
+                            <option value="100">Important (100 xp)</option>
+                        </optgroup>
+                    </select>
+                    <textarea class="taskdesc" id="e-taskdesc" placeholder="Description" type="text"></textarea>
+                    <button class="taskcancel" id="e-taskcancel">Cancel</button>
+                    <button type="submit" class="taskcreate" id="e-taskcreate">Create</button>
+                </form>
+            </div>
         </div>
     </body>
-    <script src="https://auth.krzs.xyz/api.js?,8"></script>
+    <script src="https://auth.krzs.xyz/api.js?,9"></script>
     <script class="krzs" id="/mobile/assets/script/script.js?6.6.1"></script>
 </html>
