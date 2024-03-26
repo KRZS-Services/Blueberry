@@ -12,9 +12,6 @@ if (KRZSStore.getItem("lists") != "{}") {
 } else {
     ListItems = [];
 }
-if (KRZSStore.getItem("tasks") != "{}") {
-    KRZSStore.setItem("tasks0", KRZSStore.getItem("tasks"));
-}
 CurrentList = new Number(document.getElementById("listslist").value);
 if (KRZSStore.getItem("level") == "{}") {
     CurrentLevel = 0;
